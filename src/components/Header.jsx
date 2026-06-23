@@ -4,15 +4,15 @@ import { supabase, isConfigured } from '../lib/supabase'
 
 const ROL_LABELS = { repartidor: 'Repartidor', preventista: 'Preventista', encargado: 'Encargado' }
 const ROL_COLORS = {
-  repartidor:  'bg-blue-500/15 text-blue-400',
-  preventista: 'bg-purple-500/15 text-purple-400',
-  encargado:   'bg-amber-400/15 text-amber-400',
+  repartidor:  'bg-blue-500/15 text-blue-400 border border-blue-500/20',
+  preventista: 'bg-purple-500/15 text-purple-400 border border-purple-500/20',
+  encargado:   'bg-amber-400/15 text-amber-400 border border-amber-400/20',
 }
 
 export default function Header({ user }) {
-  const hoy    = useStore(s => s.hoy)
+  const hoy      = useStore(s => s.hoy)
   const entregas = useStore(s => s.entregas)
-  const perfil = useStore(s => s.perfil)
+  const perfil   = useStore(s => s.perfil)
   const [now, setNow] = useState(new Date())
 
   useEffect(() => {
@@ -34,30 +34,52 @@ export default function Header({ user }) {
   }
 
   return (
-    <header className="bg-[#131e2e] border-b border-white/7 px-[18px] pt-[12px] pb-[10px] flex items-center justify-between flex-shrink-0">
+    <header
+      className="px-[18px] pt-[13px] pb-[11px] flex items-center justify-between flex-shrink-0"
+      style={{
+        background: 'rgba(11, 19, 32, 0.85)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        borderBottom: '1px solid rgba(255,255,255,0.05)',
+        boxShadow: '0 1px 0 rgba(255,255,255,0.03), 0 4px 16px rgba(0,0,0,0.3)',
+      }}
+    >
       <div className="flex items-center gap-[10px]">
-        <div className="w-[34px] h-[34px] bg-amber-400 rounded-[10px] flex items-center justify-center text-[17px] flex-shrink-0">🚚</div>
+        {/* Logo con glow sutil */}
+        <div
+          className="w-[36px] h-[36px] rounded-[11px] flex items-center justify-center text-[18px] flex-shrink-0"
+          style={{
+            background: 'linear-gradient(135deg, #fbbf24, #f59e0b)',
+            boxShadow: '0 0 12px rgba(251,191,36,0.35), 0 2px 6px rgba(0,0,0,0.3)',
+          }}
+        >
+          🚚
+        </div>
         <div>
-          <h1 className="font-heading text-[17px] font-extrabold tracking-tight text-[#f0f4f8]">{perfil?.negocio || 'RutaRep'}</h1>
-          <div className="flex items-center gap-2 mt-[2px]">
-            <p className="text-[11px] text-[#6b85a0]">{subTxt}</p>
+          <h1 className="font-heading text-[17px] font-extrabold tracking-tight text-[#f0f4f8] leading-tight">
+            {perfil?.negocio || 'RutaRep'}
+          </h1>
+          <div className="flex items-center gap-[6px] mt-[2px]">
+            <p className="text-[10px] text-[#6b85a0]">{subTxt}</p>
             {perfil && (
-              <span className={`text-[9px] font-bold px-[6px] py-[2px] rounded-full uppercase tracking-[.4px] ${ROL_COLORS[rol]}`}>
+              <span className={`text-[8px] font-bold px-[5px] py-[1px] rounded-full uppercase tracking-[.5px] ${ROL_COLORS[rol]}`}>
                 {ROL_LABELS[rol]}
               </span>
             )}
           </div>
         </div>
       </div>
+
       <div className="flex items-center gap-3">
-        <div className="text-[11px] text-[#6b85a0] text-right leading-relaxed">
+        <div className="text-[10px] text-[#4a6080] text-right leading-relaxed">
           {dateStr}<br />{timeStr}
         </div>
         {user && (
           <button
             onClick={handleLogout}
             title="Cerrar sesión"
-            className="w-[30px] h-[30px] flex items-center justify-center rounded-lg bg-[#1a2840] border border-white/7 text-[#6b85a0] active:text-red-400 active:border-red-400/30 transition-colors"
+            className="w-[30px] h-[30px] flex items-center justify-center rounded-lg text-[#4a6080] active:text-red-400 transition-colors"
+            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>

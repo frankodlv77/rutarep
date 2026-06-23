@@ -247,7 +247,7 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
             (isRegister && !termsAccepted) ||
             (isRegister && rol === 'encargado' && !negocio.trim())
           }
-          className="w-full bg-amber-400 text-[#0b1320] font-heading font-bold text-[14px] py-[14px] rounded-xl mt-1 disabled:opacity-50 active:scale-[.98] transition-transform"
+          className="w-full btn-shimmer font-heading font-bold text-[14px] py-[14px] rounded-xl mt-1 disabled:opacity-50 active:scale-[.98] transition-transform"
         >
           {loading
             ? '...'
