@@ -19,8 +19,8 @@ export default {
         info:     '#3b82f6',
       },
       fontFamily: {
-        heading: ['Syne', 'sans-serif'],
-        body:    ['DM Sans', 'sans-serif'],
+        heading: ['Inter', 'sans-serif'],
+        body:    ['Inter', 'sans-serif'],
       },
       borderRadius: {
         xl2: '16px',
