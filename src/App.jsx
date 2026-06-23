@@ -90,7 +90,10 @@ export default function App() {
       setUser(session?.user ?? null)
       if (session?.user) {
         loadAll()
-        if (!localStorage.getItem('rr_onboarding_done')) setShowOnboarding(true)
+        if (!localStorage.getItem('rr_onboarding_done')) {
+          localStorage.setItem('rr_onboarding_done', '1')
+          setShowOnboarding(true)
+        }
       }
     })
 
@@ -100,7 +103,10 @@ export default function App() {
       if (u) {
         loadAll()
         checkPendingInvite()
-        if (!localStorage.getItem('rr_onboarding_done')) setShowOnboarding(true)
+        if (!localStorage.getItem('rr_onboarding_done')) {
+          localStorage.setItem('rr_onboarding_done', '1')
+          setShowOnboarding(true)
+        }
       }
     })
 
