@@ -77,12 +77,12 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
   const isRegister = mode === 'register'
 
   return (
-    <div className="relative min-h-screen bg-[#0b1320] flex flex-col items-center justify-center px-6 py-10">
+    <div className="relative h-full bg-[#0b1320] flex flex-col items-center justify-start px-5 pt-12 pb-6 overflow-y-auto">
       {/* Volver */}
-      {onBack && !isReset && (
+      {(onBack && !isReset) && (
         <button
           onClick={onBack}
-          className="absolute top-5 left-5 flex items-center gap-1 text-[13px] text-[#6b85a0] hover:text-amber-400 transition-colors"
+          className="absolute top-4 left-4 text-[13px] text-[#6b85a0] hover:text-amber-400 transition-colors"
         >
           ← Volver
         </button>
@@ -90,27 +90,30 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
       {isReset && (
         <button
           onClick={() => switchMode('login')}
-          className="absolute top-5 left-5 flex items-center gap-1 text-[13px] text-[#6b85a0] hover:text-amber-400 transition-colors"
+          className="absolute top-4 left-4 text-[13px] text-[#6b85a0] hover:text-amber-400 transition-colors"
         >
           ← Volver
         </button>
       )}
 
-      {/* Logo */}
-      <div className="w-[64px] h-[64px] bg-amber-400 rounded-[18px] flex items-center justify-center text-[32px] mb-5 shadow-lg">
-        🚚
+      {/* Logo compacto */}
+      <div className="flex items-center gap-2 mb-1">
+        <div
+          className="w-[36px] h-[36px] rounded-[11px] flex items-center justify-center text-[18px] flex-shrink-0"
+          style={{ background: 'linear-gradient(135deg,#fbbf24,#f59e0b)', boxShadow: '0 0 12px rgba(251,191,36,0.3)' }}
+        >🚚</div>
+        <h1 className="font-heading text-[22px] font-extrabold text-[#f0f4f8]">RutaRep</h1>
       </div>
-      <h1 className="font-heading text-[24px] font-extrabold text-[#f0f4f8] mb-1">RutaRep</h1>
-      <p className="text-[13px] text-[#6b85a0] mb-8">
+      <p className="text-[12px] text-[#6b85a0] mb-5">
         {isReset ? 'Recuperar contraseña' : isRegister ? 'Creá tu cuenta gratuita' : 'Ingresá para continuar'}
       </p>
 
-      <form onSubmit={handleSubmit} className="w-full max-w-[340px] flex flex-col gap-3">
+      <form onSubmit={handleSubmit} className="w-full max-w-[340px] flex flex-col gap-[10px]">
 
         {/* Selector de rol — solo en registro */}
         {isRegister && (
           <div>
-            <p className="text-[11px] font-bold text-[#6b85a0] uppercase tracking-[.6px] mb-2">¿Cuál es tu rol?</p>
+            <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.6px] mb-[6px]">¿Cuál es tu rol?</p>
             <div className="grid grid-cols-2 gap-2">
               {[
                 { key: 'repartidor', icon: '🚚', label: 'Repartidor', desc: 'Hago las entregas' },
@@ -120,15 +123,15 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
                   key={r.key}
                   type="button"
                   onClick={() => setRol(r.key)}
-                  className={`rounded-xl border-2 p-3 text-left transition-all ${
-                    rol === r.key
-                      ? 'border-amber-400 bg-amber-400/10'
-                      : 'border-white/10 bg-[#131e2e]'
+                  className={`rounded-xl border-2 px-3 py-[9px] text-left flex items-center gap-2 transition-all ${
+                    rol === r.key ? 'border-amber-400 bg-amber-400/10' : 'border-white/10 bg-[#131e2e]'
                   }`}
                 >
-                  <div className="text-[22px] mb-1">{r.icon}</div>
-                  <div className={`text-[13px] font-bold ${rol === r.key ? 'text-amber-400' : 'text-[#f0f4f8]'}`}>{r.label}</div>
-                  <div className="text-[10px] text-[#6b85a0] mt-[2px]">{r.desc}</div>
+                  <span className="text-[18px]">{r.icon}</span>
+                  <div>
+                    <div className={`text-[12px] font-bold leading-tight ${rol === r.key ? 'text-amber-400' : 'text-[#f0f4f8]'}`}>{r.label}</div>
+                    <div className="text-[10px] text-[#6b85a0]">{r.desc}</div>
+                  </div>
                 </button>
               ))}
             </div>
@@ -146,7 +149,7 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
             value={email}
             onChange={e => { setEmail(e.target.value); clearErrors() }}
             autoComplete="email"
-            className="w-full bg-[#131e2e] border border-white/10 rounded-xl px-4 py-[13px] text-[#f0f4f8] text-[14px] outline-none focus:border-amber-400 placeholder:text-[#3a4f68] transition-colors"
+            className="w-full bg-[#131e2e] border border-white/10 rounded-xl px-4 py-[11px] text-[#f0f4f8] text-[14px] outline-none focus:border-amber-400 placeholder:text-[#3a4f68] transition-colors"
           />
         </div>
 
@@ -173,7 +176,7 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
               value={password}
               onChange={e => { setPassword(e.target.value); clearErrors() }}
               autoComplete={isRegister ? 'new-password' : 'current-password'}
-              className="w-full bg-[#131e2e] border border-white/10 rounded-xl px-4 py-[13px] text-[#f0f4f8] text-[14px] outline-none focus:border-amber-400 placeholder:text-[#3a4f68] transition-colors"
+              className="w-full bg-[#131e2e] border border-white/10 rounded-xl px-4 py-[11px] text-[#f0f4f8] text-[14px] outline-none focus:border-amber-400 placeholder:text-[#3a4f68] transition-colors"
             />
           </div>
         )}
@@ -193,7 +196,7 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
               value={negocio}
               onChange={e => setNegocio(e.target.value)}
               autoComplete="organization"
-              className="w-full bg-[#131e2e] border border-white/10 rounded-xl px-4 py-[13px] text-[#f0f4f8] text-[14px] outline-none focus:border-amber-400 placeholder:text-[#3a4f68] transition-colors"
+              className="w-full bg-[#131e2e] border border-white/10 rounded-xl px-4 py-[11px] text-[#f0f4f8] text-[14px] outline-none focus:border-amber-400 placeholder:text-[#3a4f68] transition-colors"
             />
           </div>
         )}
