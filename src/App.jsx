@@ -173,7 +173,7 @@ export default function App() {
 
   // ── App logueado ─────────────────────────────────────────────────
   return (
-    <div className="h-full flex flex-col bg-bg overflow-hidden">
+    <div className="h-full flex flex-col overflow-hidden" style={{ background: 'transparent' }}>
       <Header user={user} />
 
       {/* TabBar repartidor — flotante */}
