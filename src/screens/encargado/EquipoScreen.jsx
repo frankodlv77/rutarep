@@ -16,11 +16,34 @@ export default function EquipoScreen() {
 
   const fetchMiembros = async () => {
     setLoading(true)
-    const { data } = await supabase
+
+    // Paso 1: traer miembros del equipo
+    const { data: miembrosData, error } = await supabase
       .from('equipo_miembros')
-      .select('user_id, rol, joined_at, profiles:user_id(negocio, nombre)')
+      .select('user_id, rol, joined_at')
       .order('joined_at', { ascending: true })
-    setMiembros(data || [])
+
+    if (error || !miembrosData?.length) {
+      setMiembros([])
+      setLoading(false)
+      return
+    }
+
+    // Paso 2: traer perfiles de esos user_ids
+    const userIds = miembrosData.map(m => m.user_id)
+    const { data: perfilesData } = await supabase
+      .from('profiles')
+      .select('id, negocio, nombre')
+      .in('id', userIds)
+
+    const perfilesMap = Object.fromEntries((perfilesData || []).map(p => [p.id, p]))
+
+    const merged = miembrosData.map(m => ({
+      ...m,
+      profiles: perfilesMap[m.user_id] || null,
+    }))
+
+    setMiembros(merged)
     setLoading(false)
   }
 

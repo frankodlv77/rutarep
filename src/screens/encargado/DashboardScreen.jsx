@@ -21,11 +21,19 @@ export default function DashboardScreen() {
     setLoading(true)
     const hoy = hoyISO()
 
-    // Sesiones activas de hoy de todos los repartidores del equipo
+    // Sesiones activas de hoy
     const { data: sesiones } = await supabase
       .from('sesion_activa')
-      .select('user_id, fecha_iso, total_clientes, total_entregados, total_monto, comision_pct, entregas, profiles:user_id(negocio, nombre)')
+      .select('user_id, fecha_iso, total_clientes, total_entregados, total_monto, comision_pct, entregas')
       .eq('fecha_iso', hoy)
+
+    // Perfiles de esos usuarios
+    if (sesiones?.length) {
+      const ids = sesiones.map(s => s.user_id)
+      const { data: perfs } = await supabase.from('profiles').select('id, negocio, nombre').in('id', ids)
+      const map = Object.fromEntries((perfs || []).map(p => [p.id, p]))
+      sesiones.forEach(s => { s.profiles = map[s.user_id] || null })
+    }
 
     // Historial de la semana del equipo
     const monday = new Date()
