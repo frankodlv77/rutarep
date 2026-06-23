@@ -18,6 +18,8 @@ import LandingScreen  from './screens/LandingScreen'
 import UnirseScreen, { checkPendingInvite } from './screens/UnirseScreen'
 import OnboardingTour from './components/ui/OnboardingTour'
 
+import ChatScreen      from './screens/ChatScreen'
+
 // Encargado
 import DashboardScreen from './screens/encargado/DashboardScreen'
 import EquipoScreen    from './screens/encargado/EquipoScreen'
@@ -32,6 +34,7 @@ const SCREENS_REPARTIDOR = {
   ruta:     RutaScreen,
   clientes: ClientesScreen,
   rutas:    RutasScreen,
+  chat:     ChatScreen,
   hist:     HistorialScreen,
   perfil:   PerfilScreen,
 }
@@ -39,6 +42,7 @@ const SCREENS_REPARTIDOR = {
 const SCREENS_ENCARGADO = {
   dashboard: DashboardScreen,
   equipo:    EquipoScreen,
+  chat:      ChatScreen,
   hist:      HistorialScreen,
   perfil:    PerfilScreen,
 }
@@ -46,6 +50,7 @@ const SCREENS_ENCARGADO = {
 const TABS_ENCARGADO = [
   { id: 'dashboard', icon: '📊', label: 'Dashboard' },
   { id: 'equipo',    icon: '👥', label: 'Equipo'    },
+  { id: 'chat',      icon: '💬', label: 'Chat'      },
   { id: 'hist',      icon: '📋', label: 'Historial' },
   { id: 'perfil',    icon: '👤', label: 'Perfil'    },
 ]
@@ -57,8 +62,9 @@ function getInviteToken() {
 }
 
 export default function App() {
-  const activeTab  = useStore(s => s.activeTab)
-  const setTab     = useStore(s => s.setTab)
+  const activeTab   = useStore(s => s.activeTab)
+  const setTab      = useStore(s => s.setTab)
+  const chatUnread  = useStore(s => s.chatUnread)
   const loadAll    = useStore(s => s.loadAll)
   const perfil     = useStore(s => s.perfil)
   const offline    = useOffline()
@@ -188,21 +194,22 @@ export default function App() {
       {/* TabBar encargado — mismo estilo flotante */}
       {esEncargado && (
         <nav
-          className="fixed bottom-3 left-3 right-3 z-50 flex items-center px-1 py-1 rounded-2xl border border-white/[0.07]"
+          className="fixed bottom-3 left-3 right-3 z-50 flex items-center px-1 py-1 rounded-2xl border border-[var(--c-border)]"
           style={{
-            background: 'rgba(10, 16, 28, 0.88)',
+            background: 'var(--tabbar-bg)',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)',
+            boxShadow: 'var(--tabbar-shadow)',
           }}
         >
           {TABS_ENCARGADO.map(t => {
             const active = tab === t.id
+            const badge  = t.id === 'chat' && chatUnread > 0
             return (
               <button
                 key={t.id}
                 onClick={() => setTab(t.id)}
-                className={`flex-1 flex flex-col items-center py-[8px] gap-[3px] rounded-xl transition-all duration-200 ${
+                className={`flex-1 flex flex-col items-center py-[8px] gap-[3px] rounded-xl transition-all duration-200 relative ${
                   active ? 'bg-amber-400/12' : ''
                 }`}
               >
@@ -214,6 +221,9 @@ export default function App() {
                 }`}>
                   {t.label}
                 </span>
+                {badge && (
+                  <span className="absolute top-[6px] right-[calc(50%-8px)] w-[8px] h-[8px] rounded-full bg-red-500 border border-[var(--c-bg)]" />
+                )}
               </button>
             )
           })}

@@ -67,10 +67,11 @@ const useStore = create((set, get) => ({
   comisionPct: lsGet(LS_COM, 4),
 
   // ── UI ────────────────────────────────────────────────────────
-  activeTab: 'hoy',
-  loading:   false,
-  modal:     null,
-  toast:     null,
+  activeTab:   'hoy',
+  loading:     false,
+  modal:       null,
+  toast:       null,
+  chatUnread:  0,
 
   // ═══════════════════════════════════════════════════════════════
   // LOAD
@@ -604,7 +605,8 @@ const useStore = create((set, get) => ({
     if (isConfigured) await supabase.auth.signOut()
   },
 
-  setTab:    (tab)        => set({ activeTab: tab }),
+  setTab:          (tab) => set({ activeTab: tab }),
+  setChatUnread:   (n)   => set({ chatUnread: n }),
   openModal: (type, data = {}) => set({ modal: { type, data } }),
   closeModal: ()          => set({ modal: null }),
 
