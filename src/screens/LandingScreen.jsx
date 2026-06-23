@@ -6,7 +6,7 @@ const features = [
 
 export default function LandingScreen({ onRegister, onLogin }) {
   return (
-    <div className="h-full bg-[#0b1320] flex flex-col items-center justify-center px-5">
+    <div className="h-full bg-bg flex flex-col items-center justify-center px-5">
 
       {/* Logo + headline — compacto */}
       <div className="flex items-center gap-3 mb-1">
@@ -19,12 +19,12 @@ export default function LandingScreen({ onRegister, onLogin }) {
         >
           🚚
         </div>
-        <h1 className="font-heading text-[26px] font-extrabold text-[#f0f4f8] tracking-tight">
+        <h1 className="font-heading text-[26px] font-extrabold text-textc tracking-tight">
           RutaRep
         </h1>
       </div>
 
-      <p className="text-[13px] text-[#6b85a0] text-center mb-6">
+      <p className="text-[13px] text-muted text-center mb-6">
         Organizá repartos, cobrá más, trabajá mejor
       </p>
 
@@ -44,8 +44,8 @@ export default function LandingScreen({ onRegister, onLogin }) {
               {f.icon}
             </div>
             <div>
-              <p className="text-[12px] font-bold text-[#f0f4f8] leading-tight">{f.title}</p>
-              <p className="text-[11px] text-[#6b85a0] leading-snug">{f.desc}</p>
+              <p className="text-[12px] font-bold text-textc leading-tight">{f.title}</p>
+              <p className="text-[11px] text-muted leading-snug">{f.desc}</p>
             </div>
           </div>
         ))}
@@ -62,14 +62,14 @@ export default function LandingScreen({ onRegister, onLogin }) {
         </button>
         <button
           onClick={onLogin}
-          className="w-full font-heading font-bold text-[14px] py-[13px] rounded-xl text-[#f0f4f8] active:scale-[.98] transition-transform"
+          className="w-full font-heading font-bold text-[14px] py-[13px] rounded-xl text-textc active:scale-[.98] transition-transform"
           style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.10)' }}
         >
           Ya tengo cuenta
         </button>
       </div>
 
-      <p className="text-[10px] text-[#3d5470] mt-5">Gratis para siempre · Sin tarjeta</p>
+      <p className="text-[10px] text-muted2 mt-5">Gratis para siempre · Sin tarjeta</p>
     </div>
   )
 }

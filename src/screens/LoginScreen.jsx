@@ -77,12 +77,12 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
   const isRegister = mode === 'register'
 
   return (
-    <div className="relative h-full bg-[#0b1320] flex flex-col items-center justify-start px-5 pt-12 pb-6 overflow-y-auto">
+    <div className="relative h-full bg-bg flex flex-col items-center justify-start px-5 pt-12 pb-6 overflow-y-auto">
       {/* Volver */}
       {(onBack && !isReset) && (
         <button
           onClick={onBack}
-          className="absolute top-4 left-4 text-[13px] text-[#6b85a0] hover:text-amber-400 transition-colors"
+          className="absolute top-4 left-4 text-[13px] text-muted hover:text-amber-400 transition-colors"
         >
           ← Volver
         </button>
@@ -90,7 +90,7 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
       {isReset && (
         <button
           onClick={() => switchMode('login')}
-          className="absolute top-4 left-4 text-[13px] text-[#6b85a0] hover:text-amber-400 transition-colors"
+          className="absolute top-4 left-4 text-[13px] text-muted hover:text-amber-400 transition-colors"
         >
           ← Volver
         </button>
@@ -102,9 +102,9 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
           className="w-[36px] h-[36px] rounded-[11px] flex items-center justify-center text-[18px] flex-shrink-0"
           style={{ background: 'linear-gradient(135deg,#fbbf24,#f59e0b)', boxShadow: '0 0 12px rgba(251,191,36,0.3)' }}
         >🚚</div>
-        <h1 className="font-heading text-[22px] font-extrabold text-[#f0f4f8]">RutaRep</h1>
+        <h1 className="font-heading text-[22px] font-extrabold text-textc">RutaRep</h1>
       </div>
-      <p className="text-[12px] text-[#6b85a0] mb-5">
+      <p className="text-[12px] text-muted mb-5">
         {isReset ? 'Recuperar contraseña' : isRegister ? 'Creá tu cuenta gratuita' : 'Ingresá para continuar'}
       </p>
 
@@ -113,7 +113,7 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
         {/* Selector de rol — solo en registro */}
         {isRegister && (
           <div>
-            <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.6px] mb-[6px]">¿Cuál es tu rol?</p>
+            <p className="text-[10px] font-bold text-muted uppercase tracking-[.6px] mb-[6px]">¿Cuál es tu rol?</p>
             <div className="grid grid-cols-2 gap-2">
               {[
                 { key: 'repartidor', icon: '🚚', label: 'Repartidor', desc: 'Hago las entregas' },
@@ -124,13 +124,13 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
                   type="button"
                   onClick={() => setRol(r.key)}
                   className={`rounded-xl border-2 px-3 py-[9px] text-left flex items-center gap-2 transition-all ${
-                    rol === r.key ? 'border-amber-400 bg-amber-400/10' : 'border-white/10 bg-[#131e2e]'
+                    rol === r.key ? 'border-amber-400 bg-amber-400/10' : 'border-[var(--c-border2)] bg-surface'
                   }`}
                 >
                   <span className="text-[18px]">{r.icon}</span>
                   <div>
-                    <div className={`text-[12px] font-bold leading-tight ${rol === r.key ? 'text-amber-400' : 'text-[#f0f4f8]'}`}>{r.label}</div>
-                    <div className="text-[10px] text-[#6b85a0]">{r.desc}</div>
+                    <div className={`text-[12px] font-bold leading-tight ${rol === r.key ? 'text-amber-400' : 'text-textc'}`}>{r.label}</div>
+                    <div className="text-[10px] text-muted">{r.desc}</div>
                   </div>
                 </button>
               ))}
@@ -140,7 +140,7 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
 
         {/* Email */}
         <div>
-          <label className="text-[11px] font-bold text-[#6b85a0] uppercase tracking-[.6px] mb-1 block">
+          <label className="text-[11px] font-bold text-muted uppercase tracking-[.6px] mb-1 block">
             Correo electrónico
           </label>
           <input
@@ -149,7 +149,7 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
             value={email}
             onChange={e => { setEmail(e.target.value); clearErrors() }}
             autoComplete="email"
-            className="w-full bg-[#131e2e] border border-white/10 rounded-xl px-4 py-[11px] text-[#f0f4f8] text-[14px] outline-none focus:border-amber-400 placeholder:text-[#3a4f68] transition-colors"
+            className="w-full bg-surface border border-[var(--c-border2)] rounded-xl px-4 py-[11px] text-textc text-[14px] outline-none focus:border-amber-400 placeholder:text-muted2 transition-colors"
           />
         </div>
 
@@ -157,14 +157,14 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
         {!isReset && (
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label className="text-[11px] font-bold text-[#6b85a0] uppercase tracking-[.6px]">
+              <label className="text-[11px] font-bold text-muted uppercase tracking-[.6px]">
                 Contraseña
               </label>
               {mode === 'login' && (
                 <button
                   type="button"
                   onClick={() => switchMode('reset')}
-                  className="text-[11px] text-[#6b85a0] hover:text-amber-400 transition-colors"
+                  className="text-[11px] text-muted hover:text-amber-400 transition-colors"
                 >
                   ¿Olvidaste tu contraseña?
                 </button>
@@ -176,7 +176,7 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
               value={password}
               onChange={e => { setPassword(e.target.value); clearErrors() }}
               autoComplete={isRegister ? 'new-password' : 'current-password'}
-              className="w-full bg-[#131e2e] border border-white/10 rounded-xl px-4 py-[11px] text-[#f0f4f8] text-[14px] outline-none focus:border-amber-400 placeholder:text-[#3a4f68] transition-colors"
+              className="w-full bg-surface border border-[var(--c-border2)] rounded-xl px-4 py-[11px] text-textc text-[14px] outline-none focus:border-amber-400 placeholder:text-muted2 transition-colors"
             />
           </div>
         )}
@@ -184,7 +184,7 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
         {/* Negocio — solo en registro, requerido para encargado */}
         {isRegister && (
           <div>
-            <label className="text-[11px] font-bold text-[#6b85a0] uppercase tracking-[.6px] mb-1 block">
+            <label className="text-[11px] font-bold text-muted uppercase tracking-[.6px] mb-1 block">
               {rol === 'encargado'
                 ? 'Nombre de tu negocio o empresa'
                 : <>Nombre de tu negocio <span className="normal-case font-normal">(opcional)</span></>
@@ -196,7 +196,7 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
               value={negocio}
               onChange={e => setNegocio(e.target.value)}
               autoComplete="organization"
-              className="w-full bg-[#131e2e] border border-white/10 rounded-xl px-4 py-[11px] text-[#f0f4f8] text-[14px] outline-none focus:border-amber-400 placeholder:text-[#3a4f68] transition-colors"
+              className="w-full bg-surface border border-[var(--c-border2)] rounded-xl px-4 py-[11px] text-textc text-[14px] outline-none focus:border-amber-400 placeholder:text-muted2 transition-colors"
             />
           </div>
         )}
@@ -219,7 +219,7 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
               type="button"
               onClick={() => setTerms(v => !v)}
               className={`w-5 h-5 rounded-md border-2 flex items-center justify-center flex-shrink-0 mt-[1px] transition-colors ${
-                termsAccepted ? 'bg-amber-400 border-amber-400' : 'bg-[#131e2e] border-white/20'
+                termsAccepted ? 'bg-amber-400 border-amber-400' : 'bg-surface border-white/20'
               }`}
             >
               {termsAccepted && (
@@ -228,7 +228,7 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
                 </svg>
               )}
             </button>
-            <span className="text-[12px] text-[#6b85a0] leading-snug">
+            <span className="text-[12px] text-muted leading-snug">
               Acepto los{' '}
               <button
                 type="button"
@@ -263,7 +263,7 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
           <button
             type="button"
             onClick={() => switchMode(isRegister ? 'login' : 'register')}
-            className="text-[13px] text-[#6b85a0] text-center py-2 hover:text-amber-400 transition-colors"
+            className="text-[13px] text-muted text-center py-2 hover:text-amber-400 transition-colors"
           >
             {isRegister ? '¿Ya tenés cuenta? Ingresá' : '¿No tenés cuenta? Registrate gratis'}
           </button>

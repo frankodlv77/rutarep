@@ -139,10 +139,10 @@ export default function App() {
   // ── Cargando sesión ──────────────────────────────────────────────
   if (user === undefined) {
     return (
-      <div className="h-full flex items-center justify-center bg-[#0b1320]">
+      <div className="h-full flex items-center justify-center bg-bg">
         <div className="text-center">
           <div className="text-[48px] mb-3">🚚</div>
-          <p className="text-[13px] text-[#6b85a0]">Cargando...</p>
+          <p className="text-[13px] text-muted">Cargando...</p>
         </div>
       </div>
     )
@@ -210,7 +210,7 @@ export default function App() {
                   {t.icon}
                 </span>
                 <span className={`text-[8px] font-heading font-bold uppercase tracking-[.5px] transition-colors duration-200 ${
-                  active ? 'text-amber-400' : 'text-[#3d5470]'
+                  active ? 'text-amber-400' : 'text-muted2'
                 }`}>
                   {t.label}
                 </span>

@@ -35,15 +35,15 @@ function SortableItem({ cliente, entrega }) {
       style={style}
       className={`flex items-center gap-2 rounded-[14px] p-[11px_12px] mb-2 border transition-all ${
         isDragging ? 'opacity-60 shadow-xl border-amber-400 bg-amber-400/10' :
-        done       ? 'opacity-50 bg-[#131e2e] border-white/7' :
-                     'bg-[#131e2e] border-white/7'
+        done       ? 'opacity-50 bg-surface border-[var(--c-border)]' :
+                     'bg-surface border-[var(--c-border)]'
       }`}
     >
       {/* Drag handle */}
       <div
         {...attributes}
         {...listeners}
-        className="touch-none cursor-grab active:cursor-grabbing px-1 py-2 text-[#3a4f68] select-none text-[16px] flex-shrink-0"
+        className="touch-none cursor-grab active:cursor-grabbing px-1 py-2 text-muted2 select-none text-[16px] flex-shrink-0"
       >
         ⠿
       </div>
@@ -57,14 +57,14 @@ function SortableItem({ cliente, entrega }) {
 
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <div className="font-medium text-[13px] text-[#f0f4f8] truncate">{cliente.nombre}</div>
+          <div className="font-medium text-[13px] text-textc truncate">{cliente.nombre}</div>
           {cliente.codigo && (
-            <span className="flex-shrink-0 text-[10px] text-[#6b85a0] font-mono bg-[#1a2840] px-[5px] py-[1px] rounded">
+            <span className="flex-shrink-0 text-[10px] text-muted font-mono bg-surface2 px-[5px] py-[1px] rounded">
               #{cliente.codigo}
             </span>
           )}
         </div>
-        <div className="text-[11px] text-[#6b85a0] truncate">{cliente.direccion || 'Sin dirección'}</div>
+        <div className="text-[11px] text-muted truncate">{cliente.direccion || 'Sin dirección'}</div>
         <div className="flex items-center gap-2 mt-[2px]">
           <ZoneBadge zona={cliente.zona} />
           {done && entrega?.monto > 0 && (
@@ -185,11 +185,11 @@ export default function HoyScreen() {
           {[
             { n: hoy.length,            color: 'text-amber-400',   label: 'En ruta' },
             { n: entCount,              color: 'text-emerald-400', label: 'Entregados' },
-            { n: hoy.length - entCount, color: 'text-[#6b85a0]',   label: 'Pendientes' },
+            { n: hoy.length - entCount, color: 'text-muted',   label: 'Pendientes' },
           ].map(s => (
-            <div key={s.label} className="flex-1 bg-[#131e2e] border border-white/7 rounded-xl p-2 text-center">
+            <div key={s.label} className="flex-1 bg-surface border border-[var(--c-border)] rounded-xl p-2 text-center">
               <div className={`font-heading text-[22px] font-extrabold ${s.color}`}>{s.n}</div>
-              <div className="text-[9px] text-[#6b85a0] uppercase tracking-[.4px] mt-[2px]">{s.label}</div>
+              <div className="text-[9px] text-muted uppercase tracking-[.4px] mt-[2px]">{s.label}</div>
             </div>
           ))}
         </div>
@@ -197,13 +197,13 @@ export default function HoyScreen() {
           <button
             onClick={() => setVista('lista')}
             className={`px-3 py-[7px] rounded-lg text-[11px] font-bold transition-all ${
-              vista === 'lista' ? 'bg-amber-400 text-[#0b1320]' : 'bg-[#131e2e] border border-white/10 text-[#6b85a0]'
+              vista === 'lista' ? 'bg-amber-400 text-[#1a1a28]' : 'bg-surface border border-[var(--c-border2)] text-muted'
             }`}
           >📋 Lista</button>
           <button
             onClick={() => setVista('mapa')}
             className={`px-3 py-[7px] rounded-lg text-[11px] font-bold transition-all ${
-              vista === 'mapa' ? 'bg-amber-400 text-[#0b1320]' : 'bg-[#131e2e] border border-white/10 text-[#6b85a0]'
+              vista === 'mapa' ? 'bg-amber-400 text-[#1a1a28]' : 'bg-surface border border-[var(--c-border2)] text-muted'
             }`}
           >🗺️ Mapa</button>
         </div>
@@ -230,11 +230,11 @@ export default function HoyScreen() {
 
       {/* Banner acción ruta */}
       {hoy.length > 0 && (
-        <div className="sticky top-0 z-40 bg-amber-400 text-[#0b1320] px-4 py-[10px] rounded-xl mb-3 font-heading text-[13px] font-bold flex items-center justify-between">
+        <div className="sticky top-0 z-40 bg-amber-400 text-[#1a1a28] px-4 py-[10px] rounded-xl mb-3 font-heading text-[13px] font-bold flex items-center justify-between">
           <span>{hoy.length} cliente{hoy.length > 1 ? 's' : ''} en ruta</span>
           <div className="flex gap-2">
             <button
-              className="bg-[#0b1320] text-amber-400 text-[10px] font-bold px-3 py-[6px] rounded-lg disabled:opacity-60"
+              className="bg-bg text-amber-400 text-[10px] font-bold px-3 py-[6px] rounded-lg disabled:opacity-60"
               onClick={handleIrARuta}
               disabled={waiting}
             >
@@ -242,7 +242,7 @@ export default function HoyScreen() {
             </button>
             {puedeOrdenar && (
               <button
-                className="bg-black/20 text-[#0b1320] text-[10px] font-bold px-3 py-[6px] rounded-lg disabled:opacity-60"
+                className="bg-black/20 text-[#1a1a28] text-[10px] font-bold px-3 py-[6px] rounded-lg disabled:opacity-60"
                 onClick={handleOrdenar}
                 disabled={waiting}
               >
@@ -250,7 +250,7 @@ export default function HoyScreen() {
               </button>
             )}
             <button
-              className="bg-black/20 text-[#0b1320] text-[10px] font-bold px-2 py-[6px] rounded-lg"
+              className="bg-black/20 text-[#1a1a28] text-[10px] font-bold px-2 py-[6px] rounded-lg"
               onClick={deselAll}
             >✕</button>
           </div>
@@ -270,16 +270,16 @@ export default function HoyScreen() {
       {/* Cargar ruta guardada */}
       {rutas.length > 0 && (
         <div className="mb-3">
-          <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.8px] mb-2">Cargar ruta guardada</p>
+          <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px] mb-2">Cargar ruta guardada</p>
           <div className="flex gap-2 overflow-x-auto hide-scrollbar pb-1">
             {rutas.map(r => (
               <button
                 key={r.id}
                 onClick={() => cargarRutaEnHoy(r.id)}
-                className="flex-shrink-0 bg-[#1a2840] border border-white/7 rounded-xl px-3 py-2 text-left"
+                className="flex-shrink-0 bg-surface2 border border-[var(--c-border)] rounded-xl px-3 py-2 text-left"
               >
-                <div className="text-[12px] font-semibold text-[#f0f4f8] whitespace-nowrap">{r.nombre}</div>
-                <div className="text-[10px] text-[#6b85a0]">{r.clienteIds?.length || 0} clientes</div>
+                <div className="text-[12px] font-semibold text-textc whitespace-nowrap">{r.nombre}</div>
+                <div className="text-[10px] text-muted">{r.clienteIds?.length || 0} clientes</div>
               </button>
             ))}
           </div>
@@ -298,7 +298,7 @@ export default function HoyScreen() {
           {rutaClientes.length > 0 && (
             <div className="mb-4">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.8px]">Ruta de hoy</p>
+                <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px]">Ruta de hoy</p>
                 {!dragHintDone && (
                   <span className="text-[10px] text-amber-400 animate-pulse">
                     ⠿ arrastrá para reordenar
@@ -325,7 +325,7 @@ export default function HoyScreen() {
           )}
 
           {/* ── Agregar clientes ─────────────────────────────────── */}
-          <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.8px] mb-2">
+          <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px] mb-2">
             {hoy.length > 0 ? 'Agregar más clientes' : 'Seleccioná los clientes de hoy'}
           </p>
 
@@ -337,7 +337,7 @@ export default function HoyScreen() {
               placeholder="Buscar cliente..."
               value={q}
               onChange={e => setQ(e.target.value)}
-              className="w-full bg-[#131e2e] border border-white/7 rounded-xl pl-9 pr-4 py-[11px] text-[#f0f4f8] text-sm outline-none focus:border-amber-400 placeholder:text-[#6b85a0]"
+              className="w-full bg-surface border border-[var(--c-border)] rounded-xl pl-9 pr-4 py-[11px] text-textc text-sm outline-none focus:border-amber-400 placeholder:text-muted"
             />
           </div>
 
@@ -349,8 +349,8 @@ export default function HoyScreen() {
                 onClick={() => setZona(z)}
                 className={`flex-shrink-0 px-3 py-[6px] rounded-full border text-[11px] font-heading font-semibold transition-all ${
                   zona === z
-                    ? 'bg-amber-400 text-[#0b1320] border-amber-400'
-                    : 'bg-[#131e2e] border-white/7 text-[#6b85a0]'
+                    ? 'bg-amber-400 text-[#1a1a28] border-amber-400'
+                    : 'bg-surface border-[var(--c-border)] text-muted'
                 }`}
               >{z}</button>
             ))}
@@ -358,12 +358,12 @@ export default function HoyScreen() {
 
           {/* Lista disponibles */}
           {clientes.length === 0 ? (
-            <div className="text-center py-12 text-[#6b85a0]">
+            <div className="text-center py-12 text-muted">
               <div className="text-[44px] mb-2 opacity-40">👥</div>
               <div className="text-[13px] leading-relaxed">No hay clientes aún.<br />Andá a la pestaña Clientes para agregar.</div>
             </div>
           ) : disponibles.length === 0 && hoy.length > 0 ? (
-            <div className="text-center py-6 text-[#6b85a0] text-[13px]">
+            <div className="text-center py-6 text-muted text-[13px]">
               {q || zona !== 'Todos' ? 'Sin resultados' : 'Todos los clientes están en la ruta 👆'}
             </div>
           ) : disponibles.map(c => {
@@ -372,15 +372,15 @@ export default function HoyScreen() {
               <div
                 key={c.id}
                 onClick={() => toggleHoy(c.id)}
-                className="flex items-center gap-3 rounded-[14px] p-[13px_14px] mb-2 border border-white/7 bg-[#131e2e] cursor-pointer active:bg-amber-400/5 active:border-amber-400/30 transition-all animate-fadeUp"
+                className="flex items-center gap-3 rounded-[14px] p-[13px_14px] mb-2 border border-[var(--c-border)] bg-surface cursor-pointer active:bg-amber-400/5 active:border-amber-400/30 transition-all animate-fadeUp"
               >
                 <div className="w-[26px] h-[26px] rounded-full border-2 border-white/15 flex-shrink-0" />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <div className="font-medium text-[14px] text-[#f0f4f8] truncate">{c.nombre}</div>
-                    {c.codigo && <span className="flex-shrink-0 text-[10px] text-[#6b85a0] font-mono bg-[#1a2840] px-[5px] py-[1px] rounded">#{c.codigo}</span>}
+                    <div className="font-medium text-[14px] text-textc truncate">{c.nombre}</div>
+                    {c.codigo && <span className="flex-shrink-0 text-[10px] text-muted font-mono bg-surface2 px-[5px] py-[1px] rounded">#{c.codigo}</span>}
                   </div>
-                  <div className="text-[11px] text-[#6b85a0] truncate mt-[2px]">{c.direccion || 'Sin dirección'}</div>
+                  <div className="text-[11px] text-muted truncate mt-[2px]">{c.direccion || 'Sin dirección'}</div>
                   <div className="mt-1 flex items-center gap-2 flex-wrap">
                     <ZoneBadge zona={c.zona} />
                     {tieneGPS

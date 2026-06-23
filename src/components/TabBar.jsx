@@ -15,12 +15,12 @@ export default function TabBar() {
 
   return (
     <nav
-      className="fixed bottom-3 left-3 right-3 z-50 flex items-center px-1 py-1 rounded-2xl border border-white/[0.07]"
+      className="fixed bottom-3 left-3 right-3 z-50 flex items-center px-1 py-1 rounded-2xl border border-[var(--c-border)]"
       style={{
-        background: 'rgba(10, 16, 28, 0.88)',
+        background: 'var(--tabbar-bg)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)',
+        boxShadow: 'var(--tabbar-shadow)',
       }}
     >
       {TABS.map(t => {
@@ -37,7 +37,7 @@ export default function TabBar() {
               {t.icon}
             </span>
             <span className={`text-[8px] font-heading font-bold uppercase tracking-[.5px] transition-colors duration-200 ${
-              active ? 'text-amber-400' : 'text-[#3d5470]'
+              active ? 'text-amber-400' : 'text-muted2'
             }`}>
               {t.label}
             </span>

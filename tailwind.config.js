@@ -1,19 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        bg:       '#0b1320',
-        surface:  '#131e2e',
-        surface2: '#1a2840',
-        surface3: '#1f3050',
+        bg:       'var(--c-bg)',
+        surface:  'var(--c-surface)',
+        surface2: 'var(--c-surface2)',
+        surface3: 'var(--c-surface3)',
+        textc:    'var(--c-text)',
+        muted:    'var(--c-muted)',
+        muted2:   'var(--c-muted2)',
+        border:   { subtle: 'var(--c-border)', DEFAULT: 'var(--c-border)' },
         accent:   '#f59e0b',
         success:  '#10b981',
         danger:   '#ef4444',
         info:     '#3b82f6',
-        muted:    '#6b85a0',
-        textc:    '#f0f4f8',
       },
       fontFamily: {
         heading: ['Syne', 'sans-serif'],

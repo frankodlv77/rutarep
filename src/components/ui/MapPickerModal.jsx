@@ -96,39 +96,39 @@ export default function MapPickerModal({ initialLat, initialLon, onConfirm, onCl
   }
 
   return (
-    <div className="fixed inset-0 z-[9999] flex flex-col bg-[#0b1320]">
+    <div className="fixed inset-0 z-[9999] flex flex-col bg-bg">
       {/* Header */}
-      <div className="flex items-center gap-3 px-4 py-3 bg-[#101e33] border-b border-white/10 shrink-0">
-        <button onClick={onClose} className="text-[#6b85a0] text-[22px] leading-none px-1">‹</button>
+      <div className="flex items-center gap-3 px-4 py-3 bg-surface2 border-b border-[var(--c-border2)] shrink-0">
+        <button onClick={onClose} className="text-muted text-[22px] leading-none px-1">‹</button>
         <div>
-          <p className="text-[13px] font-bold text-[#f0f4f8]">Seleccioná un punto en el mapa</p>
-          <p className="text-[10px] text-[#6b85a0]">Tocá el mapa para colocar el pin</p>
+          <p className="text-[13px] font-bold text-textc">Seleccioná un punto en el mapa</p>
+          <p className="text-[10px] text-muted">Tocá el mapa para colocar el pin</p>
         </div>
       </div>
 
       {/* Map */}
       <div className="relative flex-1">
         {loading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-[#0b1320] z-10">
-            <p className="text-[#6b85a0] text-[13px] animate-pulse">Cargando mapa…</p>
+          <div className="absolute inset-0 flex items-center justify-center bg-bg z-10">
+            <p className="text-muted text-[13px] animate-pulse">Cargando mapa…</p>
           </div>
         )}
         <div ref={mapRef} className="w-full h-full" />
       </div>
 
       {/* Footer */}
-      <div className="shrink-0 px-4 py-3 bg-[#101e33] border-t border-white/10 space-y-2">
+      <div className="shrink-0 px-4 py-3 bg-surface2 border-t border-[var(--c-border2)] space-y-2">
         {pin ? (
           <p className="text-[10px] text-emerald-400 text-center">
             📍 {pin.lat.toFixed(6)}, {pin.lon.toFixed(6)}
           </p>
         ) : (
-          <p className="text-[10px] text-[#6b85a0] text-center">Tocá el mapa para marcar la ubicación</p>
+          <p className="text-[10px] text-muted text-center">Tocá el mapa para marcar la ubicación</p>
         )}
         <button
           onClick={handleConfirm}
           disabled={!pin || confirming}
-          className="w-full bg-amber-400 text-[#0b1320] font-bold text-[13px] py-[13px] rounded-xl disabled:opacity-40 active:scale-[.97] transition-transform">
+          className="w-full bg-amber-400 text-[#1a1a28] font-bold text-[13px] py-[13px] rounded-xl disabled:opacity-40 active:scale-[.97] transition-transform">
           {confirming ? 'Guardando…' : 'Confirmar punto'}
         </button>
       </div>

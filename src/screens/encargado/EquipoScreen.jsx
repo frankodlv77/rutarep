@@ -86,34 +86,34 @@ export default function EquipoScreen() {
 
   return (
     <div className="p-4">
-      <h2 className="font-heading text-[18px] font-extrabold text-[#f0f4f8] mb-1">Mi equipo</h2>
-      <p className="text-[12px] text-[#6b85a0] mb-4">{perfil?.negocio || 'Tu distribuidora'}</p>
+      <h2 className="font-heading text-[18px] font-extrabold text-textc mb-1">Mi equipo</h2>
+      <p className="text-[12px] text-muted mb-4">{perfil?.negocio || 'Tu distribuidora'}</p>
 
       {/* Stats */}
-      <div className="bg-[#131e2e] border border-white/7 rounded-xl p-4 mb-4 flex items-center gap-4">
+      <div className="bg-surface border border-[var(--c-border)] rounded-xl p-4 mb-4 flex items-center gap-4">
         <div className="text-center flex-1">
           <div className="font-heading text-[28px] font-extrabold text-amber-400">{repartidores.length}</div>
-          <div className="text-[10px] text-[#6b85a0] uppercase tracking-[.6px] mt-[2px]">Repartidores</div>
+          <div className="text-[10px] text-muted uppercase tracking-[.6px] mt-[2px]">Repartidores</div>
         </div>
         <div className="w-px h-12 bg-white/7" />
         <div className="flex-1 text-center">
           <div className="font-heading text-[28px] font-extrabold text-emerald-400">
             {miembros.filter(m => m.rol === 'repartidor').length}
           </div>
-          <div className="text-[10px] text-[#6b85a0] uppercase tracking-[.6px] mt-[2px]">Activos</div>
+          <div className="text-[10px] text-muted uppercase tracking-[.6px] mt-[2px]">Activos</div>
         </div>
       </div>
 
       {/* Generar link de invitación */}
-      <div className="bg-[#131e2e] border border-amber-400/20 rounded-xl p-4 mb-4">
-        <p className="text-[13px] font-bold text-[#f0f4f8] mb-1">Agregar repartidor</p>
-        <p className="text-[11px] text-[#6b85a0] mb-3 leading-relaxed">
+      <div className="bg-surface border border-amber-400/20 rounded-xl p-4 mb-4">
+        <p className="text-[13px] font-bold text-textc mb-1">Agregar repartidor</p>
+        <p className="text-[11px] text-muted mb-3 leading-relaxed">
           Generá un link de invitación y mandalo por WhatsApp. El repartidor lo abre, se registra y queda en tu equipo.
         </p>
 
         {inviteURL ? (
           <div className="flex flex-col gap-2">
-            <div className="bg-[#0b1320] border border-white/10 rounded-lg px-3 py-[10px] text-[11px] text-[#6b85a0] font-mono break-all">
+            <div className="bg-bg border border-[var(--c-border2)] rounded-lg px-3 py-[10px] text-[11px] text-muted font-mono break-all">
               {inviteURL}
             </div>
             <div className="flex gap-2">
@@ -122,25 +122,25 @@ export default function EquipoScreen() {
                 className={`flex-1 py-[10px] rounded-xl font-heading font-bold text-[13px] transition-all ${
                   copied
                     ? 'bg-emerald-500 text-white'
-                    : 'bg-amber-400 text-[#0b1320]'
+                    : 'bg-amber-400 text-[#1a1a28]'
                 }`}
               >
                 {copied ? '✓ Copiado!' : '📋 Copiar link'}
               </button>
               <button
                 onClick={() => { setInvToken(null) }}
-                className="px-4 py-[10px] rounded-xl bg-[#1a2840] border border-white/7 text-[#6b85a0] text-[12px]"
+                className="px-4 py-[10px] rounded-xl bg-surface2 border border-[var(--c-border)] text-muted text-[12px]"
               >
                 Nuevo
               </button>
             </div>
-            <p className="text-[10px] text-[#6b85a0]">⏳ El link expira en 7 días · Hasta 10 usos</p>
+            <p className="text-[10px] text-muted">⏳ El link expira en 7 días · Hasta 10 usos</p>
           </div>
         ) : (
           <button
             onClick={generarInvitacion}
             disabled={genLoading}
-            className="w-full bg-amber-400 text-[#0b1320] font-heading font-bold text-[13px] py-[11px] rounded-xl disabled:opacity-50"
+            className="w-full bg-amber-400 text-[#1a1a28] font-heading font-bold text-[13px] py-[11px] rounded-xl disabled:opacity-50"
           >
             {genLoading ? 'Generando...' : '🔗 Generar link de invitación'}
           </button>
@@ -150,14 +150,14 @@ export default function EquipoScreen() {
       </div>
 
       {/* Lista de miembros */}
-      <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.8px] mb-3">
+      <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px] mb-3">
         Repartidores ({repartidores.length})
       </p>
 
       {loading ? (
-        <div className="text-center py-8 text-[#6b85a0] text-[13px]">Cargando...</div>
+        <div className="text-center py-8 text-muted text-[13px]">Cargando...</div>
       ) : repartidores.length === 0 ? (
-        <div className="text-center py-10 text-[#6b85a0]">
+        <div className="text-center py-10 text-muted">
           <div className="text-[44px] mb-2 opacity-40">👥</div>
           <div className="text-[13px]">Todavía no hay repartidores en el equipo.</div>
           <div className="text-[11px] mt-1">Generá un link arriba y mandalo por WhatsApp.</div>
@@ -169,14 +169,14 @@ export default function EquipoScreen() {
           return (
             <div
               key={m.user_id}
-              className="flex items-center gap-3 bg-[#131e2e] border border-white/7 rounded-xl px-4 py-3 mb-2"
+              className="flex items-center gap-3 bg-surface border border-[var(--c-border)] rounded-xl px-4 py-3 mb-2"
             >
               <div className="w-[36px] h-[36px] rounded-full bg-amber-400/15 border border-amber-400/30 flex items-center justify-center text-[16px] flex-shrink-0">
                 🚚
               </div>
               <div className="flex-1 min-w-0">
-                <div className="text-[13px] font-semibold text-[#f0f4f8] truncate">{nombre}</div>
-                <div className="text-[10px] text-[#6b85a0]">
+                <div className="text-[13px] font-semibold text-textc truncate">{nombre}</div>
+                <div className="text-[10px] text-muted">
                   Desde {new Date(m.joined_at).toLocaleDateString('es-AR', { day: 'numeric', month: 'short', year: 'numeric' })}
                 </div>
               </div>

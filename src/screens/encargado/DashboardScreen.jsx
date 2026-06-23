@@ -64,7 +64,7 @@ export default function DashboardScreen() {
   if (loading) {
     return (
       <div className="p-4 flex items-center justify-center h-48">
-        <p className="text-[13px] text-[#6b85a0]">Cargando datos del equipo...</p>
+        <p className="text-[13px] text-muted">Cargando datos del equipo...</p>
       </div>
     )
   }
@@ -77,25 +77,25 @@ export default function DashboardScreen() {
     <div className="p-4">
       {/* Header */}
       <div className="mb-4">
-        <h2 className="font-heading text-[18px] font-extrabold text-[#f0f4f8]">
+        <h2 className="font-heading text-[18px] font-extrabold text-textc">
           {perfil?.negocio || 'Dashboard'}
         </h2>
-        <p className="text-[12px] text-[#6b85a0]">
+        <p className="text-[12px] text-muted">
           {new Date().toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}
         </p>
       </div>
 
       {/* Stats de hoy */}
-      <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.8px] mb-2">Equipo — hoy</p>
+      <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px] mb-2">Equipo — hoy</p>
       <div className="grid grid-cols-3 gap-2 mb-4">
         {[
           { label: 'Recaudado',  value: `$${fmt(totalHoyMonto)}`,    color: 'text-emerald-400' },
-          { label: 'Entregas',   value: totalHoyEntregas,             color: 'text-[#f0f4f8]'  },
+          { label: 'Entregas',   value: totalHoyEntregas,             color: 'text-textc'  },
           { label: 'Pendientes', value: totalHoyClientes - totalHoyEntregas, color: 'text-amber-400' },
         ].map(s => (
-          <div key={s.label} className="bg-[#131e2e] border border-white/7 rounded-xl p-3 text-center">
+          <div key={s.label} className="bg-surface border border-[var(--c-border)] rounded-xl p-3 text-center">
             <div className={`font-heading text-[17px] font-extrabold ${s.color}`}>{s.value}</div>
-            <div className="text-[9px] text-[#6b85a0] uppercase tracking-[.4px] mt-[2px]">{s.label}</div>
+            <div className="text-[9px] text-muted uppercase tracking-[.4px] mt-[2px]">{s.label}</div>
           </div>
         ))}
       </div>
@@ -103,16 +103,16 @@ export default function DashboardScreen() {
       {/* Semana */}
       {resumenSemana && (
         <>
-          <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.8px] mb-2">Esta semana</p>
+          <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px] mb-2">Esta semana</p>
           <div className="grid grid-cols-3 gap-2 mb-4">
             {[
               { label: 'Total',    value: `$${fmt(resumenSemana.totalMonto)}`,    color: 'text-emerald-400' },
-              { label: 'Entregas', value: resumenSemana.totalEntregas,            color: 'text-[#f0f4f8]'  },
+              { label: 'Entregas', value: resumenSemana.totalEntregas,            color: 'text-textc'  },
               { label: 'Comisión', value: `$${fmt(resumenSemana.totalCom)}`,      color: 'text-amber-400'  },
             ].map(s => (
-              <div key={s.label} className="bg-[#131e2e] border border-white/7 rounded-xl p-3 text-center">
+              <div key={s.label} className="bg-surface border border-[var(--c-border)] rounded-xl p-3 text-center">
                 <div className={`font-heading text-[17px] font-extrabold ${s.color}`}>{s.value}</div>
-                <div className="text-[9px] text-[#6b85a0] uppercase tracking-[.4px] mt-[2px]">{s.label}</div>
+                <div className="text-[9px] text-muted uppercase tracking-[.4px] mt-[2px]">{s.label}</div>
               </div>
             ))}
           </div>
@@ -120,14 +120,14 @@ export default function DashboardScreen() {
       )}
 
       {/* Repartidores activos hoy */}
-      <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.8px] mb-2">
+      <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px] mb-2">
         Repartidores hoy ({resumenHoy.length})
       </p>
 
       {resumenHoy.length === 0 ? (
-        <div className="bg-[#131e2e] border border-white/7 rounded-xl p-6 text-center mb-4">
+        <div className="bg-surface border border-[var(--c-border)] rounded-xl p-6 text-center mb-4">
           <div className="text-[36px] mb-2 opacity-30">🚚</div>
-          <p className="text-[12px] text-[#6b85a0]">Ningún repartidor activo hoy todavía.</p>
+          <p className="text-[12px] text-muted">Ningún repartidor activo hoy todavía.</p>
         </div>
       ) : (
         resumenHoy.map(r => {
@@ -138,15 +138,15 @@ export default function DashboardScreen() {
           const comision  = (+r.total_monto || 0) * ((+r.comision_pct || 0) / 100)
 
           return (
-            <div key={r.user_id} className="bg-[#131e2e] border border-white/7 rounded-xl p-4 mb-2">
+            <div key={r.user_id} className="bg-surface border border-[var(--c-border)] rounded-xl p-4 mb-2">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
                   <div className="w-[32px] h-[32px] rounded-full bg-amber-400/15 border border-amber-400/30 flex items-center justify-center text-[14px]">
                     🚚
                   </div>
                   <div>
-                    <div className="text-[13px] font-bold text-[#f0f4f8]">{nombre}</div>
-                    <div className="text-[10px] text-[#6b85a0]">{r.total_entregados}/{r.total_clientes} entregas</div>
+                    <div className="text-[13px] font-bold text-textc">{nombre}</div>
+                    <div className="text-[10px] text-muted">{r.total_entregados}/{r.total_clientes} entregas</div>
                   </div>
                 </div>
                 <div className="text-right">
@@ -156,13 +156,13 @@ export default function DashboardScreen() {
               </div>
 
               {/* Barra de progreso */}
-              <div className="w-full h-[5px] bg-[#1a2840] rounded-full overflow-hidden">
+              <div className="w-full h-[5px] bg-surface2 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-emerald-500 rounded-full transition-all"
                   style={{ width: `${pct}%` }}
                 />
               </div>
-              <p className="text-[9px] text-[#6b85a0] mt-1">{pct}% completado</p>
+              <p className="text-[9px] text-muted mt-1">{pct}% completado</p>
             </div>
           )
         })
@@ -170,7 +170,7 @@ export default function DashboardScreen() {
 
       <button
         onClick={fetchData}
-        className="w-full mt-2 bg-[#131e2e] border border-white/7 rounded-xl py-[10px] text-[12px] text-[#6b85a0] font-semibold"
+        className="w-full mt-2 bg-surface border border-[var(--c-border)] rounded-xl py-[10px] text-[12px] text-muted font-semibold"
       >
         🔄 Actualizar
       </button>

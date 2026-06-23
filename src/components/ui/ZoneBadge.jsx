@@ -5,7 +5,7 @@ const ZONE_COLORS = {
   'Guaymallén': 'bg-teal-500/15 text-teal-400',
   'Las Heras':  'bg-red-500/15 text-red-400',
   'Luján':      'bg-purple-500/15 text-purple-400',
-  'Otro':       'bg-white/7 text-[#6b85a0]',
+  'Otro':       'bg-white/7 text-muted',
 }
 
 export default function ZoneBadge({ zona }) {

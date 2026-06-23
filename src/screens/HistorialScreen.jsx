@@ -369,7 +369,7 @@ export default function HistorialScreen() {
 
   if (historial.length === 0) {
     return (
-      <div className="p-4 text-center pt-16 text-[#6b85a0]">
+      <div className="p-4 text-center pt-16 text-muted">
         <div className="text-[48px] mb-3 opacity-40">📦</div>
         <div className="text-[13px] leading-relaxed">Todavía no hay días finalizados.<br/>Cuando completes una ruta, aparecerá acá.</div>
       </div>
@@ -396,11 +396,11 @@ export default function HistorialScreen() {
     <div className="p-4">
 
       {/* Selector de período */}
-      <div className="flex bg-[#131e2e] border border-white/7 rounded-xl p-1 mb-4 gap-1">
+      <div className="flex bg-surface border border-[var(--c-border)] rounded-xl p-1 mb-4 gap-1">
         {PERIODS.map(p => (
           <button key={p.key} onClick={() => setPeriod(p.key)}
             className={`flex-1 py-[8px] rounded-lg text-[11px] font-heading font-bold transition-all ${
-              period === p.key ? 'bg-amber-400 text-[#0b1320]' : 'text-[#6b85a0]'
+              period === p.key ? 'bg-amber-400 text-[#1a1a28]' : 'text-muted'
             }`}>{p.label}</button>
         ))}
       </div>
@@ -411,12 +411,12 @@ export default function HistorialScreen() {
           <div className="grid grid-cols-3 gap-2 mb-3">
             {[
               { label: 'Recaudado',  value: fmtMoney(stats.total),    color: 'text-emerald-400' },
-              { label: 'Entregas',   value: stats.entregas,            color: 'text-[#f0f4f8]'  },
+              { label: 'Entregas',   value: stats.entregas,            color: 'text-textc'  },
               { label: 'Comisión',   value: fmtMoney(stats.comision),  color: 'text-amber-400'  },
             ].map(s => (
-              <div key={s.label} className="bg-[#131e2e] border border-white/7 rounded-xl p-2 text-center">
+              <div key={s.label} className="bg-surface border border-[var(--c-border)] rounded-xl p-2 text-center">
                 <div className={`font-heading text-[15px] font-extrabold ${s.color} leading-tight`}>{s.value}</div>
-                <div className="text-[9px] text-[#6b85a0] uppercase tracking-[.4px] mt-[2px]">{s.label}</div>
+                <div className="text-[9px] text-muted uppercase tracking-[.4px] mt-[2px]">{s.label}</div>
               </div>
             ))}
           </div>
@@ -425,24 +425,24 @@ export default function HistorialScreen() {
           {(stats.efectivo > 0 || stats.transferencia > 0 || stats.tarjeta > 0) && (
             <div className="flex gap-2 mb-3">
               {stats.efectivo > 0 && (
-                <div className="flex-1 bg-[#131e2e] border border-white/7 rounded-xl px-2 py-[9px] text-center">
+                <div className="flex-1 bg-surface border border-[var(--c-border)] rounded-xl px-2 py-[9px] text-center">
                   <div className="text-[12px]">💵</div>
-                  <div className="text-[11px] font-bold text-[#f0f4f8]">{fmtMoney(stats.efectivo)}</div>
-                  <div className="text-[9px] text-[#6b85a0] mt-[1px]">Efectivo</div>
+                  <div className="text-[11px] font-bold text-textc">{fmtMoney(stats.efectivo)}</div>
+                  <div className="text-[9px] text-muted mt-[1px]">Efectivo</div>
                 </div>
               )}
               {stats.transferencia > 0 && (
-                <div className="flex-1 bg-[#131e2e] border border-white/7 rounded-xl px-2 py-[9px] text-center">
+                <div className="flex-1 bg-surface border border-[var(--c-border)] rounded-xl px-2 py-[9px] text-center">
                   <div className="text-[12px]">🏦</div>
-                  <div className="text-[11px] font-bold text-[#f0f4f8]">{fmtMoney(stats.transferencia)}</div>
-                  <div className="text-[9px] text-[#6b85a0] mt-[1px]">Transfer.</div>
+                  <div className="text-[11px] font-bold text-textc">{fmtMoney(stats.transferencia)}</div>
+                  <div className="text-[9px] text-muted mt-[1px]">Transfer.</div>
                 </div>
               )}
               {stats.tarjeta > 0 && (
-                <div className="flex-1 bg-[#131e2e] border border-white/7 rounded-xl px-2 py-[9px] text-center">
+                <div className="flex-1 bg-surface border border-[var(--c-border)] rounded-xl px-2 py-[9px] text-center">
                   <div className="text-[12px]">💳</div>
-                  <div className="text-[11px] font-bold text-[#f0f4f8]">{fmtMoney(stats.tarjeta)}</div>
-                  <div className="text-[9px] text-[#6b85a0] mt-[1px]">Tarjeta</div>
+                  <div className="text-[11px] font-bold text-textc">{fmtMoney(stats.tarjeta)}</div>
+                  <div className="text-[9px] text-muted mt-[1px]">Tarjeta</div>
                 </div>
               )}
             </div>
@@ -452,26 +452,26 @@ export default function HistorialScreen() {
           <div className="flex gap-2 mb-4">
             <button
               onClick={() => exportCSV(filtered)}
-              className="flex-1 bg-[#1a2840] border border-emerald-500/30 text-emerald-400 font-heading font-bold text-[12px] py-[10px] rounded-xl flex items-center justify-center gap-1 active:bg-emerald-500/10 transition-colors"
+              className="flex-1 bg-surface2 border border-emerald-500/30 text-emerald-400 font-heading font-bold text-[12px] py-[10px] rounded-xl flex items-center justify-center gap-1 active:bg-emerald-500/10 transition-colors"
             >
               📊 CSV
             </button>
             <button
               onClick={() => exportPeriodoPDF(filtered, stats, PERIODS.find(p => p.key === period)?.label || 'Todo', perfil?.negocio)}
-              className="flex-1 bg-[#1a2840] border border-red-400/30 text-red-400 font-heading font-bold text-[12px] py-[10px] rounded-xl flex items-center justify-center gap-1 active:bg-red-400/10 transition-colors"
+              className="flex-1 bg-surface2 border border-red-400/30 text-red-400 font-heading font-bold text-[12px] py-[10px] rounded-xl flex items-center justify-center gap-1 active:bg-red-400/10 transition-colors"
             >
               📄 PDF resumen
             </button>
           </div>
         </>
       ) : (
-        <div className="bg-[#131e2e] border border-white/7 rounded-xl p-4 text-center mb-4">
-          <p className="text-[13px] text-[#6b85a0]">Sin datos para este período</p>
+        <div className="bg-surface border border-[var(--c-border)] rounded-xl p-4 text-center mb-4">
+          <p className="text-[13px] text-muted">Sin datos para este período</p>
         </div>
       )}
 
       {/* Lista de días */}
-      <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.8px] mb-3">
+      <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px] mb-3">
         {filtered.length} día{filtered.length !== 1 ? 's' : ''} registrado{filtered.length !== 1 ? 's' : ''}
       </p>
 
@@ -480,7 +480,7 @@ export default function HistorialScreen() {
         const isDeleting = deletingId === (dia.id || di)
         const canDelete  = deleteText.trim().toUpperCase() === 'BORRAR'
         return (
-          <div key={dia.id || di} className="mb-3 bg-[#131e2e] border border-white/7 rounded-xl overflow-hidden">
+          <div key={dia.id || di} className="mb-3 bg-surface border border-[var(--c-border)] rounded-xl overflow-hidden">
             {/* Day header — tap to expand */}
             <button
               type="button"
@@ -490,19 +490,19 @@ export default function HistorialScreen() {
               <div className="flex-1 min-w-0">
                 <div className="text-[12px] font-bold text-amber-400 capitalize">{dia.fecha}</div>
                 <div className="flex items-center gap-2 mt-[3px] flex-wrap">
-                  <span className="text-[10px] text-[#6b85a0]">{dia.total_entregados}/{dia.total_clientes} entregas</span>
+                  <span className="text-[10px] text-muted">{dia.total_entregados}/{dia.total_clientes} entregas</span>
                   <span className="text-[10px] text-amber-400">· Comisión {dia.comision_pct}% = {fmtMoney((+dia.total_monto||0) * (+dia.comision_pct||0) / 100)}</span>
                 </div>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
                 <span className="font-heading font-extrabold text-[15px] text-emerald-400">{fmtMoney(dia.total_monto)}</span>
-                <span className="text-[#6b85a0] text-[11px]">{isOpen ? '▲' : '▼'}</span>
+                <span className="text-muted text-[11px]">{isOpen ? '▲' : '▼'}</span>
               </div>
             </button>
 
             {/* Expanded deliveries */}
             {isOpen && (
-              <div className="border-t border-white/7 px-4 py-3 flex flex-col gap-[6px]">
+              <div className="border-t border-[var(--c-border)] px-4 py-3 flex flex-col gap-[6px]">
                 {/* Botón borrar + PDF día */}
                 {!isDeleting ? (
                   <div className="flex items-center justify-between mb-1">
@@ -529,7 +529,7 @@ export default function HistorialScreen() {
                       value={deleteText}
                       onChange={e => setDeleteText(e.target.value)}
                       onClick={e => e.stopPropagation()}
-                      className="w-full bg-[#0b1320] border border-red-500/40 rounded-lg px-3 py-[8px] text-[12px] text-[#f0f4f8] outline-none mb-2 placeholder:text-[#6b85a0]"
+                      className="w-full bg-bg border border-red-500/40 rounded-lg px-3 py-[8px] text-[12px] text-textc outline-none mb-2 placeholder:text-muted"
                     />
                     <div className="flex gap-2">
                       <button
@@ -541,7 +541,7 @@ export default function HistorialScreen() {
                       <button
                         type="button"
                         onClick={e => { e.stopPropagation(); setDeletingId(null); setDeleteText('') }}
-                        className="flex-1 py-[8px] rounded-lg text-[11px] font-bold bg-[#1a2840] text-[#6b85a0]"
+                        className="flex-1 py-[8px] rounded-lg text-[11px] font-bold bg-surface2 text-muted"
                       >Cancelar</button>
                     </div>
                   </div>
@@ -557,40 +557,40 @@ export default function HistorialScreen() {
                         isCancelled ? 'bg-red-500 text-white' :
                         isParcial   ? 'bg-amber-500 text-white' :
                         e.entregado ? 'bg-emerald-500 text-white' :
-                                      'bg-[#1a2840] text-[#6b85a0]'
+                                      'bg-surface2 text-muted'
                       }`}>{isCancelled ? '✕' : isParcial ? '$' : e.entregado ? '✓' : '–'}</div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <div className="text-[13px] font-medium text-[#f0f4f8] truncate">{e.nombre}</div>
+                          <div className="text-[13px] font-medium text-textc truncate">{e.nombre}</div>
                           <button
                             onClick={() => openModal('entrega', { clienteId: e.id, clienteNombre: e.nombre, clienteDir: e.direccion, editData: e, historialId: dia.id, entregaIdx: ei })}
-                            className="flex-shrink-0 bg-[#1a2840] border border-white/10 text-[#6b85a0] text-[10px] font-semibold px-2 py-[3px] rounded-lg"
+                            className="flex-shrink-0 bg-surface2 border border-[var(--c-border2)] text-muted text-[10px] font-semibold px-2 py-[3px] rounded-lg"
                           >✏️ Editar</button>
                         </div>
-                        {e.direccion && <div className="text-[10px] text-[#6b85a0] truncate">{e.direccion}</div>}
+                        {e.direccion && <div className="text-[10px] text-muted truncate">{e.direccion}</div>}
                         <div className="flex flex-wrap gap-x-3 gap-y-1 mt-[2px]">
-                          {e.hora && <span className="text-[10px] text-[#6b85a0]">{e.hora}</span>}
+                          {e.hora && <span className="text-[10px] text-muted">{e.hora}</span>}
                           {isCancelled ? (
                             <span className="text-[10px] text-red-400 italic">{e.motivo_cancelacion || 'Cancelado'}</span>
                           ) : isParcial ? (
                             <>
                               <span className="text-[10px] text-amber-400 font-bold">Pagó {fmtMoney(e.monto_pagado)} de {fmtMoney(e.monto_total)}</span>
                               {e.deuda_generada > 0 && <span className="text-[10px] text-red-400">Deuda +{fmtMoney(e.deuda_generada)}</span>}
-                              {e.metodo_pago && <span className="text-[10px] text-[#6b85a0]">{PAGO_ICONS[e.metodo_pago] || '💰'}</span>}
+                              {e.metodo_pago && <span className="text-[10px] text-muted">{PAGO_ICONS[e.metodo_pago] || '💰'}</span>}
                             </>
                           ) : isDevol ? (
                             <>
                               <span className="text-[10px] text-blue-400">Dev. {fmtMoney(e.monto_devolucion)}</span>
                               <span className="text-[10px] font-bold text-emerald-400">Cobrado {fmtMoney(e.monto)}</span>
-                              {e.metodo_pago && <span className="text-[10px] text-[#6b85a0]">{PAGO_ICONS[e.metodo_pago] || '💰'}</span>}
+                              {e.metodo_pago && <span className="text-[10px] text-muted">{PAGO_ICONS[e.metodo_pago] || '💰'}</span>}
                             </>
                           ) : (
                             <>
-                              {e.metodo_pago && <span className="text-[10px] text-[#6b85a0]">{PAGO_ICONS[e.metodo_pago] || '💰'} {e.metodo_pago}</span>}
+                              {e.metodo_pago && <span className="text-[10px] text-muted">{PAGO_ICONS[e.metodo_pago] || '💰'} {e.metodo_pago}</span>}
                               {e.monto > 0 && <span className="text-[10px] font-bold text-emerald-400">{fmtMoney(e.monto)}</span>}
                             </>
                           )}
-                          {e.obs && <span className="text-[10px] text-[#6b85a0] italic">{e.obs}</span>}
+                          {e.obs && <span className="text-[10px] text-muted italic">{e.obs}</span>}
                         </div>
                         {(() => {
                           const urls = e.foto_urls?.length ? e.foto_urls : e.foto_url ? [e.foto_url] : []
@@ -598,7 +598,7 @@ export default function HistorialScreen() {
                             <div className="flex gap-2 mt-2 flex-wrap">
                               {urls.map((url, ui) => (
                                 <a key={ui} href={url} target="_blank" rel="noreferrer">
-                                  <img src={url} alt="Comprobante" className="h-16 w-24 object-cover rounded-lg border border-white/10" />
+                                  <img src={url} alt="Comprobante" className="h-16 w-24 object-cover rounded-lg border border-[var(--c-border2)]" />
                                 </a>
                               ))}
                             </div>

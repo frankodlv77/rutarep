@@ -11,10 +11,10 @@ const METODOS = [
 ]
 
 const TIPOS = [
-  { id: 'entregado',  label: 'Entregado',    icon: '✅', active: 'border-emerald-400 bg-emerald-400/10 text-[#f0f4f8]' },
-  { id: 'devolucion', label: 'Devolución',   icon: '🔄', active: 'border-blue-400 bg-blue-400/10 text-[#f0f4f8]' },
-  { id: 'parcial',    label: 'Pago parcial', icon: '💸', active: 'border-amber-400 bg-amber-400/10 text-[#f0f4f8]' },
-  { id: 'cancelado',  label: 'Cancelado',    icon: '❌', active: 'border-red-400 bg-red-400/10 text-[#f0f4f8]' },
+  { id: 'entregado',  label: 'Entregado',    icon: '✅', active: 'border-emerald-400 bg-emerald-400/10 text-textc' },
+  { id: 'devolucion', label: 'Devolución',   icon: '🔄', active: 'border-blue-400 bg-blue-400/10 text-textc' },
+  { id: 'parcial',    label: 'Pago parcial', icon: '💸', active: 'border-amber-400 bg-amber-400/10 text-textc' },
+  { id: 'cancelado',  label: 'Cancelado',    icon: '❌', active: 'border-red-400 bg-red-400/10 text-textc' },
 ]
 
 const MOTIVOS_CANCEL = [
@@ -206,15 +206,15 @@ export default function EntregaModal() {
                style={{ background: 'linear-gradient(160deg, rgba(239,68,68,0.18) 0%, rgba(11,19,32,0) 70%)' }}>
             <div className="text-[60px] mb-2" style={{ animation: 'bounce 1s infinite' }}>🚨</div>
             <p className="text-[11px] font-bold text-red-400 uppercase tracking-[2px] mb-2">Deuda pendiente</p>
-            <p className="text-[20px] font-extrabold text-[#f0f4f8] font-heading leading-tight mb-1">{nombre}</p>
-            {dir ? <p className="text-[12px] text-[#6b85a0] mb-3">{dir}</p> : <div className="mb-3" />}
-            <p className="text-[13px] text-[#6b85a0] mb-1">debe cobrarle</p>
+            <p className="text-[20px] font-extrabold text-textc font-heading leading-tight mb-1">{nombre}</p>
+            {dir ? <p className="text-[12px] text-muted mb-3">{dir}</p> : <div className="mb-3" />}
+            <p className="text-[13px] text-muted mb-1">debe cobrarle</p>
             <p className="text-[52px] font-extrabold text-red-400 font-heading leading-none"
                style={{ animation: 'pulse 1.5s ease-in-out infinite' }}>{fmtMoney(deuda)}</p>
             <p className="text-[11px] text-red-400/50 mt-2">de visita anterior</p>
           </div>
 
-          <p className="text-[13px] text-[#6b85a0] mb-5">¿Cobró la deuda en esta visita?</p>
+          <p className="text-[13px] text-muted mb-5">¿Cobró la deuda en esta visita?</p>
 
           <button
             onClick={() => { set('cobro_deuda', true); setDeudaStep(false) }}
@@ -224,24 +224,24 @@ export default function EntregaModal() {
           </button>
           <button
             onClick={() => setDeudaStep(false)}
-            className="w-full bg-[#1a2840] border border-white/10 text-[#6b85a0] font-heading font-bold text-[13px] py-[13px] rounded-xl active:scale-[.97] transition-transform"
+            className="w-full bg-surface2 border border-[var(--c-border2)] text-muted font-heading font-bold text-[13px] py-[13px] rounded-xl active:scale-[.97] transition-transform"
           >
             Continuar sin cobrar →
           </button>
-          <button onClick={closeModal} className="mt-4 text-[11px] text-[#6b85a0] underline">Cancelar</button>
+          <button onClick={closeModal} className="mt-4 text-[11px] text-muted underline">Cancelar</button>
         </div>
       ) : (
 
       <div className="px-[18px] pb-10">
-        <h2 className="font-heading font-extrabold text-[16px] text-[#f0f4f8] mb-1">{isEditing ? '✏️ Editar entrega' : 'Registrar visita'}</h2>
-        <p className="text-[13px] text-[#6b85a0] mb-4">{nombre}{dir ? ` · ${dir}` : ''}</p>
+        <h2 className="font-heading font-extrabold text-[16px] text-textc mb-1">{isEditing ? '✏️ Editar entrega' : 'Registrar visita'}</h2>
+        <p className="text-[13px] text-muted mb-4">{nombre}{dir ? ` · ${dir}` : ''}</p>
 
         {/* Banner de deuda (compacto, solo recordatorio si ya eligió cobrar) */}
         {deuda > 0 && (
           <div className="bg-red-500/10 border border-red-500/30 rounded-xl px-3 py-[10px] mb-4 flex items-center justify-between gap-3">
             <div>
               <p className="text-[12px] font-bold text-red-400">Deuda pendiente: {fmtMoney(deuda)}</p>
-              <p className="text-[10px] text-[#6b85a0] mt-[2px]">Saldo de visita anterior</p>
+              <p className="text-[10px] text-muted mt-[2px]">Saldo de visita anterior</p>
             </div>
             {form.tipo !== 'cancelado' && form.tipo !== 'parcial' && (
               <label className="flex items-center gap-2 cursor-pointer flex-shrink-0">
@@ -251,7 +251,7 @@ export default function EntregaModal() {
                   onChange={e => set('cobro_deuda', e.target.checked)}
                   className="w-4 h-4 accent-emerald-400"
                 />
-                <span className="text-[11px] text-[#f0f4f8] font-medium">¿Cobró?</span>
+                <span className="text-[11px] text-textc font-medium">¿Cobró?</span>
               </label>
             )}
           </div>
@@ -265,7 +265,7 @@ export default function EntregaModal() {
                 key={t.id}
                 onClick={() => set('tipo', t.id)}
                 className={`flex items-center gap-2 px-3 py-[10px] rounded-xl border text-[13px] font-medium transition-all ${
-                  form.tipo === t.id ? t.active : 'border-white/7 bg-[#1a2840] text-[#6b85a0]'
+                  form.tipo === t.id ? t.active : 'border-[var(--c-border)] bg-surface2 text-muted'
                 }`}
               >
                 <span>{t.icon}</span> {t.label}
@@ -283,8 +283,8 @@ export default function EntregaModal() {
                   <button key={m.id} onClick={() => set('metodo_pago', m.id)}
                     className={`flex items-center gap-2 px-3 py-[10px] rounded-xl border text-[13px] font-medium transition-all ${
                       form.metodo_pago === m.id
-                        ? 'border-amber-400 bg-amber-400/10 text-[#f0f4f8]'
-                        : 'border-white/7 bg-[#1a2840] text-[#6b85a0]'
+                        ? 'border-amber-400 bg-amber-400/10 text-textc'
+                        : 'border-[var(--c-border)] bg-surface2 text-muted'
                     }`}><span>{m.icon}</span> {m.label}</button>
                 ))}
               </div>
@@ -296,7 +296,7 @@ export default function EntregaModal() {
             )}
             <Field label="Monto cobrado *">
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6b85a0] text-[14px] font-bold pointer-events-none">$</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted text-[14px] font-bold pointer-events-none">$</span>
                 <Input type="number" placeholder="0" className="pl-7" value={form.monto}
                   onChange={e => set('monto', e.target.value)} inputMode="decimal" />
               </div>
@@ -309,21 +309,21 @@ export default function EntregaModal() {
           <>
             <Field label="Monto original a cobrar *">
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6b85a0] text-[14px] font-bold pointer-events-none">$</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted text-[14px] font-bold pointer-events-none">$</span>
                 <Input type="number" placeholder="0" className="pl-7" value={form.monto_original}
                   onChange={e => set('monto_original', e.target.value)} inputMode="decimal" />
               </div>
             </Field>
             <Field label="Valor del producto devuelto *">
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6b85a0] text-[14px] font-bold pointer-events-none">$</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted text-[14px] font-bold pointer-events-none">$</span>
                 <Input type="number" placeholder="0" className="pl-7" value={form.monto_devolucion}
                   onChange={e => set('monto_devolucion', e.target.value)} inputMode="decimal" />
               </div>
             </Field>
             {form.monto_original && form.monto_devolucion && (
               <div className="bg-blue-500/10 border border-blue-500/25 rounded-xl px-3 py-[10px] mb-3 flex items-center justify-between">
-                <span className="text-[12px] text-[#6b85a0]">Cobrar neto</span>
+                <span className="text-[12px] text-muted">Cobrar neto</span>
                 <span className="font-heading font-extrabold text-[16px] text-blue-300">{fmtMoney(montoNeto)}</span>
               </div>
             )}
@@ -333,8 +333,8 @@ export default function EntregaModal() {
                   <button key={m.id} onClick={() => set('metodo_pago', m.id)}
                     className={`flex items-center gap-2 px-3 py-[10px] rounded-xl border text-[13px] font-medium transition-all ${
                       form.metodo_pago === m.id
-                        ? 'border-amber-400 bg-amber-400/10 text-[#f0f4f8]'
-                        : 'border-white/7 bg-[#1a2840] text-[#6b85a0]'
+                        ? 'border-amber-400 bg-amber-400/10 text-textc'
+                        : 'border-[var(--c-border)] bg-surface2 text-muted'
                     }`}><span>{m.icon}</span> {m.label}</button>
                 ))}
               </div>
@@ -352,14 +352,14 @@ export default function EntregaModal() {
           <>
             <Field label="Monto total que debía pagar *">
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6b85a0] text-[14px] font-bold pointer-events-none">$</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted text-[14px] font-bold pointer-events-none">$</span>
                 <Input type="number" placeholder="0" className="pl-7" value={form.monto_total}
                   onChange={e => set('monto_total', e.target.value)} inputMode="decimal" />
               </div>
             </Field>
             <Field label="Monto que pagó ahora *">
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6b85a0] text-[14px] font-bold pointer-events-none">$</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted text-[14px] font-bold pointer-events-none">$</span>
                 <Input type="number" placeholder="0" className="pl-7" value={form.monto_pagado}
                   onChange={e => set('monto_pagado', e.target.value)} inputMode="decimal" />
               </div>
@@ -367,7 +367,7 @@ export default function EntregaModal() {
             {form.monto_total && form.monto_pagado && deudaNueva > 0 && (
               <div className="bg-amber-500/10 border border-amber-500/25 rounded-xl px-3 py-[10px] mb-3 flex items-center justify-between">
                 <div>
-                  <p className="text-[12px] text-[#6b85a0]">Queda pendiente (deuda)</p>
+                  <p className="text-[12px] text-muted">Queda pendiente (deuda)</p>
                   <p className="text-[10px] text-amber-400/70 mt-[1px]">Se suma a su saldo deudor</p>
                 </div>
                 <span className="font-heading font-extrabold text-[16px] text-amber-400">{fmtMoney(deudaNueva)}</span>
@@ -379,8 +379,8 @@ export default function EntregaModal() {
                   <button key={m.id} onClick={() => set('metodo_pago', m.id)}
                     className={`flex items-center gap-2 px-3 py-[10px] rounded-xl border text-[13px] font-medium transition-all ${
                       form.metodo_pago === m.id
-                        ? 'border-amber-400 bg-amber-400/10 text-[#f0f4f8]'
-                        : 'border-white/7 bg-[#1a2840] text-[#6b85a0]'
+                        ? 'border-amber-400 bg-amber-400/10 text-textc'
+                        : 'border-[var(--c-border)] bg-surface2 text-muted'
                     }`}><span>{m.icon}</span> {m.label}</button>
                 ))}
               </div>
@@ -401,8 +401,8 @@ export default function EntregaModal() {
                 <button key={m} onClick={() => set('motivo_cancelacion', m)}
                   className={`text-left px-3 py-[10px] rounded-xl border text-[13px] font-medium transition-all ${
                     form.motivo_cancelacion === m
-                      ? 'border-red-400 bg-red-400/10 text-[#f0f4f8]'
-                      : 'border-white/7 bg-[#1a2840] text-[#6b85a0]'
+                      ? 'border-red-400 bg-red-400/10 text-textc'
+                      : 'border-[var(--c-border)] bg-surface2 text-muted'
                   }`}>{m}</button>
               ))}
             </div>
@@ -422,7 +422,7 @@ export default function EntregaModal() {
               <div className="flex gap-2 flex-wrap mb-2">
                 {fotos.map((f, i) => (
                   <div key={i} className="relative">
-                    <img src={f.preview} alt="Comprobante" className="w-20 h-20 object-cover rounded-xl border border-white/10" />
+                    <img src={f.preview} alt="Comprobante" className="w-20 h-20 object-cover rounded-xl border border-[var(--c-border2)]" />
                     <button onClick={() => removeFoto(i)}
                       className="absolute -top-1 -right-1 bg-black/70 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px]">✕</button>
                   </div>
@@ -431,11 +431,11 @@ export default function EntregaModal() {
             )}
             <div className="flex gap-2">
               <button onClick={() => fileRef.current.click()}
-                className="flex-1 flex items-center justify-center gap-2 bg-[#1a2840] border border-dashed border-white/15 rounded-xl py-4 text-[#6b85a0] text-[13px] transition-colors active:bg-[#1f3050]">
+                className="flex-1 flex items-center justify-center gap-2 bg-surface2 border border-dashed border-white/15 rounded-xl py-4 text-muted text-[13px] transition-colors active:bg-surface3">
                 📷 Cámara
               </button>
               <button onClick={() => galleryRef.current.click()}
-                className="flex-1 flex items-center justify-center gap-2 bg-[#1a2840] border border-dashed border-white/15 rounded-xl py-4 text-[#6b85a0] text-[13px] transition-colors active:bg-[#1f3050]">
+                className="flex-1 flex items-center justify-center gap-2 bg-surface2 border border-dashed border-white/15 rounded-xl py-4 text-muted text-[13px] transition-colors active:bg-surface3">
                 🖼️ Galería
               </button>
             </div>
@@ -469,7 +469,7 @@ export default function EntregaModal() {
         </button>
         <div className="h-2" />
         <button onClick={closeModal}
-          className="w-full bg-[#1a2840] border border-white/7 text-[#f0f4f8] font-heading font-bold text-[13px] py-[13px] rounded-xl">
+          className="w-full bg-surface2 border border-[var(--c-border)] text-textc font-heading font-bold text-[13px] py-[13px] rounded-xl">
           Cancelar
         </button>
       </div>

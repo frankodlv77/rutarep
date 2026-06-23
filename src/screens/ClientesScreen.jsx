@@ -158,23 +158,23 @@ export default function ClientesScreen() {
     <div className="p-4">
       {/* Stats */}
       <div className="flex gap-2 mb-4">
-        <div className="flex-1 bg-[#131e2e] border border-white/7 rounded-xl p-2 text-center">
+        <div className="flex-1 bg-surface border border-[var(--c-border)] rounded-xl p-2 text-center">
           <div className="font-heading text-[22px] font-extrabold text-info">{clientes.length}</div>
-          <div className="text-[9px] text-[#6b85a0] uppercase tracking-[.4px] mt-[2px]">Total</div>
+          <div className="text-[9px] text-muted uppercase tracking-[.4px] mt-[2px]">Total</div>
         </div>
         {totalDeuda > 0 && (
           <button
             onClick={() => setSoloDeudores(v => !v)}
-            className={`flex-1 rounded-xl p-2 text-center border transition-all ${soloDeudores ? 'bg-red-500/20 border-red-500/60' : 'bg-[#131e2e] border-red-500/25'}`}
+            className={`flex-1 rounded-xl p-2 text-center border transition-all ${soloDeudores ? 'bg-red-500/20 border-red-500/60' : 'bg-surface border-red-500/25'}`}
           >
             <div className="font-heading text-[15px] font-extrabold text-red-400 leading-tight mt-[3px]">{fmtMoney(totalDeuda)}</div>
-            <div className="text-[9px] text-[#6b85a0] uppercase tracking-[.4px] mt-[2px]">{soloDeudores ? '← Ver todos' : 'Deuda total'}</div>
+            <div className="text-[9px] text-muted uppercase tracking-[.4px] mt-[2px]">{soloDeudores ? '← Ver todos' : 'Deuda total'}</div>
           </button>
         )}
         {topZonas.slice(0, totalDeuda > 0 ? 1 : 2).map(z => (
-          <div key={z} className="flex-1 bg-[#131e2e] border border-white/7 rounded-xl p-2 text-center">
-            <div className="font-heading text-[22px] font-extrabold text-[#6b85a0]">{byZona[z]}</div>
-            <div className="text-[9px] text-[#6b85a0] uppercase tracking-[.4px] mt-[2px]">{z.split(' ')[0]}</div>
+          <div key={z} className="flex-1 bg-surface border border-[var(--c-border)] rounded-xl p-2 text-center">
+            <div className="font-heading text-[22px] font-extrabold text-muted">{byZona[z]}</div>
+            <div className="text-[9px] text-muted uppercase tracking-[.4px] mt-[2px]">{z.split(' ')[0]}</div>
           </div>
         ))}
       </div>
@@ -190,7 +190,7 @@ export default function ClientesScreen() {
         </button>
         <button
           onClick={downloadTemplate}
-          className="flex items-center justify-center gap-1 bg-[#131e2e] border border-white/7 text-[#6b85a0] rounded-xl px-4 py-[11px] text-[12px] font-heading font-bold active:scale-[.98] transition-transform"
+          className="flex items-center justify-center gap-1 bg-surface border border-[var(--c-border)] text-muted rounded-xl px-4 py-[11px] text-[12px] font-heading font-bold active:scale-[.98] transition-transform"
         >
           📄 Plantilla
         </button>
@@ -199,9 +199,9 @@ export default function ClientesScreen() {
 
       {/* Import loading */}
       {importing && (
-        <div className="mb-3 bg-[#131e2e] border border-white/7 rounded-xl px-4 py-3 flex items-center gap-3">
+        <div className="mb-3 bg-surface border border-[var(--c-border)] rounded-xl px-4 py-3 flex items-center gap-3">
           <div className="w-4 h-4 border-2 border-amber-400 border-t-transparent rounded-full animate-spin flex-shrink-0" />
-          <span className="text-[13px] text-[#6b85a0]">Importando clientes...</span>
+          <span className="text-[13px] text-muted">Importando clientes...</span>
         </div>
       )}
 
@@ -227,10 +227,10 @@ export default function ClientesScreen() {
                 </span>
               )}
               {importResult.ok === 0 && importResult.errors.length === 0 && (
-                <span className="text-[13px] text-[#6b85a0]">Sin filas válidas</span>
+                <span className="text-[13px] text-muted">Sin filas válidas</span>
               )}
             </div>
-            <button onClick={() => setImportResult(null)} className="text-[#6b85a0] text-[18px] leading-none flex-shrink-0 hover:text-[#f0f4f8]">×</button>
+            <button onClick={() => setImportResult(null)} className="text-muted text-[18px] leading-none flex-shrink-0 hover:text-textc">×</button>
           </div>
           {importResult.errors.length > 0 && (
             <div className="mt-2 space-y-[3px]">
@@ -252,7 +252,7 @@ export default function ClientesScreen() {
           placeholder="Buscar por nombre, dirección o código..."
           value={q}
           onChange={e => setQ(e.target.value)}
-          className="w-full bg-[#131e2e] border border-white/7 rounded-xl pl-9 pr-4 py-[11px] text-[#f0f4f8] text-sm outline-none focus:border-amber-400 placeholder:text-[#6b85a0]"
+          className="w-full bg-surface border border-[var(--c-border)] rounded-xl pl-9 pr-4 py-[11px] text-textc text-sm outline-none focus:border-amber-400 placeholder:text-muted"
         />
       </div>
 
@@ -261,31 +261,31 @@ export default function ClientesScreen() {
         {zonasFiltro.map(z => (
           <button key={z} onClick={() => setZona(z)}
             className={`flex-shrink-0 px-3 py-[6px] rounded-full border text-[11px] font-heading font-semibold transition-all ${
-              zona === z ? 'bg-amber-400 text-[#0b1320] border-amber-400' : 'bg-[#131e2e] border-white/7 text-[#6b85a0]'
+              zona === z ? 'bg-amber-400 text-[#1a1a28] border-amber-400' : 'bg-surface border-[var(--c-border)] text-muted'
             }`}>{z}</button>
         ))}
       </div>
 
       {/* List */}
       {lista.length === 0 ? (
-        <div className="text-center py-12 text-[#6b85a0]">
+        <div className="text-center py-12 text-muted">
           <div className="text-[44px] mb-2 opacity-40">{clientes.length === 0 ? '👥' : '🔍'}</div>
           <div className="text-[13px] leading-relaxed">
             {clientes.length === 0 ? 'La base está vacía.\nTocá + para agregar clientes.' : 'Sin resultados'}
           </div>
         </div>
       ) : lista.map(c => (
-        <div key={c.id} className="bg-[#131e2e] border border-white/7 rounded-[14px] p-[13px_14px] mb-2 flex items-start gap-3 animate-fadeUp">
+        <div key={c.id} className="bg-surface border border-[var(--c-border)] rounded-[14px] p-[13px_14px] mb-2 flex items-start gap-3 animate-fadeUp">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-[2px]">
-              <div className="font-medium text-[14px] text-[#f0f4f8] truncate">{c.nombre}</div>
+              <div className="font-medium text-[14px] text-textc truncate">{c.nombre}</div>
               {c.codigo && (
-                <span className="flex-shrink-0 text-[10px] font-bold text-[#6b85a0] bg-[#1a2840] px-[6px] py-[2px] rounded-md font-mono">
+                <span className="flex-shrink-0 text-[10px] font-bold text-muted bg-surface2 px-[6px] py-[2px] rounded-md font-mono">
                   #{c.codigo}
                 </span>
               )}
             </div>
-            <div className="text-[11px] text-[#6b85a0] truncate">{c.direccion || 'Sin dirección'}</div>
+            <div className="text-[11px] text-muted truncate">{c.direccion || 'Sin dirección'}</div>
             <div className="mt-1 flex flex-wrap items-center gap-2">
               <ZoneBadge zona={c.zona} />
               {c.telefono && (
@@ -335,7 +335,7 @@ export default function ClientesScreen() {
 
       <button
         onClick={() => openModal('cliente', {})}
-        className="fixed bottom-5 right-[18px] w-[52px] h-[52px] bg-amber-400 text-[#0b1320] rounded-[16px] flex items-center justify-center text-[24px] font-bold shadow-[0_8px_24px_rgba(245,158,11,.35)] z-50 transition-transform active:scale-95"
+        className="fixed bottom-5 right-[18px] w-[52px] h-[52px] bg-amber-400 text-[#1a1a28] rounded-[16px] flex items-center justify-center text-[24px] font-bold shadow-[0_8px_24px_rgba(245,158,11,.35)] z-50 transition-transform active:scale-95"
       >+</button>
     </div>
   )

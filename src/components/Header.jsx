@@ -37,11 +37,11 @@ export default function Header({ user }) {
     <header
       className="px-[18px] pt-[13px] pb-[11px] flex items-center justify-between flex-shrink-0"
       style={{
-        background: 'rgba(11, 19, 32, 0.85)',
+        background: 'var(--header-bg)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
-        borderBottom: '1px solid rgba(255,255,255,0.05)',
-        boxShadow: '0 1px 0 rgba(255,255,255,0.03), 0 4px 16px rgba(0,0,0,0.3)',
+        borderBottom: '1px solid var(--header-border)',
+        boxShadow: 'var(--header-shadow)',
       }}
     >
       <div className="flex items-center gap-[10px]">
@@ -56,11 +56,11 @@ export default function Header({ user }) {
           🚚
         </div>
         <div>
-          <h1 className="font-heading text-[17px] font-extrabold tracking-tight text-[#f0f4f8] leading-tight">
+          <h1 className="font-heading text-[17px] font-extrabold tracking-tight text-textc leading-tight">
             {perfil?.negocio || 'RutaRep'}
           </h1>
           <div className="flex items-center gap-[6px] mt-[2px]">
-            <p className="text-[10px] text-[#6b85a0]">{subTxt}</p>
+            <p className="text-[10px] text-muted">{subTxt}</p>
             {perfil && (
               <span className={`text-[8px] font-bold px-[5px] py-[1px] rounded-full uppercase tracking-[.5px] ${ROL_COLORS[rol]}`}>
                 {ROL_LABELS[rol]}
@@ -71,15 +71,15 @@ export default function Header({ user }) {
       </div>
 
       <div className="flex items-center gap-3">
-        <div className="text-[10px] text-[#4a6080] text-right leading-relaxed">
+        <div className="text-[10px] text-muted2 text-right leading-relaxed">
           {dateStr}<br />{timeStr}
         </div>
         {user && (
           <button
             onClick={handleLogout}
             title="Cerrar sesión"
-            className="w-[30px] h-[30px] flex items-center justify-center rounded-lg text-[#4a6080] active:text-red-400 transition-colors"
-            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}
+            className="w-[30px] h-[30px] flex items-center justify-center rounded-lg text-muted2 active:text-red-400 transition-colors"
+            style={{ background: 'var(--header-btn-bg)', border: '1px solid var(--header-btn-border)' }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>

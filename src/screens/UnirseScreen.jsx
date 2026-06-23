@@ -46,7 +46,7 @@ export default function UnirseScreen({ token, onDone }) {
         {/* Banner de contexto sobre LoginScreen */}
         <div className="bg-amber-400 px-4 py-3 flex items-center gap-2">
           <span className="text-[18px]">🔗</span>
-          <p className="text-[12px] font-bold text-[#0b1320]">
+          <p className="text-[12px] font-bold text-[#1a1a28]">
             Tenés una invitación pendiente. Ingresá o registrate para aceptarla.
           </p>
         </div>
@@ -61,26 +61,26 @@ export default function UnirseScreen({ token, onDone }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#0b1320] flex flex-col items-center justify-center px-6">
+    <div className="min-h-screen bg-bg flex flex-col items-center justify-center px-6">
       <div className="w-[64px] h-[64px] bg-amber-400 rounded-[18px] flex items-center justify-center text-[32px] mb-5">
         🚚
       </div>
-      <h1 className="font-heading text-[22px] font-extrabold text-[#f0f4f8] mb-2">RutaRep</h1>
+      <h1 className="font-heading text-[22px] font-extrabold text-textc mb-2">RutaRep</h1>
 
       {status === 'loading' && (
-        <p className="text-[13px] text-[#6b85a0] animate-pulse">Procesando invitación...</p>
+        <p className="text-[13px] text-muted animate-pulse">Procesando invitación...</p>
       )}
 
       {status === 'ok' && (
         <div className="w-full max-w-[320px] text-center mt-4">
           <div className="text-[56px] mb-3">🎉</div>
-          <p className="text-[17px] font-heading font-extrabold text-[#f0f4f8] mb-2">¡Te uniste al equipo!</p>
-          <p className="text-[13px] text-[#6b85a0] mb-6 leading-relaxed">
+          <p className="text-[17px] font-heading font-extrabold text-textc mb-2">¡Te uniste al equipo!</p>
+          <p className="text-[13px] text-muted mb-6 leading-relaxed">
             Ahora sos parte de <strong className="text-amber-400">{equipoNombre}</strong>.
           </p>
           <button
             onClick={onDone}
-            className="w-full bg-amber-400 text-[#0b1320] font-heading font-bold text-[14px] py-[14px] rounded-xl"
+            className="w-full bg-amber-400 text-[#1a1a28] font-heading font-bold text-[14px] py-[14px] rounded-xl"
           >
             Ir a la app →
           </button>
@@ -90,11 +90,11 @@ export default function UnirseScreen({ token, onDone }) {
       {status === 'error' && (
         <div className="w-full max-w-[320px] text-center mt-4">
           <div className="text-[48px] mb-3">⚠️</div>
-          <p className="text-[14px] font-bold text-[#f0f4f8] mb-2">Link inválido o expirado</p>
-          <p className="text-[12px] text-[#6b85a0] mb-6">{msg}</p>
+          <p className="text-[14px] font-bold text-textc mb-2">Link inválido o expirado</p>
+          <p className="text-[12px] text-muted mb-6">{msg}</p>
           <button
             onClick={onDone}
-            className="w-full bg-[#131e2e] border border-white/10 text-[#6b85a0] font-heading font-bold text-[14px] py-[13px] rounded-xl"
+            className="w-full bg-surface border border-[var(--c-border2)] text-muted font-heading font-bold text-[14px] py-[13px] rounded-xl"
           >
             Ir a la app
           </button>

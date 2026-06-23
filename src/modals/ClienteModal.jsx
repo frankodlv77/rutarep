@@ -69,22 +69,22 @@ function AddressField({ value, onChange, onCoords, zona = '' }) {
     <div ref={containerRef} className="relative">
       <div className="relative">
         <Input placeholder="Ej: San Martín 450" value={value} onChange={handleChange} autoComplete="off" />
-        {searching && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-[#6b85a0] animate-pulse">Buscando...</span>}
+        {searching && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted animate-pulse">Buscando...</span>}
       </div>
       {searchErr && !searching && value.length >= 3 && (
-        <p className="text-[10px] text-[#6b85a0] mt-1 px-1">Sin resultados — probá escribir diferente o usá el GPS</p>
+        <p className="text-[10px] text-muted mt-1 px-1">Sin resultados — probá escribir diferente o usá el GPS</p>
       )}
       {open && suggestions.length > 0 && (
-        <div className="absolute left-0 right-0 mt-1 bg-[#1a2840] border border-white/10 rounded-xl overflow-hidden shadow-2xl" style={{ zIndex: 9999 }}>
+        <div className="absolute left-0 right-0 mt-1 bg-surface2 border border-[var(--c-border2)] rounded-xl overflow-hidden shadow-2xl" style={{ zIndex: 9999 }}>
           {suggestions.map((s, i) => {
             const label = formatSuggestion(s)
             const cityPart = s.address?.city || s.address?.town || s.address?.municipality || s.address?.county || ''
             return (
               <button key={i} type="button" onPointerDown={(e) => { e.preventDefault(); handleSelect(s) }}
-                className="w-full text-left px-3 py-[11px] text-[12px] text-[#f0f4f8] active:bg-amber-400/10 border-b border-white/5 last:border-0 leading-snug">
+                className="w-full text-left px-3 py-[11px] text-[12px] text-textc active:bg-amber-400/10 border-b border-white/5 last:border-0 leading-snug">
                 <span className="text-amber-400 mr-1">📍</span>
                 <span className="font-medium">{label}</span>
-                {cityPart && label !== cityPart && <span className="text-[10px] text-[#6b85a0] ml-1">— {cityPart}</span>}
+                {cityPart && label !== cityPart && <span className="text-[10px] text-muted ml-1">— {cityPart}</span>}
               </button>
             )
           })}
@@ -160,7 +160,7 @@ export default function ClienteModal() {
   return (
     <Modal id="cliente">
       <div className="px-[18px] pb-10">
-        <h2 className="font-heading font-extrabold text-[16px] text-[#f0f4f8] mb-4">
+        <h2 className="font-heading font-extrabold text-[16px] text-textc mb-4">
           {isEdit ? 'Editar cliente' : 'Nuevo cliente'}
         </h2>
 
@@ -196,7 +196,7 @@ export default function ClienteModal() {
               type="button"
               onClick={() => setShowMap(true)}
               title="Elegir punto en el mapa"
-              className="shrink-0 flex items-center justify-center w-[42px] h-[42px] rounded-xl bg-[#1a2840] border border-amber-400/40 text-amber-400 text-[20px] active:bg-amber-400/10">
+              className="shrink-0 flex items-center justify-center w-[42px] h-[42px] rounded-xl bg-surface2 border border-amber-400/40 text-amber-400 text-[20px] active:bg-amber-400/10">
               🗺️
             </button>
           </div>
@@ -215,7 +215,7 @@ export default function ClienteModal() {
         {form.lat ? (
           <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 rounded-lg px-3 py-2 mb-3">
             <span className="text-[11px] text-emerald-400 font-medium">✅ Tiene coordenadas GPS</span>
-            <button onClick={() => { set('lat', ''); set('lon', '') }} className="ml-auto text-[#6b85a0] text-[13px] px-1">✕</button>
+            <button onClick={() => { set('lat', ''); set('lon', '') }} className="ml-auto text-muted text-[13px] px-1">✕</button>
           </div>
         ) : (
           <div className="bg-orange-500/10 border border-orange-500/20 rounded-lg px-3 py-2 mb-3">
@@ -224,17 +224,17 @@ export default function ClienteModal() {
         )}
 
         <button onClick={capturarGPS} disabled={gpsLoading}
-          className="flex items-center gap-2 w-full bg-[#1a2840] border border-dashed border-amber-400/40 rounded-[10px] px-3 py-[11px] text-amber-400 text-[12px] font-medium mb-4 active:bg-amber-400/10">
+          className="flex items-center gap-2 w-full bg-surface2 border border-dashed border-amber-400/40 rounded-[10px] px-3 py-[11px] text-amber-400 text-[12px] font-medium mb-4 active:bg-amber-400/10">
           {gpsLoading ? '📍 Obteniendo ubicación...' : '📍 Estoy en el local — guardar mi ubicación actual'}
         </button>
 
         <button onClick={guardar}
-          className="w-full bg-amber-400 text-[#0b1320] font-heading font-bold text-[13px] py-[13px] rounded-xl active:scale-[.97] transition-transform">
+          className="w-full bg-amber-400 text-[#1a1a28] font-heading font-bold text-[13px] py-[13px] rounded-xl active:scale-[.97] transition-transform">
           Guardar cliente
         </button>
         <div className="h-2" />
         <button onClick={closeModal}
-          className="w-full bg-[#1a2840] border border-white/7 text-[#f0f4f8] font-heading font-bold text-[13px] py-[13px] rounded-xl">
+          className="w-full bg-surface2 border border-[var(--c-border)] text-textc font-heading font-bold text-[13px] py-[13px] rounded-xl">
           Cancelar
         </button>
       </div>

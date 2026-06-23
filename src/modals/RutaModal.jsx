@@ -59,7 +59,7 @@ export default function RutaModal() {
   return (
     <Modal id="ruta">
       <div className="px-[18px] pb-10">
-        <h2 className="font-heading font-extrabold text-[16px] text-[#f0f4f8] mb-4">{isEdit ? 'Editar ruta' : 'Nueva ruta'}</h2>
+        <h2 className="font-heading font-extrabold text-[16px] text-textc mb-4">{isEdit ? 'Editar ruta' : 'Nueva ruta'}</h2>
 
         <Field label="Nombre de la ruta *">
           <Input placeholder="Ej: Ruta Godoy Cruz Lunes" value={nombre} onChange={e => setNombre(e.target.value)} />
@@ -71,23 +71,23 @@ export default function RutaModal() {
         {!saved ? (
           <button
             onClick={guardarInfo}
-            className="w-full bg-amber-400 text-[#0b1320] font-heading font-bold text-[13px] py-[13px] rounded-xl mb-3"
+            className="w-full bg-amber-400 text-[#1a1a28] font-heading font-bold text-[13px] py-[13px] rounded-xl mb-3"
           >Continuar → Agregar clientes</button>
         ) : (
           <>
             {/* Clientes en la ruta */}
             {clienteIds.length > 0 && (
               <div className="mb-4">
-                <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.8px] mb-2">En la ruta ({clienteIds.length})</p>
+                <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px] mb-2">En la ruta ({clienteIds.length})</p>
                 {clienteIds.map((id, idx) => {
                   const c = clientes.find(x => x.id === id)
                   if (!c) return null
                   return (
-                    <div key={id} className="flex items-center gap-3 bg-[#1a2840] rounded-xl px-3 py-[9px] mb-[5px]">
-                      <span className="text-[10px] text-[#6b85a0] font-bold w-4">{idx + 1}</span>
+                    <div key={id} className="flex items-center gap-3 bg-surface2 rounded-xl px-3 py-[9px] mb-[5px]">
+                      <span className="text-[10px] text-muted font-bold w-4">{idx + 1}</span>
                       <div className="flex-1 min-w-0">
-                        <div className="text-[13px] font-medium text-[#f0f4f8] truncate">{c.nombre}</div>
-                        <div className="text-[10px] text-[#6b85a0] truncate">{c.direccion || 'Sin dirección'}</div>
+                        <div className="text-[13px] font-medium text-textc truncate">{c.nombre}</div>
+                        <div className="text-[10px] text-muted truncate">{c.direccion || 'Sin dirección'}</div>
                       </div>
                       <ZoneBadge zona={c.zona} />
                       <button
@@ -104,7 +104,7 @@ export default function RutaModal() {
             <div className="h-[1px] bg-white/7 my-3" />
 
             {/* Add clients */}
-            <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.8px] mb-2">
+            <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px] mb-2">
               Tocá un cliente para agregarlo
             </p>
             <div className="relative mb-3">
@@ -118,18 +118,18 @@ export default function RutaModal() {
                   key={c.id}
                   type="button"
                   onPointerDown={() => addClienteToRuta(rutaId, c.id)}
-                  className="flex items-center gap-3 w-full text-left bg-[#131e2e] border border-white/5 rounded-xl px-3 py-[11px] mb-[6px] active:bg-amber-400/10 active:border-amber-400/40 transition-colors"
+                  className="flex items-center gap-3 w-full text-left bg-surface border border-white/5 rounded-xl px-3 py-[11px] mb-[6px] active:bg-amber-400/10 active:border-amber-400/40 transition-colors"
                 >
                   <span className="text-amber-400 text-[16px] font-bold flex-shrink-0">+</span>
                   <div className="flex-1 min-w-0">
-                    <div className="text-[13px] font-medium text-[#f0f4f8] truncate">{c.nombre}</div>
-                    <div className="text-[10px] text-[#6b85a0] truncate">{c.direccion || 'Sin dirección'}</div>
+                    <div className="text-[13px] font-medium text-textc truncate">{c.nombre}</div>
+                    <div className="text-[10px] text-muted truncate">{c.direccion || 'Sin dirección'}</div>
                   </div>
                   <ZoneBadge zona={c.zona} />
                 </button>
               ))}
               {filteredClientes.length === 0 && (
-                <p className="text-[12px] text-[#6b85a0] text-center py-4">
+                <p className="text-[12px] text-muted text-center py-4">
                   {q ? 'Sin resultados' : 'Todos los clientes ya están en esta ruta'}
                 </p>
               )}
@@ -139,7 +139,7 @@ export default function RutaModal() {
             <button
               type="button"
               onClick={async () => { await updateRuta(rutaId, { nombre: nombre.trim(), descripcion: desc.trim() }); closeModal() }}
-              className="w-full bg-amber-400 text-[#0b1320] font-heading font-bold text-[13px] py-[13px] rounded-xl"
+              className="w-full bg-amber-400 text-[#1a1a28] font-heading font-bold text-[13px] py-[13px] rounded-xl"
             >Guardar y cerrar</button>
           </>
         )}
@@ -148,7 +148,7 @@ export default function RutaModal() {
         <button
           type="button"
           onClick={closeModal}
-          className="w-full bg-[#1a2840] border border-white/7 text-[#f0f4f8] font-heading font-bold text-[13px] py-[13px] rounded-xl"
+          className="w-full bg-surface2 border border-[var(--c-border)] text-textc font-heading font-bold text-[13px] py-[13px] rounded-xl"
         >
           Cancelar
         </button>

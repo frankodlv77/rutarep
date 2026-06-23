@@ -25,14 +25,14 @@ export default function OnboardingTour({ onDone }) {
   const s = SLIDES[slide]
 
   return (
-    <div className="fixed inset-0 z-[999] bg-[#0b1320]/95 backdrop-blur-sm flex flex-col items-center justify-center px-8">
+    <div className="fixed inset-0 z-[999] bg-bg/95 backdrop-blur-sm flex flex-col items-center justify-center px-8">
       {/* Card */}
-      <div className="w-full max-w-[320px] bg-[#131e2e] border border-white/7 rounded-3xl p-8 flex flex-col items-center text-center">
+      <div className="w-full max-w-[320px] bg-surface border border-[var(--c-border)] rounded-3xl p-8 flex flex-col items-center text-center">
         <div className="w-[72px] h-[72px] bg-amber-400/10 rounded-2xl flex items-center justify-center text-[40px] mb-5">
           {s.icon}
         </div>
-        <h2 className="font-heading font-extrabold text-[20px] text-[#f0f4f8] mb-3 leading-snug">{s.title}</h2>
-        <p className="text-[13px] text-[#6b85a0] leading-relaxed mb-8">{s.desc}</p>
+        <h2 className="font-heading font-extrabold text-[20px] text-textc mb-3 leading-snug">{s.title}</h2>
+        <p className="text-[13px] text-muted leading-relaxed mb-8">{s.desc}</p>
 
         {/* Dots */}
         <div className="flex gap-2 mb-6">
@@ -46,7 +46,7 @@ export default function OnboardingTour({ onDone }) {
 
         <button
           onClick={() => isLast ? onDone() : setSlide(s => s + 1)}
-          className="w-full bg-amber-400 text-[#0b1320] font-heading font-bold text-[14px] py-[14px] rounded-xl active:scale-[.98] transition-transform"
+          className="w-full bg-amber-400 text-[#1a1a28] font-heading font-bold text-[14px] py-[14px] rounded-xl active:scale-[.98] transition-transform"
         >
           {isLast ? 'Empezar' : 'Siguiente'}
         </button>
@@ -54,7 +54,7 @@ export default function OnboardingTour({ onDone }) {
         {!isLast && (
           <button
             onClick={onDone}
-            className="mt-3 text-[12px] text-[#6b85a0] hover:text-amber-400 transition-colors"
+            className="mt-3 text-[12px] text-muted hover:text-amber-400 transition-colors"
           >
             Saltar tour
           </button>

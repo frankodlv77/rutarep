@@ -171,7 +171,7 @@ export default function StatsScreen() {
 
   if (historial.length === 0) {
     return (
-      <div className="p-4 text-center pt-16 text-[#6b85a0]">
+      <div className="p-4 text-center pt-16 text-muted">
         <div className="text-[48px] mb-3 opacity-40">📊</div>
         <div className="text-[13px] leading-relaxed">Finalizá tu primer día de ruta<br/>para ver las estadísticas.</div>
       </div>
@@ -182,11 +182,11 @@ export default function StatsScreen() {
     <div className="p-4 overflow-y-auto">
 
       {/* Selector período */}
-      <div className="flex bg-[#131e2e] border border-white/7 rounded-xl p-1 mb-2 gap-1">
+      <div className="flex bg-surface border border-[var(--c-border)] rounded-xl p-1 mb-2 gap-1">
         {PERIOD_OPTIONS.map(p => (
           <button key={p.key} onClick={() => setPeriod(p.key)}
             className={`flex-1 py-[8px] rounded-lg text-[11px] font-heading font-bold transition-all ${
-              period === p.key ? 'bg-amber-400 text-[#0b1320]' : 'text-[#6b85a0]'
+              period === p.key ? 'bg-amber-400 text-[#1a1a28]' : 'text-muted'
             }`}>{p.label}</button>
         ))}
       </div>
@@ -195,30 +195,30 @@ export default function StatsScreen() {
       {period === 'custom' && (
         <div className="flex gap-2 mb-2">
           <div className="flex-1">
-            <p className="text-[9px] text-[#6b85a0] uppercase tracking-[.5px] mb-1 ml-1">Desde</p>
+            <p className="text-[9px] text-muted uppercase tracking-[.5px] mb-1 ml-1">Desde</p>
             <input
               type="date"
               value={dateFrom}
               max={dateTo}
               onChange={e => setDateFrom(e.target.value)}
-              className="w-full bg-[#131e2e] border border-white/7 rounded-xl px-3 py-[10px] text-[#f0f4f8] text-[13px] outline-none focus:border-amber-400"
+              className="w-full bg-surface border border-[var(--c-border)] rounded-xl px-3 py-[10px] text-textc text-[13px] outline-none focus:border-amber-400"
             />
           </div>
           <div className="flex-1">
-            <p className="text-[9px] text-[#6b85a0] uppercase tracking-[.5px] mb-1 ml-1">Hasta</p>
+            <p className="text-[9px] text-muted uppercase tracking-[.5px] mb-1 ml-1">Hasta</p>
             <input
               type="date"
               value={dateTo}
               min={dateFrom}
               max={todayStr()}
               onChange={e => setDateTo(e.target.value)}
-              className="w-full bg-[#131e2e] border border-white/7 rounded-xl px-3 py-[10px] text-[#f0f4f8] text-[13px] outline-none focus:border-amber-400"
+              className="w-full bg-surface border border-[var(--c-border)] rounded-xl px-3 py-[10px] text-textc text-[13px] outline-none focus:border-amber-400"
             />
           </div>
         </div>
       )}
 
-      <p className="text-[10px] text-[#6b85a0] text-right mb-4">
+      <p className="text-[10px] text-muted text-right mb-4">
         {filtered.length} día{filtered.length !== 1 ? 's' : ''} en el período
       </p>
 
@@ -231,12 +231,12 @@ export default function StatsScreen() {
           { label: 'Efectividad',  rawValue: efectividad,    format: n => `${Math.round(n)}%`, color: efectividad >= 80 ? 'text-emerald-400' : efectividad >= 60 ? 'text-amber-400' : 'text-red-400', icon: '🎯' },
         ].map((s, i) => (
           <motion.div key={s.label} custom={i} variants={cardVariants} initial="hidden" animate="visible"
-            className="bg-[#131e2e] border border-white/7 rounded-xl p-3">
+            className="bg-surface border border-[var(--c-border)] rounded-xl p-3">
             <div className="text-[16px] mb-1">{s.icon}</div>
             <div className={`font-heading text-[18px] font-extrabold ${s.color} leading-tight`}>
               <AnimatedNumber value={s.rawValue} format={s.format} />
             </div>
-            <div className="text-[9px] text-[#6b85a0] uppercase tracking-[.4px] mt-[2px]">{s.label}</div>
+            <div className="text-[9px] text-muted uppercase tracking-[.4px] mt-[2px]">{s.label}</div>
           </motion.div>
         ))}
       </div>
@@ -244,17 +244,17 @@ export default function StatsScreen() {
       {/* Stats secundarias */}
       <div className="flex gap-2 mb-4">
         {[
-          { label: 'Días',      value: diasTrabajados,     color: 'text-[#f0f4f8]' },
-          { label: 'Visitas',   value: totalVisitas,       color: 'text-[#f0f4f8]' },
+          { label: 'Días',      value: diasTrabajados,     color: 'text-textc' },
+          { label: 'Visitas',   value: totalVisitas,       color: 'text-textc' },
           { label: 'Entregas',  value: totalEntregados,    color: 'text-emerald-400' },
-          { label: 'Canceladas', value: totalCancelaciones, color: totalCancelaciones > 0 ? 'text-red-400' : 'text-[#6b85a0]' },
+          { label: 'Canceladas', value: totalCancelaciones, color: totalCancelaciones > 0 ? 'text-red-400' : 'text-muted' },
         ].map((s, i) => (
           <motion.div key={s.label} custom={i + 4} variants={cardVariants} initial="hidden" animate="visible"
-            className="flex-1 bg-[#131e2e] border border-white/7 rounded-xl p-2 text-center">
+            className="flex-1 bg-surface border border-[var(--c-border)] rounded-xl p-2 text-center">
             <div className={`font-heading text-[18px] font-extrabold ${s.color}`}>
               <AnimatedNumber value={s.value} />
             </div>
-            <div className="text-[9px] text-[#6b85a0] uppercase tracking-[.4px] mt-[1px]">{s.label}</div>
+            <div className="text-[9px] text-muted uppercase tracking-[.4px] mt-[1px]">{s.label}</div>
           </motion.div>
         ))}
       </div>
@@ -270,7 +270,7 @@ export default function StatsScreen() {
             <p className={`text-[12px] font-bold ${tendenciaPct >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
               {tendenciaPct >= 0 ? '📈' : '📉'} Esta semana vs anterior
             </p>
-            <p className="text-[10px] text-[#6b85a0] mt-[2px]">{fmtMoney(montoActual)} vs {fmtMoney(montoAnterior)}</p>
+            <p className="text-[10px] text-muted mt-[2px]">{fmtMoney(montoActual)} vs {fmtMoney(montoAnterior)}</p>
           </div>
           <span className={`font-heading font-extrabold text-[22px] ${tendenciaPct >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
             {tendenciaPct >= 0 ? '+' : ''}{tendenciaPct}%
@@ -280,8 +280,8 @@ export default function StatsScreen() {
 
       {/* Gráfico de barras */}
       {chartData.length > 0 && (
-        <div className="bg-[#131e2e] border border-white/7 rounded-xl p-3 mb-4">
-          <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.8px] mb-3">
+        <div className="bg-surface border border-[var(--c-border)] rounded-xl p-3 mb-4">
+          <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px] mb-3">
             Recaudación por día
           </p>
           <div className="flex items-end gap-[5px] h-20">
@@ -296,7 +296,7 @@ export default function StatsScreen() {
                     style={{ height: `${heightPct}%` }}
                     title={fmtMoney(h2)}
                   />
-                  <span className="text-[8px] text-[#6b85a0] capitalize truncate w-full text-center">{label}</span>
+                  <span className="text-[8px] text-muted capitalize truncate w-full text-center">{label}</span>
                 </div>
               )
             })}
@@ -306,8 +306,8 @@ export default function StatsScreen() {
 
       {/* Métodos de pago */}
       {totalPagos > 0 && (
-        <div className="bg-[#131e2e] border border-white/7 rounded-xl p-3 mb-4">
-          <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.8px] mb-3">Métodos de pago</p>
+        <div className="bg-surface border border-[var(--c-border)] rounded-xl p-3 mb-4">
+          <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px] mb-3">Métodos de pago</p>
           {[
             { label: 'Efectivo',      value: efectivo,      icon: '💵', color: 'bg-emerald-400' },
             { label: 'Transferencia', value: transferencia,  icon: '🏦', color: 'bg-blue-400' },
@@ -316,10 +316,10 @@ export default function StatsScreen() {
           ].filter(m => m.value > 0).map(m => (
             <div key={m.label} className="mb-2">
               <div className="flex items-center justify-between mb-1">
-                <span className="text-[11px] text-[#f0f4f8]">{m.icon} {m.label}</span>
-                <span className="text-[11px] font-bold text-[#f0f4f8]">{fmtMoney(m.value)} <span className="text-[#6b85a0] font-normal">({pct(m.value, totalPagos)}%)</span></span>
+                <span className="text-[11px] text-textc">{m.icon} {m.label}</span>
+                <span className="text-[11px] font-bold text-textc">{fmtMoney(m.value)} <span className="text-muted font-normal">({pct(m.value, totalPagos)}%)</span></span>
               </div>
-              <div className="h-[6px] bg-[#1a2840] rounded-full overflow-hidden">
+              <div className="h-[6px] bg-surface2 rounded-full overflow-hidden">
                 <div className={`h-full ${m.color} rounded-full transition-all`} style={{ width: `${pct(m.value, totalPagos)}%` }} />
               </div>
             </div>
@@ -330,24 +330,24 @@ export default function StatsScreen() {
       {/* Mejor día */}
       {mejorDia && (
         <div className="bg-amber-400/10 border border-amber-400/30 rounded-xl p-3 mb-4">
-          <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.8px] mb-1">🏆 Mejor día del período</p>
+          <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px] mb-1">🏆 Mejor día del período</p>
           <p className="text-[13px] font-bold text-amber-400 capitalize">{mejorDia.fecha}</p>
           <div className="flex items-center gap-3 mt-1">
             <span className="text-[18px] font-extrabold text-emerald-400 font-heading">{fmtMoney(mejorDia.total_monto)}</span>
-            <span className="text-[11px] text-[#6b85a0]">{mejorDia.total_entregados}/{mejorDia.total_clientes} entregas</span>
+            <span className="text-[11px] text-muted">{mejorDia.total_entregados}/{mejorDia.total_clientes} entregas</span>
           </div>
         </div>
       )}
 
       {/* Por zona */}
       {zonasOrdenadas.length > 0 && (
-        <div className="bg-[#131e2e] border border-white/7 rounded-xl p-3 mb-4">
-          <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.8px] mb-3">Recaudación por zona</p>
+        <div className="bg-surface border border-[var(--c-border)] rounded-xl p-3 mb-4">
+          <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px] mb-3">Recaudación por zona</p>
           {zonasOrdenadas.map(([zona, monto], i) => (
             <div key={zona} className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <span className="text-[10px] font-bold text-amber-400 w-4">{i + 1}</span>
-                <span className="text-[12px] text-[#f0f4f8]">{zona}</span>
+                <span className="text-[12px] text-textc">{zona}</span>
               </div>
               <span className="text-[12px] font-bold text-emerald-400">{fmtMoney(monto)}</span>
             </div>
@@ -357,14 +357,14 @@ export default function StatsScreen() {
 
       {/* Top clientes */}
       {topClientes.length > 0 && (
-        <div className="bg-[#131e2e] border border-white/7 rounded-xl p-3 mb-4">
-          <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.8px] mb-3">Top clientes (histórico)</p>
+        <div className="bg-surface border border-[var(--c-border)] rounded-xl p-3 mb-4">
+          <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px] mb-3">Top clientes (histórico)</p>
           {topClientes.map(([nombre, data], i) => (
             <div key={nombre} className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2 min-w-0">
                 <span className="text-[10px] font-bold text-amber-400 w-4 flex-shrink-0">{i + 1}</span>
-                <span className="text-[12px] text-[#f0f4f8] truncate">{nombre}</span>
-                <span className="text-[9px] text-[#6b85a0] flex-shrink-0">{data.visitas}v</span>
+                <span className="text-[12px] text-textc truncate">{nombre}</span>
+                <span className="text-[9px] text-muted flex-shrink-0">{data.visitas}v</span>
               </div>
               <span className="text-[12px] font-bold text-emerald-400 flex-shrink-0 ml-2">{fmtMoney(data.monto)}</span>
             </div>
@@ -374,16 +374,16 @@ export default function StatsScreen() {
 
       {/* Cancelaciones */}
       {totalCancelaciones > 0 && (
-        <div className="bg-[#131e2e] border border-white/7 rounded-xl p-3 mb-4">
-          <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.8px] mb-3">
+        <div className="bg-surface border border-[var(--c-border)] rounded-xl p-3 mb-4">
+          <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px] mb-3">
             Cancelaciones — {totalCancelaciones} total
           </p>
           {motivosOrdenados.map(([motivo, cant]) => (
             <div key={motivo} className="flex items-center justify-between mb-2">
-              <span className="text-[12px] text-[#f0f4f8]">{motivo}</span>
+              <span className="text-[12px] text-textc">{motivo}</span>
               <div className="flex items-center gap-2">
                 <span className="text-[12px] font-bold text-red-400">{cant}</span>
-                <span className="text-[10px] text-[#6b85a0]">({pct(cant, totalCancelaciones)}%)</span>
+                <span className="text-[10px] text-muted">({pct(cant, totalCancelaciones)}%)</span>
               </div>
             </div>
           ))}
@@ -394,15 +394,15 @@ export default function StatsScreen() {
       {totalDeuda > 0 && (
         <div className="bg-red-500/8 border border-red-500/25 rounded-xl p-3 mb-4">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-[10px] font-bold text-[#6b85a0] uppercase tracking-[.8px]">Deuda pendiente</p>
+            <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px]">Deuda pendiente</p>
             <span className="text-[13px] font-extrabold text-red-400 font-heading">{fmtMoney(totalDeuda)}</span>
           </div>
-          <p className="text-[10px] text-[#6b85a0] mb-2">{cantDeudores} cliente{cantDeudores !== 1 ? 's' : ''} con deuda</p>
+          <p className="text-[10px] text-muted mb-2">{cantDeudores} cliente{cantDeudores !== 1 ? 's' : ''} con deuda</p>
           {topDeudores.map((c, i) => (
             <div key={c.id} className="flex items-center justify-between mb-[6px]">
               <div className="flex items-center gap-2 min-w-0">
                 <span className="text-[10px] font-bold text-red-400 w-4 flex-shrink-0">{i + 1}</span>
-                <span className="text-[12px] text-[#f0f4f8] truncate">{c.nombre}</span>
+                <span className="text-[12px] text-textc truncate">{c.nombre}</span>
               </div>
               <span className="text-[12px] font-bold text-red-400 flex-shrink-0 ml-2">{fmtMoney(c.deuda)}</span>
             </div>

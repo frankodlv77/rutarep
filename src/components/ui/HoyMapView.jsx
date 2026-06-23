@@ -115,14 +115,14 @@ export default function HoyMapView({ hoy, clientes, entregas }) {
         </div>
       )}
       {hoyClientes.length === 0 ? (
-        <div className="flex-1 flex items-center justify-center text-[#6b85a0] text-center">
+        <div className="flex-1 flex items-center justify-center text-muted text-center">
           <div>
             <div className="text-[44px] mb-2 opacity-40">🗺️</div>
             <div className="text-[13px]">Ningún cliente en ruta tiene GPS</div>
           </div>
         </div>
       ) : (
-        <div ref={mapRef} className="flex-1 rounded-xl overflow-hidden border border-white/10" />
+        <div ref={mapRef} className="flex-1 rounded-xl overflow-hidden border border-[var(--c-border2)]" />
       )}
       {/* Leyenda */}
       <div className="flex gap-3 flex-wrap mt-2 px-1">
