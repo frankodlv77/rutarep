@@ -23,6 +23,9 @@ import ChatScreen      from './screens/ChatScreen'
 // Encargado
 import DashboardScreen from './screens/encargado/DashboardScreen'
 import EquipoScreen    from './screens/encargado/EquipoScreen'
+import MapaScreen      from './screens/encargado/MapaScreen'
+
+import { useLocationTracker } from './hooks/useLocationTracker'
 
 import ClienteModal  from './modals/ClienteModal'
 import EntregaModal  from './modals/EntregaModal'
@@ -42,6 +45,7 @@ const SCREENS_REPARTIDOR = {
 const SCREENS_ENCARGADO = {
   dashboard: DashboardScreen,
   equipo:    EquipoScreen,
+  mapa:      MapaScreen,
   chat:      ChatScreen,
   hist:      HistorialScreen,
   perfil:    PerfilScreen,
@@ -50,8 +54,8 @@ const SCREENS_ENCARGADO = {
 const TABS_ENCARGADO = [
   { id: 'dashboard', icon: '📊', label: 'Dashboard' },
   { id: 'equipo',    icon: '👥', label: 'Equipo'    },
+  { id: 'mapa',      icon: '🗺️',  label: 'Mapa'      },
   { id: 'chat',      icon: '💬', label: 'Chat'      },
-  { id: 'hist',      icon: '📋', label: 'Historial' },
   { id: 'perfil',    icon: '👤', label: 'Perfil'    },
 ]
 
@@ -65,6 +69,8 @@ export default function App() {
   const activeTab   = useStore(s => s.activeTab)
   const setTab      = useStore(s => s.setTab)
   const chatUnread  = useStore(s => s.chatUnread)
+
+  useLocationTracker(perfil)
   const loadAll    = useStore(s => s.loadAll)
   const perfil     = useStore(s => s.perfil)
   const offline    = useOffline()
