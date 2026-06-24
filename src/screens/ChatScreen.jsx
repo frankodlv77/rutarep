@@ -160,16 +160,21 @@ export default function ChatScreen() {
       setTexto(t)
     } else {
       const nombre = perfiles[perfil.id]?.negocio || perfiles[perfil.id]?.nombre || 'Equipo'
-      fetch('/api/push', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          equipoId,
-          senderId: perfil.id,
-          title: `💬 ${nombre}`,
-          body: t.slice(0, 120),
-        }),
-      }).catch(() => {})
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (!session?.access_token) return
+        fetch('/api/push', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${session.access_token}`,
+          },
+          body: JSON.stringify({
+            equipoId,
+            title: `💬 ${nombre}`,
+            body: t.slice(0, 120),
+          }),
+        }).catch(() => {})
+      })
     }
     setEnviando(false)
   }

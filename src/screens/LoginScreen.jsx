@@ -23,7 +23,9 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
 
     if (mode === 'reset') {
       if (!email.trim()) { setLoading(false); return }
-      const { error: err } = await supabase.auth.resetPasswordForEmail(email.trim())
+      const { error: err } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+        redirectTo: window.location.origin,
+      })
       if (err) setError('No se pudo enviar el email. Verificá la dirección.')
       else setSuccess('Revisá tu email — te enviamos el link para restablecer tu contraseña.')
       setLoading(false)

@@ -15,8 +15,15 @@ webPush.setVapidDetails(
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end()
 
-  const { equipoId, senderId, title, body } = req.body
-  if (!equipoId || !senderId) return res.status(400).json({ error: 'Missing fields' })
+  // Verificar JWT de Supabase
+  const token = req.headers.authorization?.replace('Bearer ', '')
+  if (!token) return res.status(401).json({ error: 'Unauthorized' })
+  const { data: { user }, error: authError } = await supabase.auth.getUser(token)
+  if (authError || !user) return res.status(401).json({ error: 'Unauthorized' })
+
+  const { equipoId, title, body } = req.body
+  const senderId = user.id // usar el user del JWT, no el body
+  if (!equipoId) return res.status(400).json({ error: 'Missing fields' })
 
   const { data: subs } = await supabase
     .from('push_subscriptions')

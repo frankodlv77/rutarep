@@ -18,7 +18,8 @@ import LandingScreen  from './screens/LandingScreen'
 import UnirseScreen, { checkPendingInvite } from './screens/UnirseScreen'
 import OnboardingTour from './components/ui/OnboardingTour'
 
-import ChatScreen      from './screens/ChatScreen'
+import ChatScreen          from './screens/ChatScreen'
+import PasswordResetScreen from './screens/PasswordResetScreen'
 
 // Encargado
 import DashboardScreen from './screens/encargado/DashboardScreen'
@@ -77,10 +78,11 @@ export default function App() {
   useLocationTracker(perfil)
   usePWABadge()
 
-  const [user, setUser]           = useState(undefined)
-  const [authMode, setAuthMode]   = useState(null)
+  const [user, setUser]               = useState(undefined)
+  const [authMode, setAuthMode]       = useState(null)
   const [showOnboarding, setShowOnboarding] = useState(false)
   const [inviteToken, setInviteToken] = useState(getInviteToken)
+  const [isRecovery, setIsRecovery]   = useState(false)
 
   const INACTIVITY_MS = 14 * 60 * 60 * 1000
 
@@ -112,6 +114,11 @@ export default function App() {
     })
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (_event === 'PASSWORD_RECOVERY') {
+        setIsRecovery(true)
+        setUser(session?.user ?? null)
+        return
+      }
       const u = session?.user ?? null
       setUser(u)
       if (u) {
@@ -133,6 +140,16 @@ export default function App() {
       window.history.replaceState({}, '', window.location.pathname)
     }
   }, [inviteToken])
+
+  // ── Recuperación de contraseña ───────────────────────────────────
+  if (isRecovery) {
+    return (
+      <PasswordResetScreen onDone={() => {
+        setIsRecovery(false)
+        supabase.auth.signOut()
+      }} />
+    )
+  }
 
   // ── Pantalla de invitación ───────────────────────────────────────
   if (inviteToken) {

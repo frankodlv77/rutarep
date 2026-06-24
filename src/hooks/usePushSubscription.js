@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { supabase } from '../lib/supabase'
 
 function urlBase64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - base64String.length % 4) % 4)
@@ -31,10 +32,16 @@ async function subscribe(userId, equipoId) {
       })
     }
 
+    const { data: { session } } = await supabase.auth.getSession()
+    if (!session?.access_token) return
+
     await fetch('/api/subscribe', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId, equipoId, subscription: sub.toJSON() }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session.access_token}`,
+      },
+      body: JSON.stringify({ equipoId, subscription: sub.toJSON() }),
     })
   } catch (_) {
     // Push not supported or denied — silently ignore
