@@ -60,6 +60,7 @@ const useStore = create((set, get) => ({
   historial:  [],
   perfil:     null, // { id, nombre, rol }
   userId:     null,
+  userEmail:  null,
 
   // ── Today's session (localStorage) ───────────────────────────
   hoy:         lsGet(LS_HOY, []),
@@ -84,7 +85,7 @@ const useStore = create((set, get) => ({
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) { set({ loading: false }); return }
     const userId = user.id
-    set({ userId })
+    set({ userId, userEmail: user.email })
 
     const [{ data: clientes }, { data: rutas }, { data: rc }, { data: historialRaw }] = await Promise.all([
       supabase.from('clientes').select('*').order('nombre'),

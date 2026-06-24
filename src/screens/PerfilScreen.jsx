@@ -11,6 +11,7 @@ function setTheme(t) {
 
 export default function PerfilScreen() {
   const perfil         = useStore(s => s.perfil)
+  const userEmail      = useStore(s => s.userEmail)
   const updateNegocio  = useStore(s => s.updateNegocio)
   const deleteAccount  = useStore(s => s.deleteAccount)
   const logout         = useStore(s => s.logout)
@@ -89,7 +90,7 @@ export default function PerfilScreen() {
             Correo electrónico
           </label>
           <div className="bg-bg border border-[var(--c-border)] rounded-xl px-4 py-[12px] text-muted text-[14px] select-none">
-            {perfil?.nombre || '—'}
+            {userEmail || '—'}
           </div>
         </div>
 
