@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { supabase } from '../lib/supabase'
-import TerminosScreen from './TerminosScreen'
 
 export default function LoginScreen({ initialMode = 'login', onBack }) {
   const [email, setEmail]         = useState('')
@@ -8,11 +7,10 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
   const [negocio, setNegocio]     = useState('')
   const [rol, setRol]             = useState('repartidor')
   const [termsAccepted, setTerms] = useState(false)
-  const [loading, setLoading]     = useState(false)
-  const [error, setError]         = useState('')
-  const [success, setSuccess]     = useState('')
-  const [mode, setMode]           = useState(initialMode) // 'login' | 'register' | 'reset'
-  const [showTerms, setShowTerms] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError]     = useState('')
+  const [success, setSuccess] = useState('')
+  const [mode, setMode]       = useState(initialMode) // 'login' | 'register' | 'reset'
 
   const clearErrors = () => { setError(''); setSuccess('') }
 
@@ -72,8 +70,6 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
   }
 
   const switchMode = (next) => { setMode(next); clearErrors() }
-
-  if (showTerms) return <TerminosScreen onBack={() => setShowTerms(false)} />
 
   const isReset    = mode === 'reset'
   const isRegister = mode === 'register'

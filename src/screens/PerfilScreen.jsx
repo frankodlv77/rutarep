@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import useStore from '../store/useStore'
-import TerminosScreen from './TerminosScreen'
 
 function getTheme() {
   return localStorage.getItem('rr_theme') || 'light'
@@ -17,19 +16,16 @@ export default function PerfilScreen() {
   const logout         = useStore(s => s.logout)
   const openModal      = useStore(s => s.openModal)
 
-  const [negocio, setNegocio]         = useState(perfil?.negocio || '')
-  const [saving, setSaving]           = useState(false)
-  const [showTerms, setShowTerms]     = useState(false)
-  const [deleting, setDeleting]       = useState(false)
-  const [theme, setThemeState]        = useState(getTheme)
+  const [negocio, setNegocio]   = useState(perfil?.negocio || '')
+  const [saving, setSaving]     = useState(false)
+  const [deleting, setDeleting] = useState(false)
+  const [theme, setThemeState]  = useState(getTheme)
 
   const toggleTheme = () => {
     const next = theme === 'light' ? 'dark' : 'light'
     setTheme(next)
     setThemeState(next)
   }
-
-  if (showTerms) return <TerminosScreen onBack={() => setShowTerms(false)} />
 
   const handleSaveNegocio = async () => {
     setSaving(true)
@@ -125,13 +121,24 @@ export default function PerfilScreen() {
       {/* Sección: Legal */}
       <div className="bg-surface border border-[var(--c-border)] rounded-2xl p-4 mb-3">
         <p className="text-[10px] font-bold text-muted uppercase tracking-[.5px] mb-3">Legal</p>
-        <button
-          onClick={() => setShowTerms(true)}
+        <a
+          href="/terms.html"
+          target="_blank"
+          rel="noopener noreferrer"
           className="w-full flex items-center justify-between py-2 text-[13px] text-muted hover:text-amber-400 transition-colors"
         >
           <span>Términos y Condiciones</span>
           <span className="text-[16px]">→</span>
-        </button>
+        </a>
+        <a
+          href="/privacy.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full flex items-center justify-between py-2 text-[13px] text-muted hover:text-amber-400 transition-colors border-t border-[var(--c-border)] mt-1 pt-3"
+        >
+          <span>Política de Privacidad</span>
+          <span className="text-[16px]">→</span>
+        </a>
       </div>
 
       {/* Zona de peligro */}
