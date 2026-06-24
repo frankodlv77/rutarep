@@ -232,13 +232,23 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
             </button>
             <span className="text-[12px] text-muted leading-snug">
               Acepto los{' '}
-              <button
-                type="button"
-                onClick={() => setShowTerms(true)}
+              <a
+                href="/terms.html"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-amber-400 underline underline-offset-2"
               >
                 Términos y Condiciones
-              </button>
+              </a>
+              {' '}y la{' '}
+              <a
+                href="/privacy.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-amber-400 underline underline-offset-2"
+              >
+                Política de Privacidad
+              </a>
             </span>
           </div>
         )}
