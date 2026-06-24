@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { supabase } from '../lib/supabase'
 import useStore from '../store/useStore'
+import { usePushSubscription } from '../hooks/usePushSubscription'
 
 function formatTime(iso) {
   return new Date(iso).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })
@@ -32,6 +33,8 @@ export default function ChatScreen() {
   const channelRef   = useRef(null)
   const equipoIdRef  = useRef(null)
   const textareaRef  = useRef(null)
+
+  usePushSubscription(perfil, equipoId)
 
   const markRead = useCallback((eId) => {
     const key = `rr_chat_last_read_${eId}`
@@ -155,6 +158,18 @@ export default function ChatScreen() {
     })
     if (error) {
       setTexto(t)
+    } else {
+      const nombre = perfiles[perfil.id]?.negocio || perfiles[perfil.id]?.nombre || 'Equipo'
+      fetch('/api/push', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          equipoId,
+          senderId: perfil.id,
+          title: `💬 ${nombre}`,
+          body: t.slice(0, 120),
+        }),
+      }).catch(() => {})
     }
     setEnviando(false)
   }
@@ -200,9 +215,9 @@ export default function ChatScreen() {
   const items = buildItems()
 
   return (
-    <div className="flex flex-col" style={{ height: '100%' }}>
-      {/* Mensajes */}
-      <div className="flex-1 overflow-y-auto px-3 py-3">
+    <div style={{ height: '100%', position: 'relative' }}>
+      {/* Mensajes — scrollable, padding para el input fijo + tabbar */}
+      <div className="overflow-y-auto px-3 py-3 hide-scrollbar" style={{ height: '100%', paddingBottom: '140px' }}>
         {mensajes.length === 0 && (
           <div className="text-center py-16 text-muted">
             <div className="text-[44px] mb-3 opacity-30">💬</div>
@@ -255,8 +270,14 @@ export default function ChatScreen() {
 
       {/* Input fijo encima del tabbar */}
       <div
-        className="flex-shrink-0 px-3 pt-2 pb-[84px] border-t border-[var(--c-border)]"
-        style={{ background: 'var(--c-surface)' }}
+        className="fixed left-0 right-0 px-3 pt-[10px] pb-[80px] border-t border-[var(--c-border)]"
+        style={{
+          bottom: 0,
+          background: 'var(--c-surface)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          zIndex: 40,
+        }}
       >
         <div className="flex items-end gap-2">
           <textarea
