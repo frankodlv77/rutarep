@@ -335,7 +335,7 @@ export default function ClientesScreen() {
 
       <button
         onClick={() => openModal('cliente', {})}
-        className="fixed bottom-5 right-[18px] w-[52px] h-[52px] bg-amber-400 text-[#1a1a28] rounded-[16px] flex items-center justify-center text-[24px] font-bold shadow-[0_8px_24px_rgba(245,158,11,.35)] z-50 transition-transform active:scale-95"
+        className="fixed bottom-[88px] right-[18px] w-[52px] h-[52px] bg-amber-400 text-[#1a1a28] rounded-[16px] flex items-center justify-center text-[24px] font-bold shadow-[0_8px_24px_rgba(245,158,11,.35)] z-[60] transition-transform active:scale-95"
       >+</button>
     </div>
   )
