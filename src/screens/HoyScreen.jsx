@@ -1,14 +1,4 @@
 import { useState, useEffect } from 'react'
-import {
-  DndContext, closestCenter,
-  PointerSensor, TouchSensor,
-  useSensor, useSensors,
-} from '@dnd-kit/core'
-import {
-  SortableContext, verticalListSortingStrategy,
-  useSortable, arrayMove,
-} from '@dnd-kit/sortable'
-import { CSS } from '@dnd-kit/utilities'
 import useStore from '../store/useStore'
 import ZoneBadge from '../components/ui/ZoneBadge'
 import HoyMapView from '../components/ui/HoyMapView'
@@ -16,43 +6,30 @@ import { useGeolocation } from '../hooks/useGeolocation'
 
 const ZONAS = ['Centro', 'Godoy Cruz', 'Maipú', 'Guaymallén', 'Las Heras', 'Luján', 'Otro']
 
-// ── Ítem arrastrable ──────────────────────────────────────────────────────────
-function SortableItem({ cliente, entrega }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
-    useSortable({ id: cliente.id })
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    zIndex: isDragging ? 50 : undefined,
-  }
-
+function RutaItem({ cliente, entrega, idx, total, onSubir, onBajar }) {
   const done = !!entrega
-
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      className={`flex items-center gap-2 rounded-[14px] p-[11px_12px] mb-2 border transition-all ${
-        isDragging ? 'opacity-60 shadow-xl border-amber-400 bg-amber-400/10' :
-        done       ? 'opacity-50 bg-surface border-[var(--c-border)]' :
-                     'bg-surface border-[var(--c-border)]'
-      }`}
-    >
-      {/* Drag handle */}
-      <div
-        {...attributes}
-        {...listeners}
-        className="touch-none cursor-grab active:cursor-grabbing px-1 py-2 text-muted2 select-none text-[16px] flex-shrink-0"
-      >
-        ⠿
+    <div className={`flex items-center gap-2 rounded-[14px] p-[11px_12px] mb-2 border transition-all ${
+      done ? 'opacity-50 bg-surface border-[var(--c-border)]' : 'bg-surface border-[var(--c-border)]'
+    }`}>
+      {/* Botones reordenar */}
+      <div className="flex flex-col gap-[2px] flex-shrink-0">
+        <button
+          onClick={onSubir}
+          disabled={idx === 0}
+          className="w-[22px] h-[22px] rounded-lg bg-surface2 border border-[var(--c-border)] text-muted text-[11px] flex items-center justify-center disabled:opacity-20 active:bg-amber-400/20"
+        >▲</button>
+        <button
+          onClick={onBajar}
+          disabled={idx === total - 1}
+          className="w-[22px] h-[22px] rounded-lg bg-surface2 border border-[var(--c-border)] text-muted text-[11px] flex items-center justify-center disabled:opacity-20 active:bg-amber-400/20"
+        >▼</button>
       </div>
 
-      {/* Status dot */}
       <div className={`w-[22px] h-[22px] rounded-full border-2 flex items-center justify-center text-[11px] flex-shrink-0 ${
-        done ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-white/20'
+        done ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-[var(--c-border2)]'
       }`}>
-        {done ? '✓' : ''}
+        {done ? '✓' : <span className="text-[9px] text-muted">{idx + 1}</span>}
       </div>
 
       <div className="flex-1 min-w-0">
@@ -79,7 +56,6 @@ function SortableItem({ cliente, entrega }) {
     </div>
   )
 }
-// ─────────────────────────────────────────────────────────────────────────────
 
 export default function HoyScreen() {
   const clientes        = useStore(s => s.clientes)
@@ -97,16 +73,8 @@ export default function HoyScreen() {
   const [q, setQ]       = useState('')
   const [zona, setZona] = useState('Todos')
   const [vista, setVista] = useState('lista')
-  const [dragHintDone, setDragHintDone] = useState(
-    !!localStorage.getItem('rr_drag_seen')
-  )
   const { pos, loading: gpsLoading, error: gpsErr, getPos } = useGeolocation()
   const [pendingAction, setPendingAction] = useState(null)
-
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(TouchSensor, { activationConstraint: { delay: 200, tolerance: 8 } })
-  )
 
   const entCount = Object.keys(entregas).filter(id => hoy.includes(id)).length
 
@@ -138,15 +106,14 @@ export default function HoyScreen() {
     setPendingAction(null)
   }, [gpsErr])
 
-  // Auto-ocultar hint después de 5s
-  useEffect(() => {
-    if (dragHintDone || hoy.length === 0) return
-    const t = setTimeout(() => {
-      localStorage.setItem('rr_drag_seen', '1')
-      setDragHintDone(true)
-    }, 5000)
-    return () => clearTimeout(t)
-  }, [dragHintDone, hoy.length])
+  const mover = (id, dir) => {
+    const idx = hoy.indexOf(id)
+    const newIdx = idx + dir
+    if (newIdx < 0 || newIdx >= hoy.length) return
+    const next = [...hoy]
+    ;[next[idx], next[newIdx]] = [next[newIdx], next[idx]]
+    reordenarHoy(next)
+  }
 
   const handleOrdenar = () => {
     if (!puedeOrdenar) { showToast('⚠️ Los clientes necesitan GPS para ordenarse'); return }
@@ -161,17 +128,6 @@ export default function HoyScreen() {
       else { setPendingAction('ir'); getPos() }
     } else {
       setTab('ruta')
-    }
-  }
-
-  const handleDragEnd = ({ active, over }) => {
-    if (!over || active.id === over.id) return
-    const oldIdx = hoy.indexOf(active.id)
-    const newIdx = hoy.indexOf(over.id)
-    reordenarHoy(arrayMove(hoy, oldIdx, newIdx))
-    if (!dragHintDone) {
-      localStorage.setItem('rr_drag_seen', '1')
-      setDragHintDone(true)
     }
   }
 
@@ -294,33 +250,21 @@ export default function HoyScreen() {
       {/* Vista lista */}
       {vista === 'lista' && (
         <>
-          {/* ── Ruta de hoy — draggable ──────────────────────────── */}
+          {/* ── Ruta de hoy ──────────────────────────────────────── */}
           {rutaClientes.length > 0 && (
             <div className="mb-4">
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px]">Ruta de hoy</p>
-                {!dragHintDone && (
-                  <span className="text-[10px] text-amber-400 animate-pulse">
-                    ⠿ arrastrá para reordenar
-                  </span>
-                )}
-              </div>
-
-              <DndContext
-                sensors={sensors}
-                collisionDetection={closestCenter}
-                onDragEnd={handleDragEnd}
-              >
-                <SortableContext items={hoy} strategy={verticalListSortingStrategy}>
-                  {rutaClientes.map(c => (
-                    <SortableItem
-                      key={c.id}
-                      cliente={c}
-                      entrega={entregas[c.id]}
-                    />
-                  ))}
-                </SortableContext>
-              </DndContext>
+              <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px] mb-2">Ruta de hoy</p>
+              {rutaClientes.map((c, idx) => (
+                <RutaItem
+                  key={c.id}
+                  cliente={c}
+                  entrega={entregas[c.id]}
+                  idx={idx}
+                  total={rutaClientes.length}
+                  onSubir={() => mover(c.id, -1)}
+                  onBajar={() => mover(c.id, 1)}
+                />
+              ))}
             </div>
           )}
 
