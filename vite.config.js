@@ -3,16 +3,6 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          supabase: ['@supabase/supabase-js'],
-          vendor:   ['react', 'react-dom', 'zustand'],
-        },
-      },
-    },
-  },
   plugins: [
     react(),
     VitePWA({

@@ -70,12 +70,12 @@ export default function App() {
   const activeTab   = useStore(s => s.activeTab)
   const setTab      = useStore(s => s.setTab)
   const chatUnread  = useStore(s => s.chatUnread)
+  const loadAll     = useStore(s => s.loadAll)
+  const perfil      = useStore(s => s.perfil)
+  const offline     = useOffline()
 
   useLocationTracker(perfil)
   usePWABadge()
-  const loadAll    = useStore(s => s.loadAll)
-  const perfil     = useStore(s => s.perfil)
-  const offline    = useOffline()
 
   const [user, setUser]           = useState(undefined)
   const [authMode, setAuthMode]   = useState(null)
