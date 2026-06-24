@@ -22,6 +22,8 @@ export default defineConfig({
         ],
       },
       workbox: {
+        cacheId: 'rutarep-v2',
+        cleanupOutdatedCaches: true,
         skipWaiting: true,
         clientsClaim: true,
         importScripts: ['/push-sw.js'],

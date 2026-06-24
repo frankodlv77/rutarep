@@ -1,3 +1,15 @@
+// Fuerza recarga de todos los clientes cuando el SW nuevo activa
+// Esto rompe el ciclo de cache roto: incluso si la página crasheó, el SW la recarga
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clients => {
+      clients.forEach(client => {
+        try { client.navigate(client.url) } catch (_) {}
+      })
+    })
+  )
+})
+
 // Push notification handler — importado por el SW generado por workbox
 self.addEventListener('push', event => {
   if (!event.data) return
