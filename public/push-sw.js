@@ -15,12 +15,12 @@ self.addEventListener('push', event => {
   if (!event.data) return
   const { title, body } = event.data.json()
   event.waitUntil(
-    self.registration.showNotification(title || 'RutaRep', {
+    self.registration.showNotification(title || 'VoraRep', {
       body:     body || '',
       icon:     '/icon-192.png',
       badge:    '/icon-192.png',
       vibrate:  [100, 50, 100],
-      tag:      'rutarep',
+      tag:      'vorarep',
       renotify: true,
     })
   )

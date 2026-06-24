@@ -83,7 +83,7 @@ function exportCSV(historial) {
   const url  = URL.createObjectURL(blob)
   const a    = document.createElement('a')
   a.href     = url
-  a.download = `rutarep-historial-${new Date().toISOString().slice(0,10)}.csv`
+  a.download = `vorarep-historial-${new Date().toISOString().slice(0,10)}.csv`
   document.body.appendChild(a); a.click(); document.body.removeChild(a)
   URL.revokeObjectURL(url)
 }
@@ -110,7 +110,7 @@ function exportPeriodoPDF(dias, stats, periodLabel, negocio) {
   doc.setFontSize(18)
   doc.setTextColor(...amber)
   doc.setFont('helvetica', 'bold')
-  doc.text('RutaRep', 18, 21)
+  doc.text('VoraRep', 18, 21)
 
   doc.setFontSize(10)
   doc.setTextColor(...gray)
@@ -226,9 +226,9 @@ function exportPeriodoPDF(dias, stats, periodLabel, negocio) {
   // Footer
   doc.setFontSize(6.5)
   doc.setTextColor(...gray)
-  doc.text('Generado con RutaRep · rutarep.com', W / 2, 292, { align: 'center' })
+  doc.text('Generado con VoraRep · vorarep.com', W / 2, 292, { align: 'center' })
 
-  const fname = `rutarep-${periodLabel.toLowerCase().replace(/\s/g, '-')}-${new Date().toISOString().slice(0,10)}.pdf`
+  const fname = `vorarep-${periodLabel.toLowerCase().replace(/\s/g, '-')}-${new Date().toISOString().slice(0,10)}.pdf`
   doc.save(fname)
 }
 
@@ -250,7 +250,7 @@ function exportDiaPDF(dia, negocio) {
   doc.setFontSize(16)
   doc.setTextColor(...amber)
   doc.setFont('helvetica', 'bold')
-  doc.text('RutaRep', 18, 20)
+  doc.text('VoraRep', 18, 20)
   doc.setFontSize(9)
   doc.setTextColor(...gray)
   doc.setFont('helvetica', 'normal')
@@ -346,9 +346,9 @@ function exportDiaPDF(dia, negocio) {
 
   doc.setFontSize(6.5)
   doc.setTextColor(...gray)
-  doc.text('Generado con RutaRep · rutarep.com', W / 2, 292, { align: 'center' })
+  doc.text('Generado con VoraRep · vorarep.com', W / 2, 292, { align: 'center' })
 
-  doc.save(`rutarep-${dia.fecha_iso || dia.fecha.replace(/,?\s/g, '-')}.pdf`)
+  doc.save(`vorarep-${dia.fecha_iso || dia.fecha.replace(/,?\s/g, '-')}.pdf`)
 }
 
 const PERIODS = [

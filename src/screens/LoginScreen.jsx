@@ -100,7 +100,7 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
           className="w-[36px] h-[36px] rounded-[11px] flex items-center justify-center text-[18px] flex-shrink-0"
           style={{ background: 'linear-gradient(135deg,#fbbf24,#f59e0b)', boxShadow: '0 0 12px rgba(251,191,36,0.3)' }}
         >🚚</div>
-        <h1 className="font-heading text-[22px] font-extrabold text-textc">RutaRep</h1>
+        <h1 className="font-heading text-[22px] font-extrabold text-textc">VoraRep</h1>
       </div>
       <p className="text-[12px] text-muted mb-5">
         {isReset ? 'Recuperar contraseña' : isRegister ? 'Creá tu cuenta gratuita' : 'Ingresá para continuar'}

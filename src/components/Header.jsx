@@ -57,7 +57,7 @@ export default function Header({ user }) {
         </div>
         <div>
           <h1 className="font-heading text-[17px] font-extrabold tracking-tight text-textc leading-tight">
-            {perfil?.negocio || 'RutaRep'}
+            {perfil?.negocio || 'VoraRep'}
           </h1>
           <div className="flex items-center gap-[6px] mt-[2px]">
             <p className="text-[10px] text-muted">{subTxt}</p>

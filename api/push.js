@@ -33,7 +33,7 @@ export default async function handler(req, res) {
 
   if (!subs?.length) return res.status(200).json({ sent: 0 })
 
-  const payload = JSON.stringify({ title: title || 'RutaRep', body: body || '' })
+  const payload = JSON.stringify({ title: title || 'VoraRep', body: body || '' })
 
   const results = await Promise.allSettled(
     subs.map(s => webPush.sendNotification(s.subscription, payload))

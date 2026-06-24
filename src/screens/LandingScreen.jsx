@@ -20,7 +20,7 @@ export default function LandingScreen({ onRegister, onLogin }) {
           🚚
         </div>
         <h1 className="font-heading text-[26px] font-extrabold text-textc tracking-tight">
-          RutaRep
+          VoraRep
         </h1>
       </div>
 

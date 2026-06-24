@@ -65,7 +65,7 @@ export default function UnirseScreen({ token, onDone }) {
       <div className="w-[64px] h-[64px] bg-amber-400 rounded-[18px] flex items-center justify-center text-[32px] mb-5">
         🚚
       </div>
-      <h1 className="font-heading text-[22px] font-extrabold text-textc mb-2">RutaRep</h1>
+      <h1 className="font-heading text-[22px] font-extrabold text-textc mb-2">VoraRep</h1>
 
       {status === 'loading' && (
         <p className="text-[13px] text-muted animate-pulse">Procesando invitación...</p>

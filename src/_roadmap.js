@@ -15,12 +15,12 @@
  *    - Debe incluir: qué datos se colectan (email, ubicación GPS, fotos),
  *      con quién se comparten (Supabase, Vercel), cómo se eliminan.
  *    - Agregar enlace en LoginScreen al lado del checkbox de T&C.
- *    - URL pública requerida: https://rutarep.vercel.app/privacy
+ *    - URL pública requerida: https://vorarep.vercel.app/privacy
  *
  * 2. Terms & Conditions
  *    - Ya existe TerminosScreen.jsx — revisar que incluya:
  *      uso aceptable, limitación de responsabilidad, jurisdicción.
- *    - URL pública requerida: https://rutarep.vercel.app/terms
+ *    - URL pública requerida: https://vorarep.vercel.app/terms
  *    - Verificar que el checkbox en registro enlace a ambas URLs.
  *
  * 3. Eliminar cuenta desde UI de Perfil
@@ -60,28 +60,28 @@
  * 3. Digital Asset Links (TWA)
  *    - Crear public/.well-known/assetlinks.json
  *    - Contenido se genera con Bubblewrap o Google Play Console
- *    - Vincula el APK firmado con el dominio rutarep.vercel.app
+ *    - Vincula el APK firmado con el dominio vorarep.vercel.app
  *    - Configurar Vercel para servir /.well-known/ sin redirect
  *      (agregar en vercel.json: headers para /.well-known/*)
  *
  * 4. Generar APK con Bubblewrap
  *    - Instalar: npm i -g @bubblewrap/cli
- *    - Ejecutar: bubblewrap init --manifest https://rutarep.vercel.app/manifest.webmanifest
+ *    - Ejecutar: bubblewrap init --manifest https://vorarep.vercel.app/manifest.webmanifest
  *    - bubblewrap build → genera .aab para Play Store
  *    - Requiere: JDK 11+, Android SDK, cuenta Google Play Developer ($25)
  *
  * 5. Lighthouse audit antes de subir
  *    - Score PWA debe ser 100 (o muy cercano)
  *    - Verificar: HTTPS, manifest válido, SW funcionando, íconos
- *    - Correr: npx lighthouse https://rutarep.vercel.app --view
+ *    - Correr: npx lighthouse https://vorarep.vercel.app --view
  *
  * 6. Play Store listing
- *    - Título: "RutaRep – Gestión de entregas"
+ *    - Título: "VoraRep – Gestión de entregas"
  *    - Categoría: Productividad → Negocios
  *    - Screenshots: mínimo 2 (portrait 9:16)
  *    - Feature graphic: 1024x500px
  *    - Content rating: PEGI 3 / Everyone
- *    - Privacy Policy URL: https://rutarep.vercel.app/privacy
+ *    - Privacy Policy URL: https://vorarep.vercel.app/privacy
  *
  * ── iOS / App Store (después de validar en Android) ──────────────
  * - Requiere Capacitor: npm install @capacitor/core @capacitor/ios

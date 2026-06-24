@@ -9,8 +9,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['icon-192.png', 'icon-512.png'],
       manifest: {
-        name: 'RutaRep',
-        short_name: 'RutaRep',
+        name: 'VoraRep',
+        short_name: 'VoraRep',
         description: 'Gestión de rutas de reparto',
         lang: 'es',
         categories: ['productivity', 'business', 'logistics', 'tools'],
@@ -41,7 +41,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        cacheId: 'rutarep-v2',
+        cacheId: 'vorarep-v2',
         cleanupOutdatedCaches: true,
         skipWaiting: true,
         clientsClaim: true,

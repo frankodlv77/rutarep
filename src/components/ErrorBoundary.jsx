@@ -11,7 +11,7 @@ export default class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, info) {
-    console.error('[RutaRep] Error no controlado:', error, info)
+    console.error('[VoraRep] Error no controlado:', error, info)
   }
 
   render() {
