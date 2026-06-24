@@ -21,7 +21,7 @@ export default defineConfig({
         icons: [
           { src: 'icon-192.png', sizes: '192x192', type: 'image/png' },
           { src: 'icon-512.png', sizes: '512x512', type: 'image/png' },
-          { src: 'icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+          { src: 'icon-512-maskable.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
         screenshots: [
           {
@@ -47,7 +47,7 @@ export default defineConfig({
         clientsClaim: true,
         importScripts: ['/push-sw.js'],
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-        globIgnores: ['screenshot-*.png'],
+        globIgnores: ['screenshot-*.png', 'icon-512-maskable.png'],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/.*\.supabase\.co\/.*/i,
