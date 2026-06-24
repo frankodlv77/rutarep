@@ -41,7 +41,8 @@ export default function PerfilScreen() {
       onConfirm: () => {
         openModal('confirm', {
           title: 'Última confirmación',
-          msg: '¿Estás completamente seguro? Esta acción NO se puede deshacer.',
+          msg: 'Esta acción es irreversible. Se borrarán permanentemente tu cuenta, clientes, rutas e historial.',
+          confirmText: 'BORRAR',
           onConfirm: async () => {
             setDeleting(true)
             await deleteAccount()
