@@ -10,15 +10,12 @@ export default function LandingScreen({ onRegister, onLogin }) {
 
       {/* Logo + headline — compacto */}
       <div className="flex items-center gap-3 mb-1">
-        <div
-          className="w-[44px] h-[44px] rounded-[13px] flex items-center justify-center text-[22px] flex-shrink-0"
-          style={{
-            background: 'linear-gradient(135deg, #fbbf24, #f59e0b)',
-            boxShadow: '0 0 16px rgba(251,191,36,0.35)',
-          }}
-        >
-          🚚
-        </div>
+        <img
+          src="/icon-vorarep-192.png?v=2"
+          alt="VoraRep"
+          className="w-[44px] h-[44px] rounded-[13px] flex-shrink-0"
+          style={{ objectFit: 'cover', boxShadow: '0 0 16px rgba(251,191,36,0.35)' }}
+        />
         <h1 className="font-heading text-[26px] font-extrabold text-textc tracking-tight">
           VoraRep
         </h1>

@@ -46,15 +46,7 @@ export default function Header({ user }) {
     >
       <div className="flex items-center gap-[10px]">
         {/* Logo con glow sutil */}
-        <div
-          className="w-[36px] h-[36px] rounded-[11px] flex items-center justify-center text-[18px] flex-shrink-0"
-          style={{
-            background: 'linear-gradient(135deg, #fbbf24, #f59e0b)',
-            boxShadow: '0 0 12px rgba(251,191,36,0.35), 0 2px 6px rgba(0,0,0,0.3)',
-          }}
-        >
-          🚚
-        </div>
+        <img src="/icon-vorarep-192.png?v=2" width="36" height="36" style={{ borderRadius: 8 }} alt="VoraRep" />
         <div>
           <h1 className="font-heading text-[17px] font-extrabold tracking-tight text-textc leading-tight">
             {perfil?.negocio || 'VoraRep'}

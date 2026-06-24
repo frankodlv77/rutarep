@@ -41,7 +41,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        cacheId: 'vorarep-v2',
+        cacheId: 'vorarep-v3',
         cleanupOutdatedCaches: true,
         skipWaiting: true,
         clientsClaim: true,
