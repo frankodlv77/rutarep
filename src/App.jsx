@@ -26,6 +26,7 @@ import EquipoScreen    from './screens/encargado/EquipoScreen'
 import MapaScreen      from './screens/encargado/MapaScreen'
 
 import { useLocationTracker } from './hooks/useLocationTracker'
+import { usePWABadge }        from './hooks/usePWABadge'
 
 import ClienteModal  from './modals/ClienteModal'
 import EntregaModal  from './modals/EntregaModal'
@@ -71,6 +72,7 @@ export default function App() {
   const chatUnread  = useStore(s => s.chatUnread)
 
   useLocationTracker(perfil)
+  usePWABadge()
   const loadAll    = useStore(s => s.loadAll)
   const perfil     = useStore(s => s.perfil)
   const offline    = useOffline()
