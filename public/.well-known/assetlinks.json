@@ -3,9 +3,9 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "app.vercel.vorarep",
+      "package_name": "app.vercel.rutarep.twa",
       "sha256_cert_fingerprints": [
-        "PLACEHOLDER_SHA256_COMPLETAR_CUANDO_SE_GENERE_EL_APK"
+        "60:C4:DD:AA:F6:C6:BF:74:00:0F:76:A8:8D:4C:71:58:0D:59:64:A1:B8:FB:98:CD:E0:BA:4E:DB:E0:D6:A4:76"
       ]
     }
   }
