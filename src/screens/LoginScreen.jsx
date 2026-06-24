@@ -96,10 +96,12 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
 
       {/* Logo compacto */}
       <div className="flex items-center gap-2 mb-1">
-        <div
-          className="w-[36px] h-[36px] rounded-[11px] flex items-center justify-center text-[18px] flex-shrink-0"
-          style={{ background: 'linear-gradient(135deg,#fbbf24,#f59e0b)', boxShadow: '0 0 12px rgba(251,191,36,0.3)' }}
-        >🚚</div>
+        <img
+          src="/icon-vorarep-192.png"
+          alt="VoraRep"
+          className="w-[36px] h-[36px] rounded-[11px] flex-shrink-0"
+          style={{ objectFit: 'cover' }}
+        />
         <h1 className="font-heading text-[22px] font-extrabold text-textc">VoraRep</h1>
       </div>
       <p className="text-[12px] text-muted mb-5">
