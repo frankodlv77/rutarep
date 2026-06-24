@@ -47,7 +47,7 @@ export default defineConfig({
         clientsClaim: true,
         importScripts: ['/push-sw.js'],
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-        globIgnores: ['screenshot-*.png', 'icon-512-maskable.png'],
+        globIgnores: ['screenshot-*.png', 'icon-*.png'],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/.*\.supabase\.co\/.*/i,
