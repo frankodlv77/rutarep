@@ -51,8 +51,9 @@ const PLANES = [
 ]
 
 export default function PlanesScreen() {
-  const setTab = useStore(s => s.setTab)
-  const perfil = useStore(s => s.perfil)
+  const setTab  = useStore(s => s.setTab)
+  const perfil  = useStore(s => s.perfil)
+  const userId  = useStore(s => s.userId)
 
   return (
     <div className="min-h-full" style={{ background: '#F0EDE8' }}>
@@ -125,7 +126,7 @@ export default function PlanesScreen() {
                 </div>
               ) : (
                 <a
-                  href={plan.link}
+                  href={userId ? `${plan.link}?client_reference_id=${userId}` : plan.link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block w-full py-[12px] rounded-xl text-center text-[13px] font-heading font-bold bg-amber-400 text-[#1a1a28] active:scale-[.98] transition-transform"
