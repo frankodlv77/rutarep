@@ -105,7 +105,7 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
         <h1 className="font-heading text-[22px] font-extrabold text-textc">VoraRep</h1>
       </div>
       <p className="text-[12px] text-muted mb-5">
-        {isReset ? 'Recuperar contraseña' : isRegister ? 'Creá tu cuenta gratuita' : 'Ingresá para continuar'}
+        {isReset ? 'Recuperar contraseña' : isRegister ? 'Creá tu cuenta · 30 días gratis' : 'Ingresá para continuar'}
       </p>
 
       <form onSubmit={handleSubmit} className="w-full max-w-[340px] flex flex-col gap-[10px]">

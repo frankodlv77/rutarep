@@ -590,12 +590,16 @@ const useStore = create((set, get) => ({
     try {
       await supabase.rpc('delete_current_user')
     } catch (_) {
-      // Fallback si la función no está disponible: eliminar datos manualmente
       const userId = get().userId
-      await supabase.from('clientes').delete().eq('user_id', userId)
-      await supabase.from('historial').delete().eq('user_id', userId)
-      await supabase.from('sesion_activa').delete().eq('user_id', userId)
-      await supabase.from('rutas').delete().eq('user_id', userId)
+      await Promise.all([
+        supabase.from('clientes').delete().eq('user_id', userId),
+        supabase.from('historial').delete().eq('user_id', userId),
+        supabase.from('sesion_activa').delete().eq('user_id', userId),
+        supabase.from('rutas').delete().eq('user_id', userId),
+        supabase.from('push_subscriptions').delete().eq('user_id', userId),
+        supabase.from('equipo_miembros').delete().eq('user_id', userId),
+        supabase.from('invitaciones').delete().eq('created_by', userId),
+      ])
     }
     await supabase.auth.signOut()
   },

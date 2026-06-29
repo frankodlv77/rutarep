@@ -12,17 +12,36 @@ webPush.setVapidDetails(
   process.env.VAPID_PRIVATE_KEY
 )
 
+// Basic in-memory rate limit (per serverless instance — sufficient for burst protection)
+const RATE_MAP = new Map()
+const WINDOW_MS = 60_000
+const MAX_REQ = 15
+
+function isRateLimited(ip) {
+  const now = Date.now()
+  const entry = RATE_MAP.get(ip) || { count: 0, resetAt: now + WINDOW_MS }
+  if (now > entry.resetAt) {
+    RATE_MAP.set(ip, { count: 1, resetAt: now + WINDOW_MS })
+    return false
+  }
+  entry.count++
+  RATE_MAP.set(ip, entry)
+  return entry.count > MAX_REQ
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end()
 
-  // Verificar JWT de Supabase
+  const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || 'unknown'
+  if (isRateLimited(ip)) return res.status(429).json({ error: 'Too many requests' })
+
   const token = req.headers.authorization?.replace('Bearer ', '')
   if (!token) return res.status(401).json({ error: 'Unauthorized' })
   const { data: { user }, error: authError } = await supabase.auth.getUser(token)
   if (authError || !user) return res.status(401).json({ error: 'Unauthorized' })
 
   const { equipoId, title, body } = req.body
-  const senderId = user.id // usar el user del JWT, no el body
+  const senderId = user.id
   if (!equipoId) return res.status(400).json({ error: 'Missing fields' })
 
   const { data: subs } = await supabase
@@ -39,7 +58,6 @@ export default async function handler(req, res) {
     subs.map(s => webPush.sendNotification(s.subscription, payload))
   )
 
-  // Limpiar suscripciones expiradas (410 = unsubscribed, 404 = not found)
   const expired = subs.filter((_, i) => {
     const r = results[i]
     return r.status === 'rejected' && [404, 410].includes(r.reason?.statusCode)

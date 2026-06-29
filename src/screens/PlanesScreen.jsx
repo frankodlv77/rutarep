@@ -139,7 +139,8 @@ export default function PlanesScreen() {
         </div>
 
         <p className="text-center text-[10px] text-[#8a8a8a] mt-5 leading-relaxed">
-          Pagos procesados por Stripe · Cancelá cuando quieras
+          Cobro mensual recurrente · Cancelá cuando quieras<br />
+          Pagos procesados de forma segura por Stripe
         </p>
       </div>
     </div>

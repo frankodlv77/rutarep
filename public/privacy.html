@@ -139,9 +139,22 @@
   <ul>
     <li><strong>Supabase</strong> (supabase.com) — base de datos, autenticación y almacenamiento de archivos. Los datos se alojan en servidores de Amazon Web Services (AWS) en la región us-east-1. Supabase cumple con GDPR y SOC 2 Type 2.</li>
     <li><strong>Vercel</strong> (vercel.com) — hosting y funciones serverless. Opera en infraestructura de AWS y Google Cloud.</li>
+    <li><strong>Stripe</strong> (stripe.com) — procesamiento de pagos y suscripciones. Stripe maneja los datos de pago directamente; VoraRep nunca almacena números de tarjeta ni información bancaria. Stripe cumple con PCI DSS nivel 1. Consulte la política de privacidad de Stripe en stripe.com/privacy.</li>
     <li><strong>Web Push API</strong> — servicio nativo del navegador para el envío de notificaciones push. En Android Chrome, los mensajes pasan por Google Firebase Cloud Messaging (FCM).</li>
   </ul>
   <p>Ninguno de estos proveedores tiene autorización para usar tus datos con fines propios.</p>
+
+  <h2>4b. Almacenamiento local y cookies</h2>
+  <p>VoraRep utiliza el <strong>almacenamiento local del dispositivo</strong> (localStorage del navegador) para guardar información temporaria y mejorar el rendimiento offline:</p>
+  <ul>
+    <li>Sesión activa del día: clientes en ruta, entregas registradas y comisión configurada</li>
+    <li>Preferencias de apariencia: modo claro u oscuro</li>
+    <li>Estado del onboarding: si ya completaste el tour de bienvenida</li>
+    <li>Registro de última actividad: para el cierre de sesión automático por inactividad (14 horas)</li>
+    <li>Cola de sincronización offline: días finalizados sin conexión que esperan ser sincronizados</li>
+  </ul>
+  <p>Estos datos se almacenan <strong>únicamente en tu dispositivo</strong> y no se transmiten a terceros. Podés borrarlos eliminando los datos del sitio desde la configuración de tu navegador.</p>
+  <p>VoraRep <strong>no utiliza cookies de rastreo ni publicidad</strong>. Las únicas cookies utilizadas son las estrictamente necesarias para mantener tu sesión autenticada (administradas por Supabase Auth).</p>
 
   <h2>5. Ubicación GPS</h2>
   <p>La app puede solicitar acceso a tu ubicación GPS para:</p>
