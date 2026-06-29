@@ -10,7 +10,39 @@ export function haversine(lat1, lon1, lat2, lon2) {
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 }
 
-// Greedy nearest-neighbor TSP starting from (startLat, startLon)
+function routeTotalDist(startLat, startLon, route) {
+  if (route.length === 0) return 0
+  let d = haversine(startLat, startLon, route[0].lat, route[0].lon)
+  for (let i = 0; i < route.length - 1; i++) {
+    d += haversine(route[i].lat, route[i].lon, route[i + 1].lat, route[i + 1].lon)
+  }
+  return d
+}
+
+// 2-opt: swap edge pairs to eliminate crossings. Improves greedy output.
+function twoOpt(startLat, startLon, route) {
+  let best = [...route]
+  let improved = true
+  while (improved) {
+    improved = false
+    for (let i = 0; i < best.length - 1; i++) {
+      for (let j = i + 1; j < best.length; j++) {
+        const candidate = [
+          ...best.slice(0, i + 1),
+          ...best.slice(i + 1, j + 1).reverse(),
+          ...best.slice(j + 1),
+        ]
+        if (routeTotalDist(startLat, startLon, candidate) < routeTotalDist(startLat, startLon, best)) {
+          best = candidate
+          improved = true
+        }
+      }
+    }
+  }
+  return best
+}
+
+// Greedy nearest-neighbor + 2-opt improvement TSP starting from (startLat, startLon)
 // Returns ordered array of client objects. Clients without GPS go last.
 export function greedyRoute(startLat, startLon, clients) {
   const withGPS    = clients.filter(c => c.lat && c.lon)
@@ -34,7 +66,8 @@ export function greedyRoute(startLat, startLon, clients) {
     curLon = nearest.lon
   }
 
-  return [...ordered, ...withoutGPS]
+  const optimized = twoOpt(startLat, startLon, ordered)
+  return [...optimized, ...withoutGPS]
 }
 
 export function distKm(lat1, lon1, lat2, lon2) {

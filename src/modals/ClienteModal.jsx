@@ -48,8 +48,14 @@ function AddressField({ value, onChange, onCoords, zona = '' }) {
       try {
         const zonaExtra = zona && zona !== 'Otro' && zona !== 'Centro' ? ` ${zona}` : ''
         const q = encodeURIComponent(v + zonaExtra + ' Mendoza Argentina')
-        const url = `https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=5&countrycodes=ar&addressdetails=1&viewbox=${VIEWBOX}&bounded=1`
-        const res = await fetch(url, { headers: { 'Accept-Language': 'es' } })
+        // bounded=0: viewbox is a soft hint, not a hard filter (bounded=1 silently drops valid addresses)
+        const url = `https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=5&countrycodes=ar&addressdetails=1&viewbox=${VIEWBOX}&bounded=0`
+        const res = await fetch(url, {
+          headers: {
+            'Accept-Language': 'es',
+            'User-Agent': 'VoraRep/1.0 (https://app.vora-system.com)',
+          },
+        })
         if (!res.ok) throw new Error()
         const data = await res.json()
         setSuggestions(data); setOpen(data.length > 0)
