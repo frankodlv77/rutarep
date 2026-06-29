@@ -237,6 +237,28 @@ export default function RutaScreen() {
   const comision    = totalMonto * (comisionPct / 100)
   const allDone     = totalEnt === list.length
 
+  // Breakdown para resumen de cierre
+  const entregadosCount = Object.values(entregas).filter(e => e.tipo === 'entregado' || e.tipo === 'devolucion').length
+  const canceladosCount = Object.values(entregas).filter(e => e.tipo === 'cancelado').length
+  const parcialesCount  = Object.values(entregas).filter(e => e.tipo === 'parcial').length
+  let pagoEfectivo = 0, pagoTransf = 0, pagoTarjeta = 0, pagoOtro = 0
+  Object.values(entregas).forEach(e => {
+    if (e.tipo === 'cancelado') return
+    const m = +e.monto || 0
+    if      (e.metodo_pago === 'efectivo')      pagoEfectivo += m
+    else if (e.metodo_pago === 'transferencia') pagoTransf   += m
+    else if (e.metodo_pago === 'tarjeta')       pagoTarjeta  += m
+    else if (m > 0)                              pagoOtro     += m
+  })
+  const pagosBreakdown = [
+    { label: 'Efectivo',      icon: '💵', value: pagoEfectivo },
+    { label: 'Transferencia', icon: '🏦', value: pagoTransf },
+    { label: 'Tarjeta',       icon: '💳', value: pagoTarjeta },
+    { label: 'Otro',          icon: '❓', value: pagoOtro },
+  ].filter(p => p.value > 0)
+  const deudasCobradas = list.reduce((s, c) => s + (entregas[c.id]?.cobro_deuda ? (+c.deuda || 0) : 0), 0)
+  const deudasNuevas   = Object.values(entregas).reduce((s, e) => s + (e.tipo === 'parcial' ? (+e.deuda_generada || 0) : 0), 0)
+
   const pendingWithGPS = list.filter(c => !entregas[c.id] && c.lat && c.lon)
   const canReorder     = pendingWithGPS.length >= 2
 
@@ -525,20 +547,75 @@ export default function RutaScreen() {
 
       {/* Complete overlay */}
       {showComplete && (
-        <div className="fixed inset-0 bg-bg z-[300] flex flex-col items-center justify-center text-center px-10 animate-fadeIn">
-          <div className="text-[64px] mb-5">🎉</div>
-          <div className="font-heading text-[26px] font-extrabold text-emerald-400 mb-2">¡Ruta completada!</div>
-          <div className="text-[14px] text-muted leading-relaxed mb-3">Total recaudado: <strong className="text-emerald-400">{fmtMoney(totalMonto)}</strong></div>
-          <div className="text-[14px] text-muted mb-8">Tu comisión ({comisionPct}%): <strong className="text-amber-400">{fmtMoney(comision)}</strong></div>
-          <button
-            className="bg-amber-400 text-[#1a1a28] font-heading font-bold text-[14px] px-8 py-4 rounded-xl w-full max-w-[280px]"
-            onClick={async () => { await finalizarDia(); setShowComplete(false); useStore.getState().setTab('hist') }}
-          >Guardar en historial y limpiar</button>
-          <div className="h-3" />
-          <button
-            className="bg-surface2 border border-[var(--c-border)] text-textc font-heading font-bold text-[14px] px-8 py-4 rounded-xl w-full max-w-[280px]"
-            onClick={() => setShowComplete(false)}
-          >Volver a la ruta</button>
+        <div className="fixed inset-0 bg-bg z-[300] overflow-y-auto animate-fadeIn">
+          <div className="flex flex-col items-center text-center px-6 pt-10 pb-12 min-h-full">
+            <div className="text-[64px] mb-3">🎉</div>
+            <div className="font-heading text-[26px] font-extrabold text-emerald-400 mb-1">¡Ruta completada!</div>
+            <p className="text-[13px] text-muted mb-6">Revisá el resumen antes de guardar</p>
+
+            {/* Resumen card */}
+            <div className="w-full bg-surface border border-[var(--c-border)] rounded-2xl p-4 mb-3 text-left space-y-[10px]">
+              <div className="flex justify-between items-center">
+                <span className="text-[12px] text-muted">✅ Entregados</span>
+                <span className="font-heading font-bold text-[14px] text-emerald-400">{entregadosCount}</span>
+              </div>
+              {canceladosCount > 0 && (
+                <div className="flex justify-between items-center">
+                  <span className="text-[12px] text-muted">❌ Cancelados</span>
+                  <span className="font-heading font-bold text-[14px] text-red-400">{canceladosCount}</span>
+                </div>
+              )}
+              {parcialesCount > 0 && (
+                <div className="flex justify-between items-center">
+                  <span className="text-[12px] text-muted">💸 Pago parcial</span>
+                  <span className="font-heading font-bold text-[14px] text-amber-400">{parcialesCount}</span>
+                </div>
+              )}
+              <div className="border-t border-[var(--c-border)] pt-3 flex justify-between items-center">
+                <span className="text-[12px] text-muted">💰 Total cobrado</span>
+                <span className="font-heading font-extrabold text-[18px] text-emerald-400">{fmtMoney(totalMonto)}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-[12px] text-muted">🏆 Comisión ({comisionPct}%)</span>
+                <span className="font-heading font-bold text-[15px] text-amber-400">{fmtMoney(comision)}</span>
+              </div>
+              {pagosBreakdown.length > 0 && (
+                <div className="border-t border-[var(--c-border)] pt-3">
+                  <p className="text-[10px] font-bold text-muted uppercase tracking-[.8px] mb-2">Métodos de pago</p>
+                  {pagosBreakdown.map(p => (
+                    <div key={p.label} className="flex justify-between items-center mb-1">
+                      <span className="text-[12px] text-muted">{p.icon} {p.label}</span>
+                      <span className="text-[12px] font-bold text-textc">{fmtMoney(p.value)}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {deudasCobradas > 0 && (
+              <div className="w-full bg-emerald-500/8 border border-emerald-500/25 rounded-xl px-4 py-3 mb-3 flex items-center justify-between">
+                <span className="text-[12px] text-muted">✅ Deudas cobradas hoy</span>
+                <span className="font-heading font-bold text-[14px] text-emerald-400">+{fmtMoney(deudasCobradas)}</span>
+              </div>
+            )}
+            {deudasNuevas > 0 && (
+              <div className="w-full bg-red-500/8 border border-red-500/25 rounded-xl px-4 py-3 mb-3 flex items-center justify-between">
+                <span className="text-[12px] text-muted">⚠️ Deudas generadas hoy</span>
+                <span className="font-heading font-bold text-[14px] text-red-400">{fmtMoney(deudasNuevas)}</span>
+              </div>
+            )}
+
+            <div className="h-2" />
+            <button
+              className="bg-amber-400 text-[#1a1a28] font-heading font-bold text-[14px] px-8 py-4 rounded-xl w-full max-w-[280px]"
+              onClick={async () => { await finalizarDia(); setShowComplete(false); useStore.getState().setTab('hist') }}
+            >Guardar en historial y limpiar</button>
+            <div className="h-3" />
+            <button
+              className="bg-surface2 border border-[var(--c-border)] text-textc font-heading font-bold text-[14px] px-8 py-4 rounded-xl w-full max-w-[280px]"
+              onClick={() => setShowComplete(false)}
+            >Volver a la ruta</button>
+          </div>
         </div>
       )}
     </div>

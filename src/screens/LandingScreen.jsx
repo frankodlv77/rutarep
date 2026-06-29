@@ -66,7 +66,6 @@ export default function LandingScreen({ onRegister, onLogin }) {
         </button>
       </div>
 
-      <p className="text-[10px] text-muted2 mt-5">Gratis para siempre · Sin tarjeta</p>
     </div>
   )
 }
