@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import useStore from '../store/useStore'
 import ZoneBadge from '../components/ui/ZoneBadge'
+import { useFreemium, CLIENT_LIMIT } from '../hooks/useFreemium'
 
 const ZONAS = ['Centro', 'Godoy Cruz', 'Maipú', 'Guaymallén', 'Las Heras', 'Luján', 'Otro']
 
@@ -82,6 +83,9 @@ export default function ClientesScreen() {
   const deleteCliente   = useStore(s => s.deleteCliente)
   const updateCliente   = useStore(s => s.updateCliente)
   const importClientes  = useStore(s => s.importClientes)
+  const setTab          = useStore(s => s.setTab)
+  const { isLimited }   = useFreemium()
+  const atLimit         = isLimited && clientes.length >= CLIENT_LIMIT
 
   const [q, setQ]                       = useState('')
   const [zona, setZona]                 = useState('Todos')
@@ -179,14 +183,32 @@ export default function ClientesScreen() {
         ))}
       </div>
 
+      {/* Banner freemium */}
+      {atLimit && (
+        <div className="mb-3 bg-amber-400/10 border border-amber-400/30 rounded-xl px-4 py-3 flex items-center justify-between gap-3">
+          <div>
+            <p className="text-[12px] font-bold text-amber-400">🔒 Límite alcanzado</p>
+            <p className="text-[11px] text-muted mt-[2px]">Suscribite para agregar más clientes.</p>
+          </div>
+          <button
+            onClick={() => setTab('planes')}
+            className="flex-shrink-0 text-[10px] font-bold text-[#1a1a28] bg-amber-400 px-3 py-[5px] rounded-lg active:scale-95 transition-transform"
+          >Ver planes</button>
+        </div>
+      )}
+
       {/* Import bar */}
       <div className="flex gap-2 mb-3">
         <button
-          onClick={() => fileRef.current?.click()}
+          onClick={() => atLimit ? setTab('planes') : fileRef.current?.click()}
           disabled={importing}
-          className="flex-1 flex items-center justify-center gap-2 bg-amber-400/10 border border-amber-400/30 text-amber-400 rounded-xl py-[11px] text-[12px] font-heading font-bold active:scale-[.98] transition-transform disabled:opacity-50"
+          className={`flex-1 flex items-center justify-center gap-2 rounded-xl py-[11px] text-[12px] font-heading font-bold active:scale-[.98] transition-transform disabled:opacity-50 ${
+            atLimit
+              ? 'bg-surface border border-[var(--c-border)] text-muted'
+              : 'bg-amber-400/10 border border-amber-400/30 text-amber-400'
+          }`}
         >
-          📥 Importar CSV
+          {atLimit ? '🔒 Importar CSV' : '📥 Importar CSV'}
         </button>
         <button
           onClick={downloadTemplate}
@@ -334,9 +356,13 @@ export default function ClientesScreen() {
       <div className="h-20" />
 
       <button
-        onClick={() => openModal('cliente', {})}
-        className="fixed bottom-[88px] right-[18px] w-[52px] h-[52px] bg-amber-400 text-[#1a1a28] rounded-[16px] flex items-center justify-center text-[24px] font-bold shadow-[0_8px_24px_rgba(245,158,11,.35)] z-[60] transition-transform active:scale-95"
-      >+</button>
+        onClick={() => atLimit ? setTab('planes') : openModal('cliente', {})}
+        className={`fixed bottom-[88px] right-[18px] w-[52px] h-[52px] rounded-[16px] flex items-center justify-center text-[24px] font-bold z-[60] transition-transform active:scale-95 ${
+          atLimit
+            ? 'bg-surface border-2 border-amber-400/40 text-amber-400 shadow-none'
+            : 'bg-amber-400 text-[#1a1a28] shadow-[0_8px_24px_rgba(245,158,11,.35)]'
+        }`}
+      >{atLimit ? '🔒' : '+'}</button>
     </div>
   )
 }

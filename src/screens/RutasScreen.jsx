@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import useStore from '../store/useStore'
 import ZoneBadge from '../components/ui/ZoneBadge'
+import { useFreemium } from '../hooks/useFreemium'
 
 export default function RutasScreen() {
   const rutas                = useStore(s => s.rutas)
@@ -10,6 +11,7 @@ export default function RutasScreen() {
   const removeClienteFromRuta = useStore(s => s.removeClienteFromRuta)
   const cargarRutaEnHoy      = useStore(s => s.cargarRutaEnHoy)
   const setTab               = useStore(s => s.setTab)
+  const { isLimited }        = useFreemium()
 
   const [expandedId, setExpandedId] = useState(null)
 
@@ -22,9 +24,13 @@ export default function RutasScreen() {
           {rutas.length} ruta{rutas.length !== 1 ? 's' : ''} guardada{rutas.length !== 1 ? 's' : ''}
         </p>
         <button
-          onClick={() => openModal('ruta', {})}
-          className="bg-amber-400 text-[#1a1a28] font-heading font-bold text-[11px] px-3 py-[7px] rounded-lg"
-        >+ Nueva ruta</button>
+          onClick={() => isLimited ? setTab('planes') : openModal('ruta', {})}
+          className={`font-heading font-bold text-[11px] px-3 py-[7px] rounded-lg ${
+            isLimited
+              ? 'bg-surface border border-amber-400/30 text-amber-400'
+              : 'bg-amber-400 text-[#1a1a28]'
+          }`}
+        >{isLimited ? '🔒 Nueva ruta' : '+ Nueva ruta'}</button>
       </div>
 
       {rutas.length === 0 && (
@@ -35,9 +41,9 @@ export default function RutasScreen() {
             <br/>Ej: "Ruta Godoy Cruz Lunes"
           </div>
           <button
-            onClick={() => openModal('ruta', {})}
+            onClick={() => isLimited ? setTab('planes') : openModal('ruta', {})}
             className="mt-5 bg-amber-400 text-[#1a1a28] font-heading font-bold text-[13px] px-5 py-3 rounded-xl"
-          >+ Crear primera ruta</button>
+          >{isLimited ? '🔒 Función premium' : '+ Crear primera ruta'}</button>
         </div>
       )}
 

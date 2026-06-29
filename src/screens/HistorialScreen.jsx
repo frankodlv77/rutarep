@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { jsPDF } from 'jspdf'
 import useStore from '../store/useStore'
+import { useFreemium } from '../hooks/useFreemium'
 
 function fmtMoney(n) {
   if (!n && n !== 0) return '—'
@@ -358,16 +359,29 @@ const PERIODS = [
 ]
 
 export default function HistorialScreen() {
-  const historial          = useStore(s => s.historial)
+  const historialRaw       = useStore(s => s.historial)
   const openModal          = useStore(s => s.openModal)
   const deleteHistorialDia = useStore(s => s.deleteHistorialDia)
   const perfil             = useStore(s => s.perfil)
+  const setTab             = useStore(s => s.setTab)
+  const { isLimited }      = useFreemium()
   const [period, setPeriod]         = useState('semana')
   const [expanded, setExpanded]     = useState(null)
   const [deletingId, setDeletingId] = useState(null)
   const [deleteText, setDeleteText] = useState('')
 
-  if (historial.length === 0) {
+  // Freemium: only last 7 days visible when trial expired
+  const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000
+  const historial = isLimited
+    ? historialRaw.filter(d => {
+        const t = d.fecha_iso
+          ? new Date(d.fecha_iso + 'T12:00:00').getTime()
+          : (parseFecha(d.fecha)?.getTime() ?? new Date(d.created_at).getTime())
+        return t >= sevenDaysAgo
+      })
+    : historialRaw
+
+  if (historialRaw.length === 0) {
     return (
       <div className="p-4 text-center pt-16 text-muted">
         <div className="text-[48px] mb-3 opacity-40">📦</div>
@@ -394,6 +408,20 @@ export default function HistorialScreen() {
 
   return (
     <div className="p-4">
+
+      {/* Banner freemium historial */}
+      {isLimited && (
+        <div className="mb-3 bg-amber-400/10 border border-amber-400/30 rounded-xl px-4 py-3 flex items-center justify-between gap-3">
+          <div>
+            <p className="text-[12px] font-bold text-amber-400">🔒 Solo últimos 7 días</p>
+            <p className="text-[11px] text-muted mt-[2px]">Suscribite para ver todo el historial.</p>
+          </div>
+          <button
+            onClick={() => setTab('planes')}
+            className="flex-shrink-0 text-[10px] font-bold text-[#1a1a28] bg-amber-400 px-3 py-[5px] rounded-lg active:scale-95 transition-transform"
+          >Ver planes</button>
+        </div>
+      )}
 
       {/* Selector de período */}
       <div className="flex bg-surface border border-[var(--c-border)] rounded-xl p-1 mb-4 gap-1">

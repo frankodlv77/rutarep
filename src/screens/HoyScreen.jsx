@@ -3,6 +3,7 @@ import useStore from '../store/useStore'
 import ZoneBadge from '../components/ui/ZoneBadge'
 import HoyMapView from '../components/ui/HoyMapView'
 import { useGeolocation } from '../hooks/useGeolocation'
+import { useFreemium } from '../hooks/useFreemium'
 
 const ZONAS = ['Centro', 'Godoy Cruz', 'Maipú', 'Guaymallén', 'Las Heras', 'Luján', 'Otro']
 
@@ -75,6 +76,7 @@ export default function HoyScreen() {
   const [vista, setVista] = useState('lista')
   const { pos, loading: gpsLoading, error: gpsErr, getPos } = useGeolocation()
   const [pendingAction, setPendingAction] = useState(null)
+  const { isLimited }   = useFreemium()
 
   const entCount = Object.keys(entregas).filter(id => hoy.includes(id)).length
 
@@ -123,7 +125,7 @@ export default function HoyScreen() {
 
   const handleIrARuta = () => {
     if (hoy.length === 0) return
-    if (puedeOrdenar) {
+    if (!isLimited && puedeOrdenar) {
       if (pos) { ordenarPorGPS(pos.lat, pos.lon); setTab('ruta') }
       else { setPendingAction('ir'); getPos() }
     } else {
@@ -196,13 +198,21 @@ export default function HoyScreen() {
             >
               {waiting && pendingAction === 'ir' ? '📍 Localizando...' : '▶ Ir a ruta'}
             </button>
-            {puedeOrdenar && (
+            {puedeOrdenar && !isLimited && (
               <button
                 className="bg-black/20 text-[#1a1a28] text-[10px] font-bold px-3 py-[6px] rounded-lg disabled:opacity-60"
                 onClick={handleOrdenar}
                 disabled={waiting}
               >
                 {waiting && pendingAction === 'ordenar' ? '📍...' : '🧭 Ordenar'}
+              </button>
+            )}
+            {puedeOrdenar && isLimited && (
+              <button
+                className="bg-black/20 text-[#1a1a28] text-[10px] font-bold px-3 py-[6px] rounded-lg opacity-80"
+                onClick={() => setTab('planes')}
+              >
+                🔒 Ordenar
               </button>
             )}
             <button
