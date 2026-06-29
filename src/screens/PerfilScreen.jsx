@@ -1,6 +1,13 @@
 import { useState } from 'react'
 import useStore from '../store/useStore'
 
+const PLAN_LABELS = {
+  free:          'Período de prueba',
+  solo:          'Repartidor Solo',
+  'equipo-chico': 'Equipo Chico',
+  'equipo-grande': 'Equipo Grande',
+}
+
 function getTheme() {
   return localStorage.getItem('rr_theme') || 'light'
 }
@@ -16,6 +23,7 @@ export default function PerfilScreen() {
   const deleteAccount  = useStore(s => s.deleteAccount)
   const logout         = useStore(s => s.logout)
   const openModal      = useStore(s => s.openModal)
+  const setTab         = useStore(s => s.setTab)
 
   const [negocio, setNegocio]   = useState(perfil?.negocio || '')
   const [saving, setSaving]     = useState(false)
@@ -79,6 +87,34 @@ export default function PerfilScreen() {
           className="w-full bg-amber-400 text-[#1a1a28] font-heading font-bold text-[13px] py-[12px] rounded-xl disabled:opacity-40 active:scale-[.98] transition-transform"
         >
           {saving ? 'Guardando...' : 'Guardar cambios'}
+        </button>
+      </div>
+
+      {/* Sección: Mi Plan */}
+      <div className="bg-surface border border-[var(--c-border)] rounded-2xl p-4 mb-3">
+        <p className="text-[10px] font-bold text-muted uppercase tracking-[.5px] mb-3">Mi Plan</p>
+        <div className="flex items-center justify-between mb-3">
+          <div>
+            <p className="text-[14px] font-bold text-textc">
+              {PLAN_LABELS[perfil?.plan || 'free'] || 'Período de prueba'}
+            </p>
+            <p className="text-[11px] text-muted mt-[2px]">
+              {(!perfil?.plan || perfil?.plan === 'free') ? 'Acceso completo durante el período de prueba' : 'Suscripción activa'}
+            </p>
+          </div>
+          <span className={`text-[9px] font-bold px-2 py-[3px] rounded-full uppercase tracking-[.5px] ${
+            (!perfil?.plan || perfil?.plan === 'free')
+              ? 'bg-amber-400/15 text-amber-400 border border-amber-400/20'
+              : 'bg-green-500/15 text-green-400 border border-green-500/20'
+          }`}>
+            {(!perfil?.plan || perfil?.plan === 'free') ? 'Free' : 'Activo'}
+          </span>
+        </div>
+        <button
+          onClick={() => setTab('planes')}
+          className="w-full bg-amber-400 text-[#1a1a28] font-heading font-bold text-[13px] py-[12px] rounded-xl active:scale-[.98] transition-transform"
+        >
+          Ver planes →
         </button>
       </div>
 

@@ -20,6 +20,7 @@ import OnboardingTour from './components/ui/OnboardingTour'
 
 import ChatScreen          from './screens/ChatScreen'
 import PasswordResetScreen from './screens/PasswordResetScreen'
+import PlanesScreen        from './screens/PlanesScreen'
 
 // Encargado
 import DashboardScreen from './screens/encargado/DashboardScreen'
@@ -42,6 +43,7 @@ const SCREENS_REPARTIDOR = {
   chat:     ChatScreen,
   hist:     HistorialScreen,
   perfil:   PerfilScreen,
+  planes:   PlanesScreen,
 }
 
 const SCREENS_ENCARGADO = {
@@ -51,6 +53,7 @@ const SCREENS_ENCARGADO = {
   chat:      ChatScreen,
   hist:      HistorialScreen,
   perfil:    PerfilScreen,
+  planes:    PlanesScreen,
 }
 
 const TABS_ENCARGADO = [
@@ -200,6 +203,11 @@ export default function App() {
   // ── Rol del usuario ──────────────────────────────────────────────
   const esEncargado = perfil?.rol === 'encargado'
 
+  const trialExpired = perfil &&
+    (!perfil.plan || perfil.plan === 'free') &&
+    perfil.trial_start &&
+    (Date.now() - new Date(perfil.trial_start).getTime()) > 30 * 24 * 60 * 60 * 1000
+
   // Tab activo por defecto según rol
   const defaultTab = esEncargado ? 'dashboard' : 'hoy'
   const tab = esEncargado
@@ -261,6 +269,23 @@ export default function App() {
           <p className="text-[11px] text-orange-300 font-medium leading-snug">
             Sin conexión — las entregas se guardan igual. El historial se sincroniza cuando vuelva internet.
           </p>
+        </div>
+      )}
+
+      {trialExpired && (
+        <div className="bg-amber-400/20 border-b border-amber-400/40 px-4 py-[9px] flex-shrink-0 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <span className="text-[14px]">⚠️</span>
+            <p className="text-[11px] text-amber-300 font-medium leading-snug">
+              Tu período de prueba terminó. Suscribite para continuar.
+            </p>
+          </div>
+          <button
+            onClick={() => setTab('planes')}
+            className="flex-shrink-0 text-[10px] font-bold text-amber-400 border border-amber-400/50 px-2 py-[3px] rounded-lg active:scale-95 transition-transform"
+          >
+            Ver planes
+          </button>
         </div>
       )}
 
