@@ -72,7 +72,6 @@ const useStore = create((set, get) => ({
   loading:     false,
   modal:       null,
   toast:       null,
-  chatUnread:  0,
 
   // ═══════════════════════════════════════════════════════════════
   // LOAD
@@ -611,7 +610,6 @@ const useStore = create((set, get) => ({
   },
 
   setTab:          (tab) => set({ activeTab: tab }),
-  setChatUnread:   (n)   => set({ chatUnread: n }),
   openModal: (type, data = {}) => set({ modal: { type, data } }),
   closeModal: ()          => set({ modal: null }),
 

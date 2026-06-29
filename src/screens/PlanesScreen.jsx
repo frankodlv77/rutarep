@@ -26,7 +26,6 @@ const PLANES = [
     features: [
       'Hasta 5 repartidores',
       'Dashboard de encargado',
-      'Chat interno del equipo',
       'Mapa en tiempo real',
       'Todo de Repartidor Solo',
     ],

@@ -18,7 +18,6 @@ import LandingScreen  from './screens/LandingScreen'
 import UnirseScreen, { checkPendingInvite } from './screens/UnirseScreen'
 import OnboardingTour from './components/ui/OnboardingTour'
 
-import ChatScreen          from './screens/ChatScreen'
 import PasswordResetScreen from './screens/PasswordResetScreen'
 import PlanesScreen        from './screens/PlanesScreen'
 
@@ -40,7 +39,6 @@ const SCREENS_REPARTIDOR = {
   ruta:     RutaScreen,
   clientes: ClientesScreen,
   rutas:    RutasScreen,
-  chat:     ChatScreen,
   hist:     HistorialScreen,
   perfil:   PerfilScreen,
   planes:   PlanesScreen,
@@ -50,7 +48,6 @@ const SCREENS_ENCARGADO = {
   dashboard: DashboardScreen,
   equipo:    EquipoScreen,
   mapa:      MapaScreen,
-  chat:      ChatScreen,
   hist:      HistorialScreen,
   perfil:    PerfilScreen,
   planes:    PlanesScreen,
@@ -60,7 +57,6 @@ const TABS_ENCARGADO = [
   { id: 'dashboard', icon: '📊', label: 'Dashboard' },
   { id: 'equipo',    icon: '👥', label: 'Equipo'    },
   { id: 'mapa',      icon: '🗺️',  label: 'Mapa'      },
-  { id: 'chat',      icon: '💬', label: 'Chat'      },
   { id: 'perfil',    icon: '👤', label: 'Perfil'    },
 ]
 
@@ -73,7 +69,6 @@ function getInviteToken() {
 export default function App() {
   const activeTab   = useStore(s => s.activeTab)
   const setTab      = useStore(s => s.setTab)
-  const chatUnread  = useStore(s => s.chatUnread)
   const loadAll     = useStore(s => s.loadAll)
   const perfil      = useStore(s => s.perfil)
   const offline     = useOffline()
@@ -237,12 +232,11 @@ export default function App() {
         >
           {TABS_ENCARGADO.map(t => {
             const active = tab === t.id
-            const badge  = t.id === 'chat' && chatUnread > 0
             return (
               <button
                 key={t.id}
                 onClick={() => setTab(t.id)}
-                className={`flex-1 flex flex-col items-center py-[8px] gap-[3px] rounded-xl transition-all duration-200 relative ${
+                className={`flex-1 flex flex-col items-center py-[8px] gap-[3px] rounded-xl transition-all duration-200 ${
                   active ? 'bg-amber-400/12' : ''
                 }`}
               >
@@ -254,9 +248,6 @@ export default function App() {
                 }`}>
                   {t.label}
                 </span>
-                {badge && (
-                  <span className="absolute top-[6px] right-[calc(50%-8px)] w-[8px] h-[8px] rounded-full bg-red-500 border border-[var(--c-bg)]" />
-                )}
               </button>
             )
           })}
