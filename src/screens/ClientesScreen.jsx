@@ -336,6 +336,11 @@ export default function ClientesScreen() {
                 💰 Cobrar
               </button>
             )}
+            <button
+              onClick={() => openModal('clienteHistorial', { clienteId: c.id, nombre: c.nombre, deuda: c.deuda || 0 })}
+              className="w-[30px] h-[30px] rounded-[7px] bg-surface2 border border-[var(--c-border)] text-muted flex items-center justify-center text-[13px]">
+              📋
+            </button>
             {c.lat && (
               <button onClick={() => navGPS(c.lat, c.lon)}
                 className="w-[30px] h-[30px] rounded-[7px] bg-emerald-500/12 text-emerald-400 flex items-center justify-center text-[14px]">🧭</button>

@@ -29,10 +29,11 @@ import MapaScreen      from './screens/encargado/MapaScreen'
 import { useLocationTracker } from './hooks/useLocationTracker'
 import { usePWABadge }        from './hooks/usePWABadge'
 
-import ClienteModal  from './modals/ClienteModal'
-import EntregaModal  from './modals/EntregaModal'
-import RutaModal     from './modals/RutaModal'
-import ConfirmModal  from './modals/ConfirmModal'
+import ClienteModal         from './modals/ClienteModal'
+import ClienteHistorialModal from './modals/ClienteHistorialModal'
+import EntregaModal          from './modals/EntregaModal'
+import RutaModal             from './modals/RutaModal'
+import ConfirmModal          from './modals/ConfirmModal'
 
 const SCREENS_REPARTIDOR = {
   hoy:      HoyScreen,
@@ -285,6 +286,7 @@ export default function App() {
       </div>
 
       <ClienteModal />
+      <ClienteHistorialModal />
       <EntregaModal />
       <RutaModal />
       <ConfirmModal />
