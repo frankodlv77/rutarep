@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #0D0D0D; }
+</style>
+</helmet>
+
+<div style="min-width: 2700px; padding: 80px; font-family: 'General Sans', sans-serif;">
+
+  <!-- Canvas header -->
+  <div style="margin-bottom: 64px;">
+    <p style="font-size: 10px; color: #3A3A3C; text-transform: uppercase; letter-spacing: 2.5px; font-weight: 600; margin-bottom: 14px;">VoraRep — Rediseño Premium · 2025</p>
+    <h1 style="font-family: 'General Sans', sans-serif; font-size: 32px; font-weight: 800; color: #EBEBEB; letter-spacing: -1px; margin-bottom: 8px;">Sin emojis. Sin shimmer. Cada detalle cuidado.</h1>
+    <p style="font-size: 14px; color: #4A4A4E; line-height: 1.6; max-width: 560px;">Onyx · IBM Plex + Syne · Amber #D4962A · Rediseño completo pantalla a pantalla.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- TURN 2: Onyx — flujo completo                          -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div style="display: flex; gap: 32px; padding-left: 192px; margin-bottom: 24px;">
+    <div style="width: 390px; text-align: center; font-size: 9px; font-weight: 600; letter-spacing: 2px; color: #3A3A3C; text-transform: uppercase;">Login</div>
+    <div style="width: 390px; text-align: center; font-size: 9px; font-weight: 600; letter-spacing: 2px; color: #3A3A3C; text-transform: uppercase;">Clientes</div>
+    <div style="width: 390px; text-align: center; font-size: 9px; font-weight: 600; letter-spacing: 2px; color: #3A3A3C; text-transform: uppercase;">Cliente · Detalle</div>
+    <div style="width: 390px; text-align: center; font-size: 9px; font-weight: 600; letter-spacing: 2px; color: #3A3A3C; text-transform: uppercase;">Historial</div>
+    <div style="width: 390px; text-align: center; font-size: 9px; font-weight: 600; letter-spacing: 2px; color: #3A3A3C; text-transform: uppercase;">Métricas</div>
+  </div>
+
+  <section id="2a" style="display: flex; gap: 32px; margin-bottom: 120px; align-items: flex-start;">
+
+    <!-- Label -->
+    <div style="width: 160px; padding-top: 52px; flex-shrink: 0;">
+      <span style="font-size: 9px; font-weight: 700; color: #D4962A; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 10px;">Turno 2</span>
+      <div style="font-family: 'General Sans', sans-serif; font-size: 28px; font-weight: 800; color: #EBEBEB; letter-spacing: -0.5px; line-height: 1; margin-bottom: 8px;">Onyx</div>
+      <div style="font-size: 12px; color: #4A4A4E; line-height: 1.8; margin-bottom: 20px;">Login · Clientes<br>Detalle · Historial<br>Métricas</div>
+      <div style="display: flex; gap: 6px;">
+        <div style="width: 18px; height: 18px; border-radius: 50%; background: #0C0C0E; border: 1px solid rgba(255,255,255,0.15);"></div>
+        <div style="width: 18px; height: 18px; border-radius: 50%; background: #16161A; border: 1px solid rgba(255,255,255,0.08);"></div>
+        <div style="width: 18px; height: 18px; border-radius: 50%; background: #D4962A;"></div>
+        <div style="width: 18px; height: 18px; border-radius: 50%; background: #34C759;"></div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════╗ -->
+    <!-- ║  LOGIN           ║ -->
+    <!-- ╚══════════════════╝ -->
+    <div style="width:390px;height:844px;border-radius:50px;overflow:hidden;position:relative;background:#0C0C0E;border:1.5px solid rgba(255,255,255,0.10);box-shadow:0 0 0 8px #060606,0 40px 80px rgba(0,0,0,0.9),inset 0 1px 0 rgba(255,255,255,0.04);flex-shrink:0;">
+      <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:125px;height:37px;background:#000;border-radius:20px;z-index:200;"></div>
+      <div style="position:absolute;top:0;left:0;right:0;height:59px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 32px 11px;z-index:150;">
+        <span style="font-family:'IBM Plex Sans',sans-serif;font-size:15px;font-weight:600;color:#F2F2F7;letter-spacing:-0.3px;">9:41</span>
+        <div style="display:flex;align-items:center;gap:7px;">
+          <svg width="17" height="11" viewBox="0 0 17 11"><rect fill="#F2F2F7" x="0" y="7" width="3" height="4" rx="0.5" opacity="0.4"/><rect fill="#F2F2F7" x="4.5" y="4.5" width="3" height="6.5" rx="0.5" opacity="0.6"/><rect fill="#F2F2F7" x="9" y="2" width="3" height="9" rx="0.5" opacity="0.8"/><rect fill="#F2F2F7" x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><path d="M1 4C4 1 12 1 15 4" stroke="#F2F2F7" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/><path d="M3 6.5C5.5 4 10.5 4 13 6.5" stroke="#F2F2F7" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/><path d="M5.5 9C7 7.5 9 7.5 10.5 9" stroke="#F2F2F7" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11" r="0.8" fill="#F2F2F7"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="#F2F2F7" stroke-opacity="0.35" fill="none"/><rect x="2" y="2" width="15" height="8" rx="2" fill="#F2F2F7"/><path d="M22 4v4" stroke="#F2F2F7" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <div style="position:absolute;inset:0;padding:59px 36px 48px;display:flex;flex-direction:column;justify-content:center;">
+        <div style="display:flex;justify-content:center;margin-bottom:28px;">
+          <div style="width:64px;height:64px;border-radius:18px;background:#1A1A1F;border:1px solid rgba(255,255,255,0.07);overflow:hidden;display:flex;align-items:center;justify-content:center;">
+            <img src="icon-vorarep-192.png" style="width:54px;height:54px;border-radius:12px;" alt="VoraRep">
+          </div>
+        </div>
+        <div style="margin-bottom:36px;text-align:center;">
+          <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#F2F2F7;letter-spacing:-1px;line-height:1;margin-bottom:6px;">Iniciá sesión</div>
+          <div style="font-size:14px;color:#4A4A4E;">Accedé a tu cuenta de VoraRep</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
+          <div style="position:relative;">
+            <div style="position:absolute;left:16px;top:50%;transform:translateY(-50%);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div style="background:#16161A;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:16px 16px 16px 44px;font-family:'IBM Plex Sans',sans-serif;font-size:15px;color:#F2F2F7;">juan@distribuidora.com</div>
+          </div>
+          <div style="position:relative;">
+            <div style="position:absolute;left:16px;top:50%;transform:translateY(-50%);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            </div>
+            <div style="background:#16161A;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:16px 16px 16px 44px;font-family:'IBM Plex Sans',sans-serif;font-size:15px;color:#3A3A3C;letter-spacing:3px;">••••••••</div>
+          </div>
+        </div>
+        <div style="text-align:right;margin-bottom:28px;">
+          <span style="font-size:13px;color:#D4962A;font-family:'IBM Plex Sans',sans-serif;font-weight:500;">¿Olvidaste tu contraseña?</span>
+        </div>
+        <button style="width:100%;background:#D4962A;color:#0C0C0E;font-family:'IBM Plex Sans',sans-serif;font-size:16px;font-weight:600;padding:17px;border-radius:14px;border:none;letter-spacing:-0.2px;margin-bottom:14px;">Ingresar</button>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <div style="flex:1;height:0.5px;background:rgba(255,255,255,0.07);"></div>
+          <span style="font-size:12px;color:#2A2A2E;font-family:'IBM Plex Sans',sans-serif;">o</span>
+          <div style="flex:1;height:0.5px;background:rgba(255,255,255,0.07);"></div>
+        </div>
+        <div style="text-align:center;">
+          <span style="font-size:14px;color:#4A4A4E;font-family:'IBM Plex Sans',sans-serif;">¿No tenés cuenta? </span><span style="font-size:14px;color:#D4962A;font-weight:500;font-family:'IBM Plex Sans',sans-serif;">Creá una</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════╗ -->
+    <!-- ║  CLIENTES        ║ -->
+    <!-- ╚══════════════════╝ -->
+    <div style="width:390px;height:844px;border-radius:50px;overflow:hidden;position:relative;background:#0C0C0E;border:1.5px solid rgba(255,255,255,0.10);box-shadow:0 0 0 8px #060606,0 40px 80px rgba(0,0,0,0.9),inset 0 1px 0 rgba(255,255,255,0.04);flex-shrink:0;">
+      <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:125px;height:37px;background:#000;border-radius:20px;z-index:200;"></div>
+      <div style="position:absolute;top:0;left:0;right:0;height:59px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 32px 11px;z-index:150;">
+        <span style="font-family:'IBM Plex Sans',sans-serif;font-size:15px;font-weight:600;color:#F2F2F7;letter-spacing:-0.3px;">9:41</span>
+        <div style="display:flex;align-items:center;gap:7px;">
+          <svg width="17" height="11" viewBox="0 0 17 11"><rect fill="#F2F2F7" x="0" y="7" width="3" height="4" rx="0.5" opacity="0.4"/><rect fill="#F2F2F7" x="4.5" y="4.5" width="3" height="6.5" rx="0.5" opacity="0.6"/><rect fill="#F2F2F7" x="9" y="2" width="3" height="9" rx="0.5" opacity="0.8"/><rect fill="#F2F2F7" x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="#F2F2F7" stroke-opacity="0.35" fill="none"/><rect x="2" y="2" width="15" height="8" rx="2" fill="#F2F2F7"/><path d="M22 4v4" stroke="#F2F2F7" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <div style="position:absolute;top:59px;left:0;right:0;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:#0C0C0E;z-index:50;">
+        <div style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:#F2F2F7;letter-spacing:-1px;">Clientes</div>
+        <div style="width:34px;height:34px;border-radius:50%;background:#16161A;border:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#636366" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+      </div>
+      <div style="position:absolute;top:117px;left:0;right:0;padding:0 18px 10px;background:#0C0C0E;z-index:40;">
+        <div style="position:relative;">
+          <div style="position:absolute;left:13px;top:50%;transform:translateY(-50%);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div style="background:#16161A;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:11px 13px 11px 36px;font-family:'IBM Plex Sans',sans-serif;font-size:14px;color:#3A3A3C;">Buscar cliente...</div>
+        </div>
+      </div>
+      <div style="position:absolute;top:173px;left:0;right:0;bottom:83px;overflow:hidden;">
+        <div style="padding:6px 24px 8px;"><div style="font-size:10px;font-weight:600;color:#3A3A3C;text-transform:uppercase;letter-spacing:1.8px;">24 clientes activos</div></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:0.5px solid rgba(255,255,255,0.05);">
+          <div style="width:36px;height:36px;border-radius:10px;background:#1E1A14;border:1px solid rgba(212,150,42,0.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;color:#D4962A;">AR</span></div>
+          <div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:600;color:#F2F2F7;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Almacén Rodríguez</div><div style="font-size:11px;color:#4A4A4E;">Belgrano 567, Godoy Cruz</div></div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;"><div style="background:rgba(255,69,58,0.10);border:1px solid rgba(255,69,58,0.20);border-radius:6px;padding:2px 7px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#FF453A;">$15.000</span></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:0.5px solid rgba(255,255,255,0.05);">
+          <div style="width:36px;height:36px;border-radius:10px;background:#16161A;border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;color:#636366;">SL</span></div>
+          <div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:600;color:#F2F2F7;margin-bottom:2px;">Supermercado López</div><div style="font-size:11px;color:#4A4A4E;">San Martín 1234</div></div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;"><div style="background:rgba(52,199,89,0.08);border:1px solid rgba(52,199,89,0.16);border-radius:6px;padding:2px 7px;"><span style="font-size:10px;font-weight:600;color:#34C759;">Al día</span></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:0.5px solid rgba(255,255,255,0.05);">
+          <div style="width:36px;height:36px;border-radius:10px;background:#16161A;border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;color:#636366;">KF</span></div>
+          <div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:600;color:#F2F2F7;margin-bottom:2px;">Kiosco Fernández</div><div style="font-size:11px;color:#4A4A4E;">Rivadavia 890, Maipú</div></div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;"><div style="background:rgba(255,69,58,0.10);border:1px solid rgba(255,69,58,0.20);border-radius:6px;padding:2px 7px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#FF453A;">$3.200</span></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:0.5px solid rgba(255,255,255,0.05);">
+          <div style="width:36px;height:36px;border-radius:10px;background:#16161A;border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;color:#636366;">DM</span></div>
+          <div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:600;color:#F2F2F7;margin-bottom:2px;">Despensa Martínez</div><div style="font-size:11px;color:#4A4A4E;">Garibaldi 230, Las Heras</div></div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;"><div style="background:rgba(52,199,89,0.08);border:1px solid rgba(52,199,89,0.16);border-radius:6px;padding:2px 7px;"><span style="font-size:10px;font-weight:600;color:#34C759;">Al día</span></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:0.5px solid rgba(255,255,255,0.05);">
+          <div style="width:36px;height:36px;border-radius:10px;background:#16161A;border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;color:#636366;">EE</span></div>
+          <div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:600;color:#F2F2F7;margin-bottom:2px;">Bar El Encuentro</div><div style="font-size:11px;color:#4A4A4E;">Av. España 445</div></div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;"><div style="background:rgba(255,69,58,0.10);border:1px solid rgba(255,69,58,0.20);border-radius:6px;padding:2px 7px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#FF453A;">$8.500</span></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;opacity:0.35;">
+          <div style="width:36px;height:36px;border-radius:10px;background:#16161A;border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;color:#636366;">MC</span></div>
+          <div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:600;color:#F2F2F7;margin-bottom:2px;">Minimercado Coria</div><div style="font-size:11px;color:#4A4A4E;">Tucumán 112, Guaymallén</div></div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;"><div style="background:rgba(52,199,89,0.08);border:1px solid rgba(52,199,89,0.16);border-radius:6px;padding:2px 7px;"><span style="font-size:10px;font-weight:600;color:#34C759;">Al día</span></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+      </div>
+      <div style="position:absolute;left:0;right:0;bottom:0;height:83px;background:#0C0C0E;border-top:0.5px solid rgba(255,255,255,0.06);">
+        <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;background:rgba(255,255,255,0.15);border-radius:3px;"></div>
+        <div style="height:49px;display:flex;padding:8px 4px 0;">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg><span style="font-size:9px;color:#3A3A3C;">Hoy</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="19" r="2"/><circle cx="19" cy="5" r="2"/><path d="M5 17V9a7 7 0 017-7h7"/><path d="M17 3l2 2-2 2"/></svg><span style="font-size:9px;color:#3A3A3C;">Ruta</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4962A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg><span style="font-size:9px;font-weight:600;color:#D4962A;">Clientes</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5" rx="1"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span style="font-size:9px;color:#3A3A3C;">Historial</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span style="font-size:9px;color:#3A3A3C;">Perfil</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════╗ -->
+    <!-- ║  CLIENTE DETALLE ║ -->
+    <!-- ╚══════════════════╝ -->
+    <div style="width:390px;height:844px;border-radius:50px;overflow:hidden;position:relative;background:#0C0C0E;border:1.5px solid rgba(255,255,255,0.10);box-shadow:0 0 0 8px #060606,0 40px 80px rgba(0,0,0,0.9),inset 0 1px 0 rgba(255,255,255,0.04);flex-shrink:0;">
+      <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:125px;height:37px;background:#000;border-radius:20px;z-index:200;"></div>
+      <div style="position:absolute;top:0;left:0;right:0;height:59px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 32px 11px;z-index:150;">
+        <span style="font-family:'IBM Plex Sans',sans-serif;font-size:15px;font-weight:600;color:#F2F2F7;letter-spacing:-0.3px;">9:41</span>
+        <div style="display:flex;align-items:center;gap:7px;">
+          <svg width="17" height="11" viewBox="0 0 17 11"><rect fill="#F2F2F7" x="0" y="7" width="3" height="4" rx="0.5" opacity="0.4"/><rect fill="#F2F2F7" x="4.5" y="4.5" width="3" height="6.5" rx="0.5" opacity="0.6"/><rect fill="#F2F2F7" x="9" y="2" width="3" height="9" rx="0.5" opacity="0.8"/><rect fill="#F2F2F7" x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="#F2F2F7" stroke-opacity="0.35" fill="none"/><rect x="2" y="2" width="15" height="8" rx="2" fill="#F2F2F7"/><path d="M22 4v4" stroke="#F2F2F7" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <div style="position:absolute;top:59px;left:0;right:0;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:0.5px solid rgba(255,255,255,0.06);">
+        <div style="display:flex;align-items:center;gap:5px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#636366" stroke-width="1.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          <span style="font-size:13px;color:#636366;font-family:'IBM Plex Sans',sans-serif;">Clientes</span>
+        </div>
+        <div style="width:32px;height:32px;border-radius:50%;background:#16161A;border:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#636366" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+        </div>
+      </div>
+      <div style="position:absolute;top:111px;left:0;right:0;bottom:0;padding:18px 20px 36px;overflow:hidden;display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div style="width:48px;height:48px;border-radius:14px;background:#1E1A14;border:1px solid rgba(212,150,42,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:500;color:#D4962A;">AR</span>
+          </div>
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#F2F2F7;letter-spacing:-0.8px;line-height:1.1;margin-bottom:3px;">Almacén Rodríguez</div>
+            <div style="font-size:12px;color:#4A4A4E;">Belgrano 567, Godoy Cruz</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <div style="flex:1;background:#16161A;border-radius:12px;padding:12px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:19px;font-weight:500;color:#FF453A;line-height:1;margin-bottom:4px;">$15k</div>
+            <div style="font-size:9px;color:#3A3A3C;text-transform:uppercase;letter-spacing:1px;">Deuda</div>
+          </div>
+          <div style="flex:1;background:#16161A;border-radius:12px;padding:12px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:19px;font-weight:500;color:#F2F2F7;line-height:1;margin-bottom:4px;">Hoy</div>
+            <div style="font-size:9px;color:#3A3A3C;text-transform:uppercase;letter-spacing:1px;">Ult. visita</div>
+          </div>
+          <div style="flex:1;background:#16161A;border-radius:12px;padding:12px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:19px;font-weight:500;color:#D4962A;line-height:1;margin-bottom:4px;">$47k</div>
+            <div style="font-size:9px;color:#3A3A3C;text-transform:uppercase;letter-spacing:1px;">Este mes</div>
+          </div>
+        </div>
+        <div style="background:rgba(255,69,58,0.06);border:1px solid rgba(255,69,58,0.14);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF453A" stroke-width="1.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div style="flex:1;">
+            <div style="font-size:13px;font-weight:600;color:#FF453A;margin-bottom:2px;">Deuda pendiente</div>
+            <div style="font-size:11px;color:#636366;">Último cobro: Vie 27 Jun · $12.000</div>
+          </div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;color:#FF453A;">$15.000</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <button style="width:100%;background:#D4962A;color:#0C0C0E;font-family:'IBM Plex Sans',sans-serif;font-size:15px;font-weight:600;padding:15px;border-radius:14px;border:none;display:flex;align-items:center;justify-content:center;gap:8px;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Registrar entrega
+          </button>
+          <button style="width:100%;background:rgba(255,255,255,0.04);color:#F2F2F7;font-family:'IBM Plex Sans',sans-serif;font-size:15px;font-weight:500;padding:14px;border-radius:14px;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;gap:8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4962A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            Cobrar deuda
+          </button>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:600;color:#3A3A3C;text-transform:uppercase;letter-spacing:1.8px;margin-bottom:8px;">Últimas visitas</div>
+          <div style="background:#16161A;border-radius:12px;overflow:hidden;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:0.5px solid rgba(255,255,255,0.05);">
+              <div><div style="font-size:13px;font-weight:500;color:#F2F2F7;margin-bottom:2px;">Hoy, 5 Jul</div><div style="font-size:11px;color:#4A4A4E;">Entregado completo</div></div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#34C759;">$24.500</div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:0.5px solid rgba(255,255,255,0.05);">
+              <div><div style="font-size:13px;font-weight:500;color:#F2F2F7;margin-bottom:2px;">Vie 4 Jul</div><div style="font-size:11px;color:#D4962A;">Parcial · 3 de 5 ítems</div></div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#D4962A;">$18.000</div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;">
+              <div><div style="font-size:13px;font-weight:500;color:#F2F2F7;margin-bottom:2px;">Jue 3 Jul</div><div style="font-size:11px;color:#4A4A4E;">Entregado completo</div></div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#34C759;">$23.000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════╗ -->
+    <!-- ║  HISTORIAL       ║ -->
+    <!-- ╚══════════════════╝ -->
+    <div style="width:390px;height:844px;border-radius:50px;overflow:hidden;position:relative;background:#0C0C0E;border:1.5px solid rgba(255,255,255,0.10);box-shadow:0 0 0 8px #060606,0 40px 80px rgba(0,0,0,0.9),inset 0 1px 0 rgba(255,255,255,0.04);flex-shrink:0;">
+      <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:125px;height:37px;background:#000;border-radius:20px;z-index:200;"></div>
+      <div style="position:absolute;top:0;left:0;right:0;height:59px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 32px 11px;z-index:150;">
+        <span style="font-family:'IBM Plex Sans',sans-serif;font-size:15px;font-weight:600;color:#F2F2F7;letter-spacing:-0.3px;">9:41</span>
+        <div style="display:flex;align-items:center;gap:7px;">
+          <svg width="17" height="11" viewBox="0 0 17 11"><rect fill="#F2F2F7" x="0" y="7" width="3" height="4" rx="0.5" opacity="0.4"/><rect fill="#F2F2F7" x="4.5" y="4.5" width="3" height="6.5" rx="0.5" opacity="0.6"/><rect fill="#F2F2F7" x="9" y="2" width="3" height="9" rx="0.5" opacity="0.8"/><rect fill="#F2F2F7" x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="#F2F2F7" stroke-opacity="0.35" fill="none"/><rect x="2" y="2" width="15" height="8" rx="2" fill="#F2F2F7"/><path d="M22 4v4" stroke="#F2F2F7" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <div style="position:absolute;top:59px;left:0;right:0;height:58px;display:flex;align-items:center;padding:0 24px;background:#0C0C0E;z-index:50;">
+        <div style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:#F2F2F7;letter-spacing:-1px;">Historial</div>
+      </div>
+      <div style="position:absolute;top:117px;left:0;right:0;padding:0 18px 12px;background:#0C0C0E;z-index:40;">
+        <div style="background:#16161A;border-radius:10px;padding:3px;display:flex;">
+          <div style="flex:1;background:#2A2A2E;border-radius:8px;padding:8px;text-align:center;"><span style="font-size:12px;font-weight:600;color:#F2F2F7;font-family:'IBM Plex Sans',sans-serif;">Esta semana</span></div>
+          <div style="flex:1;padding:8px;text-align:center;"><span style="font-size:12px;color:#3A3A3C;font-family:'IBM Plex Sans',sans-serif;">Este mes</span></div>
+        </div>
+      </div>
+      <div style="position:absolute;top:177px;left:0;right:0;bottom:83px;overflow:hidden;padding:0 18px;">
+        <div style="font-size:10px;font-weight:600;color:#3A3A3C;text-transform:uppercase;letter-spacing:1.8px;margin-bottom:8px;">Hoy — Sáb 5 Jul</div>
+        <div style="background:#16161A;border-radius:12px;overflow:hidden;margin-bottom:14px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid rgba(255,255,255,0.05);">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:26px;height:26px;border-radius:50%;background:#34C759;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5l3 3L11 1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div><div style="font-size:13px;font-weight:600;color:#F2F2F7;margin-bottom:1px;">Supermercado López</div><div style="font-size:11px;color:#4A4A4E;">Entregado · 9:15 am</div></div>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#34C759;">$24.500</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:26px;height:26px;border-radius:50%;border:1.5px solid #D4962A;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D4962A" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="12"/><line x1="12" y1="15" x2="12" y2="19"/></svg></div>
+              <div><div style="font-size:13px;font-weight:600;color:#F2F2F7;margin-bottom:1px;">Almacén Rodríguez</div><div style="font-size:11px;color:#D4962A;">Parcial · 3 de 5 ítems</div></div>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#D4962A;">$8.000</div>
+          </div>
+        </div>
+        <div style="font-size:10px;font-weight:600;color:#3A3A3C;text-transform:uppercase;letter-spacing:1.8px;margin-bottom:8px;">Vie 4 Jul</div>
+        <div style="background:#16161A;border-radius:12px;overflow:hidden;margin-bottom:14px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid rgba(255,255,255,0.05);">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:26px;height:26px;border-radius:50%;background:#34C759;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5l3 3L11 1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div><div style="font-size:13px;font-weight:600;color:#F2F2F7;margin-bottom:1px;">Kiosco Fernández</div><div style="font-size:11px;color:#4A4A4E;">Entregado · 10:32 am</div></div>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#34C759;">$12.000</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid rgba(255,255,255,0.05);">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(255,69,58,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FF453A" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+              <div><div style="font-size:13px;font-weight:600;color:#F2F2F7;margin-bottom:1px;">Despensa Martínez</div><div style="font-size:11px;color:#FF453A;">Cancelado</div></div>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#3A3A3C;">—</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:26px;height:26px;border-radius:50%;background:#34C759;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5l3 3L11 1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div><div style="font-size:13px;font-weight:600;color:#F2F2F7;margin-bottom:1px;">Bar El Encuentro</div><div style="font-size:11px;color:#4A4A4E;">Entregado · 2:45 pm</div></div>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#34C759;">$31.000</div>
+          </div>
+        </div>
+        <div style="font-size:10px;font-weight:600;color:#3A3A3C;text-transform:uppercase;letter-spacing:1.8px;margin-bottom:8px;opacity:0.5;">Jue 3 Jul</div>
+        <div style="background:#16161A;border-radius:12px;overflow:hidden;opacity:0.4;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid rgba(255,255,255,0.05);">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:26px;height:26px;border-radius:50%;background:#34C759;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5l3 3L11 1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div><div style="font-size:13px;font-weight:600;color:#F2F2F7;margin-bottom:1px;">Almacén Rodríguez</div><div style="font-size:11px;color:#4A4A4E;">Entregado · 9:05 am</div></div>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#34C759;">$23.000</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:26px;height:26px;border-radius:50%;background:#34C759;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5l3 3L11 1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div><div style="font-size:13px;font-weight:600;color:#F2F2F7;margin-bottom:1px;">Supermercado López</div><div style="font-size:11px;color:#4A4A4E;">Entregado · 11:20 am</div></div>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#34C759;">$19.500</div>
+          </div>
+        </div>
+      </div>
+      <div style="position:absolute;left:0;right:0;bottom:0;height:83px;background:#0C0C0E;border-top:0.5px solid rgba(255,255,255,0.06);">
+        <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;background:rgba(255,255,255,0.15);border-radius:3px;"></div>
+        <div style="height:49px;display:flex;padding:8px 4px 0;">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg><span style="font-size:9px;color:#3A3A3C;">Hoy</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="19" r="2"/><circle cx="19" cy="5" r="2"/><path d="M5 17V9a7 7 0 017-7h7"/><path d="M17 3l2 2-2 2"/></svg><span style="font-size:9px;color:#3A3A3C;">Ruta</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg><span style="font-size:9px;color:#3A3A3C;">Clientes</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4962A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5" rx="1"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span style="font-size:9px;font-weight:600;color:#D4962A;">Historial</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span style="font-size:9px;color:#3A3A3C;">Perfil</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════╗ -->
+    <!-- ║  MÉTRICAS        ║ -->
+    <!-- ╚══════════════════╝ -->
+    <div style="width:390px;height:844px;border-radius:50px;overflow:hidden;position:relative;background:#0C0C0E;border:1.5px solid rgba(255,255,255,0.10);box-shadow:0 0 0 8px #060606,0 40px 80px rgba(0,0,0,0.9),inset 0 1px 0 rgba(255,255,255,0.04);flex-shrink:0;">
+      <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:125px;height:37px;background:#000;border-radius:20px;z-index:200;"></div>
+      <div style="position:absolute;top:0;left:0;right:0;height:59px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 32px 11px;z-index:150;">
+        <span style="font-family:'IBM Plex Sans',sans-serif;font-size:15px;font-weight:600;color:#F2F2F7;letter-spacing:-0.3px;">9:41</span>
+        <div style="display:flex;align-items:center;gap:7px;">
+          <svg width="17" height="11" viewBox="0 0 17 11"><rect fill="#F2F2F7" x="0" y="7" width="3" height="4" rx="0.5" opacity="0.4"/><rect fill="#F2F2F7" x="4.5" y="4.5" width="3" height="6.5" rx="0.5" opacity="0.6"/><rect fill="#F2F2F7" x="9" y="2" width="3" height="9" rx="0.5" opacity="0.8"/><rect fill="#F2F2F7" x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="#F2F2F7" stroke-opacity="0.35" fill="none"/><rect x="2" y="2" width="15" height="8" rx="2" fill="#F2F2F7"/><path d="M22 4v4" stroke="#F2F2F7" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <div style="position:absolute;top:59px;left:0;right:0;height:58px;display:flex;align-items:center;padding:0 24px;background:#0C0C0E;z-index:50;">
+        <div style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:#F2F2F7;letter-spacing:-1px;">Métricas</div>
+      </div>
+      <div style="position:absolute;top:117px;left:0;right:0;padding:0 18px;background:#0C0C0E;z-index:40;">
+        <div style="background:#16161A;border-radius:10px;padding:3px;display:flex;">
+          <div style="flex:1;background:#2A2A2E;border-radius:8px;padding:8px;text-align:center;"><span style="font-size:12px;font-weight:600;color:#F2F2F7;font-family:'IBM Plex Sans',sans-serif;">Semana</span></div>
+          <div style="flex:1;padding:8px;text-align:center;"><span style="font-size:12px;color:#3A3A3C;font-family:'IBM Plex Sans',sans-serif;">Mes</span></div>
+        </div>
+      </div>
+      <div style="position:absolute;top:163px;left:0;right:0;bottom:83px;padding:16px 20px 0;overflow:hidden;display:flex;flex-direction:column;gap:14px;">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:44px;font-weight:500;color:#F2F2F7;letter-spacing:-2px;line-height:1;margin-bottom:5px;">$124.500</div>
+          <div style="font-size:13px;color:#4A4A4E;">Cobrado esta semana · <span style="color:#34C759;">↑ 18%</span></div>
+        </div>
+        <div style="display:flex;gap:20px;">
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:500;color:#F2F2F7;">31</div><div style="font-size:9px;color:#3A3A3C;text-transform:uppercase;letter-spacing:1px;margin-top:2px;">Entregas</div></div>
+          <div style="width:0.5px;background:rgba(255,255,255,0.07);"></div>
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:500;color:#34C759;">94%</div><div style="font-size:9px;color:#3A3A3C;text-transform:uppercase;letter-spacing:1px;margin-top:2px;">Efectividad</div></div>
+          <div style="width:0.5px;background:rgba(255,255,255,0.07);"></div>
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:500;color:#FF453A;">2</div><div style="font-size:9px;color:#3A3A3C;text-transform:uppercase;letter-spacing:1px;margin-top:2px;">Canceladas</div></div>
+        </div>
+        <div style="background:#16161A;border-radius:14px;padding:14px;">
+          <div style="font-size:10px;font-weight:600;color:#3A3A3C;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;">Esta semana</div>
+          <div style="display:flex;align-items:flex-end;gap:5px;height:72px;">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:100%;background:rgba(255,255,255,0.08);border-radius:3px 3px 0 0;height:42px;"></div><span style="font-size:9px;color:#3A3A3C;">Lun</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:100%;background:rgba(255,255,255,0.08);border-radius:3px 3px 0 0;height:30px;"></div><span style="font-size:9px;color:#3A3A3C;">Mar</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:100%;background:rgba(255,255,255,0.08);border-radius:3px 3px 0 0;height:56px;"></div><span style="font-size:9px;color:#3A3A3C;">Mié</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:100%;background:rgba(255,255,255,0.08);border-radius:3px 3px 0 0;height:36px;"></div><span style="font-size:9px;color:#3A3A3C;">Jue</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:100%;background:rgba(255,255,255,0.08);border-radius:3px 3px 0 0;height:62px;"></div><span style="font-size:9px;color:#3A3A3C;">Vie</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:100%;background:#D4962A;border-radius:3px 3px 0 0;height:40px;opacity:0.9;"></div><span style="font-size:9px;font-weight:600;color:#D4962A;">Sáb</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:100%;background:rgba(255,255,255,0.03);border-radius:3px 3px 0 0;height:6px;border:1px dashed rgba(255,255,255,0.07);"></div><span style="font-size:9px;color:#2A2A2E;">Dom</span></div>
+          </div>
+        </div>
+        <div style="background:#16161A;border-radius:14px;overflow:hidden;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:0.5px solid rgba(255,255,255,0.05);">
+            <div style="display:flex;align-items:center;gap:10px;"><div style="width:7px;height:7px;border-radius:50%;background:#D4962A;flex-shrink:0;"></div><span style="font-size:13px;color:#F2F2F7;font-family:'IBM Plex Sans',sans-serif;">Comisión (10%)</span></div>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;color:#D4962A;">$12.450</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:0.5px solid rgba(255,255,255,0.05);">
+            <div style="display:flex;align-items:center;gap:10px;"><div style="width:7px;height:7px;border-radius:50%;background:#FF453A;flex-shrink:0;"></div><span style="font-size:13px;color:#F2F2F7;font-family:'IBM Plex Sans',sans-serif;">Pend. de cobro</span></div>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;color:#FF453A;">$26.700</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;">
+            <div style="display:flex;align-items:center;gap:10px;"><div style="width:7px;height:7px;border-radius:50%;background:#34C759;flex-shrink:0;"></div><span style="font-size:13px;color:#F2F2F7;font-family:'IBM Plex Sans',sans-serif;">Efectivo cobrado</span></div>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;color:#34C759;">$98.000</span>
+          </div>
+        </div>
+      </div>
+      <div style="position:absolute;left:0;right:0;bottom:0;height:83px;background:#0C0C0E;border-top:0.5px solid rgba(255,255,255,0.06);">
+        <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;background:rgba(255,255,255,0.15);border-radius:3px;"></div>
+        <div style="height:49px;display:flex;padding:8px 4px 0;">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg><span style="font-size:9px;color:#3A3A3C;">Hoy</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="19" r="2"/><circle cx="19" cy="5" r="2"/><path d="M5 17V9a7 7 0 017-7h7"/><path d="M17 3l2 2-2 2"/></svg><span style="font-size:9px;color:#3A3A3C;">Ruta</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg><span style="font-size:9px;color:#3A3A3C;">Clientes</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4962A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5" rx="1"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span style="font-size:9px;font-weight:600;color:#D4962A;">Historial</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span style="font-size:9px;color:#3A3A3C;">Perfil</span></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── Turn 1: Exploración de dirección ──────── -->
+  <div style="display: flex; align-items: center; gap: 24px; margin-bottom: 48px;">
+    <div style="flex: 1; height: 0.5px; background: rgba(255,255,255,0.05);"></div>
+    <span style="font-size: 9px; color: #2A2A2E; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; white-space: nowrap;">Turno 1 · Exploración de dirección</span>
+    <div style="flex: 1; height: 0.5px; background: rgba(255,255,255,0.05);"></div>
+  </div>
+
+  <!-- Column labels -->
+  <div style="display: flex; gap: 32px; padding-left: 192px; margin-bottom: 24px;">
+    <div style="width: 390px; text-align: center; font-size: 9px; font-weight: 600; letter-spacing: 2px; color: #3A3A3C; text-transform: uppercase;">Landing · Login</div>
+    <div style="width: 390px; text-align: center; font-size: 9px; font-weight: 600; letter-spacing: 2px; color: #3A3A3C; text-transform: uppercase;">Header · Hoy</div>
+    <div style="width: 390px; text-align: center; font-size: 9px; font-weight: 600; letter-spacing: 2px; color: #3A3A3C; text-transform: uppercase;">Ruta · Conductor</div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- OPTION A: ONYX — Dark / Syne + IBM Plex       -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section id="1a" style="display: flex; gap: 32px; margin-bottom: 96px; align-items: flex-start;">
+
+    <!-- Label -->
+    <div style="width: 160px; padding-top: 52px; flex-shrink: 0;">
+      <span style="font-size: 9px; font-weight: 700; color: #D4962A; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 10px;">Opción A</span>
+      <div style="font-family: 'General Sans', sans-serif; font-size: 28px; font-weight: 800; color: #EBEBEB; letter-spacing: -0.5px; line-height: 1; margin-bottom: 8px;">Onyx</div>
+      <div style="font-size: 12px; color: #4A4A4E; line-height: 1.8; margin-bottom: 20px;">Dark mode<br>Syne + IBM Plex<br>Amber #D4962A</div>
+      <div style="display: flex; gap: 6px;">
+        <div style="width: 18px; height: 18px; border-radius: 50%; background: #0C0C0E; border: 1px solid rgba(255,255,255,0.15);"></div>
+        <div style="width: 18px; height: 18px; border-radius: 50%; background: #16161A; border: 1px solid rgba(255,255,255,0.08);"></div>
+        <div style="width: 18px; height: 18px; border-radius: 50%; background: #D4962A;"></div>
+        <div style="width: 18px; height: 18px; border-radius: 50%; background: #34C759;"></div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════╗ -->
+    <!-- ║  A1: Landing     ║ -->
+    <!-- ╚══════════════════╝ -->
+    <div style="width:390px;height:844px;border-radius:50px;overflow:hidden;position:relative;background:#0C0C0E;border:1.5px solid rgba(255,255,255,0.10);box-shadow:0 0 0 8px #060606,0 40px 80px rgba(0,0,0,0.9),inset 0 1px 0 rgba(255,255,255,0.04);flex-shrink:0;">
+      <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:125px;height:37px;background:#000;border-radius:20px;z-index:200;"></div>
+      <div style="position:absolute;top:0;left:0;right:0;height:59px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 32px 11px;z-index:150;">
+        <span style="font-family:'IBM Plex Sans',sans-serif;font-size:15px;font-weight:600;color:#F2F2F7;letter-spacing:-0.3px;">9:41</span>
+        <div style="display:flex;align-items:center;gap:7px;">
+          <svg width="17" height="11" viewBox="0 0 17 11"><rect fill="#F2F2F7" x="0" y="7" width="3" height="4" rx="0.5" opacity="0.4"/><rect fill="#F2F2F7" x="4.5" y="4.5" width="3" height="6.5" rx="0.5" opacity="0.6"/><rect fill="#F2F2F7" x="9" y="2" width="3" height="9" rx="0.5" opacity="0.8"/><rect fill="#F2F2F7" x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><path d="M1 4C4 1 12 1 15 4" stroke="#F2F2F7" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/><path d="M3 6.5C5.5 4 10.5 4 13 6.5" stroke="#F2F2F7" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/><path d="M5.5 9C7 7.5 9 7.5 10.5 9" stroke="#F2F2F7" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11" r="0.8" fill="#F2F2F7"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="#F2F2F7" stroke-opacity="0.35" fill="none"/><rect x="2" y="2" width="15" height="8" rx="2" fill="#F2F2F7"/><path d="M22 4v4" stroke="#F2F2F7" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <div style="position:absolute;inset:0;padding:59px 36px 48px;display:flex;flex-direction:column;justify-content:center;">
+        <div style="display:flex;justify-content:center;margin-bottom:20px;">
+          <div style="width:58px;height:58px;border-radius:16px;background:#1A1A1F;border:1px solid rgba(255,255,255,0.07);overflow:hidden;display:flex;align-items:center;justify-content:center;">
+            <img src="icon-vorarep-192.png" style="width:48px;height:48px;border-radius:10px;" alt="VoraRep">
+          </div>
+        </div>
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style="font-family:'Syne',sans-serif;font-size:40px;font-weight:800;color:#F2F2F7;letter-spacing:-2px;line-height:1;margin-bottom:8px;">VoraRep</div>
+          <div style="font-size:14px;color:#4A4A4E;letter-spacing:0.2px;">Organizá repartos. Cobrá más.</div>
+        </div>
+        <div style="margin-bottom:36px;border-top:0.5px solid rgba(255,255,255,0.07);">
+          <div style="display:flex;align-items:center;gap:14px;padding:15px 0;border-bottom:0.5px solid rgba(255,255,255,0.07);">
+            <div style="width:38px;height:38px;background:rgba(212,150,42,0.09);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4962A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="19" r="2"/><circle cx="19" cy="5" r="2"/><path d="M5 17V9a7 7 0 017-7h7"/><path d="M17 3l2 2-2 2"/></svg>
+            </div>
+            <div><div style="font-size:13px;font-weight:600;color:#F2F2F7;margin-bottom:2px;">Rutas por GPS</div><div style="font-size:12px;color:#4A4A4E;line-height:1.4;">Ordená paradas por cercanía</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:15px 0;border-bottom:0.5px solid rgba(255,255,255,0.07);">
+            <div style="width:38px;height:38px;background:rgba(52,199,89,0.08);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34C759" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            </div>
+            <div><div style="font-size:13px;font-weight:600;color:#F2F2F7;margin-bottom:2px;">Entregas y cobros</div><div style="font-size:12px;color:#4A4A4E;line-height:1.4;">Marcá, parciales y cancelaciones</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:15px 0;border-bottom:0.5px solid rgba(255,255,255,0.07);">
+            <div style="width:38px;height:38px;background:rgba(10,132,255,0.08);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0A84FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+            </div>
+            <div><div style="font-size:13px;font-weight:600;color:#F2F2F7;margin-bottom:2px;">Historial y métricas</div><div style="font-size:12px;color:#4A4A4E;line-height:1.4;">Comisiones, deudas y resumen</div></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <button style="width:100%;background:#D4962A;color:#0C0C0E;font-family:'IBM Plex Sans',sans-serif;font-size:16px;font-weight:600;padding:17px;border-radius:14px;border:none;letter-spacing:-0.2px;">Empezar gratis</button>
+          <button style="width:100%;background:rgba(255,255,255,0.04);color:#636366;font-family:'IBM Plex Sans',sans-serif;font-size:15px;font-weight:500;padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,0.07);">Ya tengo cuenta</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════╗ -->
+    <!-- ║  A2: Hoy         ║ -->
+    <!-- ╚══════════════════╝ -->
+    <div style="width:390px;height:844px;border-radius:50px;overflow:hidden;position:relative;background:#0C0C0E;border:1.5px solid rgba(255,255,255,0.10);box-shadow:0 0 0 8px #060606,0 40px 80px rgba(0,0,0,0.9),inset 0 1px 0 rgba(255,255,255,0.04);flex-shrink:0;">
+      <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:125px;height:37px;background:#000;border-radius:20px;z-index:200;"></div>
+      <div style="position:absolute;top:0;left:0;right:0;height:59px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 32px 11px;z-index:150;">
+        <span style="font-family:'IBM Plex Sans',sans-serif;font-size:15px;font-weight:600;color:#F2F2F7;letter-spacing:-0.3px;">9:41</span>
+        <div style="display:flex;align-items:center;gap:7px;">
+          <svg width="17" height="11" viewBox="0 0 17 11"><rect fill="#F2F2F7" x="0" y="7" width="3" height="4" rx="0.5" opacity="0.4"/><rect fill="#F2F2F7" x="4.5" y="4.5" width="3" height="6.5" rx="0.5" opacity="0.6"/><rect fill="#F2F2F7" x="9" y="2" width="3" height="9" rx="0.5" opacity="0.8"/><rect fill="#F2F2F7" x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="#F2F2F7" stroke-opacity="0.35" fill="none"/><rect x="2" y="2" width="15" height="8" rx="2" fill="#F2F2F7"/><path d="M22 4v4" stroke="#F2F2F7" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <!-- Header -->
+      <div style="position:absolute;top:59px;left:0;right:0;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:0.5px solid rgba(255,255,255,0.06);z-index:50;background:#0C0C0E;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:32px;height:32px;border-radius:9px;overflow:hidden;flex-shrink:0;background:#1A1A1F;border:1px solid rgba(255,255,255,0.07);">
+            <img src="icon-vorarep-192.png" style="width:32px;height:32px;" alt="">
+          </div>
+          <div>
+            <div style="font-size:15px;font-weight:600;color:#F2F2F7;letter-spacing:-0.3px;font-family:'IBM Plex Sans',sans-serif;">Distribuidora Rdz.</div>
+            <div style="font-size:11px;color:#4A4A4E;margin-top:1px;">3 de 8 entregados hoy</div>
+          </div>
+        </div>
+        <div style="padding:3px 8px;border:1px solid rgba(255,255,255,0.07);border-radius:20px;font-size:9px;font-weight:600;color:#4A4A4E;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;">Repartidor</div>
+      </div>
+      <!-- Content -->
+      <div style="position:absolute;top:119px;left:0;right:0;bottom:83px;padding:16px 18px;overflow:hidden;">
+        <!-- Stats card -->
+        <div style="display:flex;border-radius:14px;overflow:hidden;background:#16161A;margin-bottom:14px;">
+          <div style="flex:1;padding:12px 14px;border-right:0.5px solid rgba(255,255,255,0.06);">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:500;color:#D4962A;line-height:1;">8</div>
+            <div style="font-size:9px;color:#3A3A3C;text-transform:uppercase;letter-spacing:1px;margin-top:3px;">En ruta</div>
+          </div>
+          <div style="flex:1;padding:12px 14px;border-right:0.5px solid rgba(255,255,255,0.06);">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:500;color:#34C759;line-height:1;">3</div>
+            <div style="font-size:9px;color:#3A3A3C;text-transform:uppercase;letter-spacing:1px;margin-top:3px;">Listos</div>
+          </div>
+          <div style="flex:1;padding:12px 14px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:500;color:#636366;line-height:1;">5</div>
+            <div style="font-size:9px;color:#3A3A3C;text-transform:uppercase;letter-spacing:1px;margin-top:3px;">Pendientes</div>
+          </div>
+        </div>
+        <!-- Banner ruta -->
+        <div style="background:#D4962A;border-radius:12px;padding:13px 16px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="font-size:10px;font-weight:700;color:rgba(0,0,0,0.4);text-transform:uppercase;letter-spacing:1px;">Ruta activa</div>
+            <div style="font-size:14px;font-weight:600;color:#0C0C0E;margin-top:2px;font-family:'IBM Plex Sans',sans-serif;">8 clientes en ruta</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.12);border-radius:8px;padding:8px 14px;"><span style="font-size:12px;font-weight:600;color:#0C0C0E;">Ir →</span></div>
+        </div>
+        <!-- Section label -->
+        <div style="font-size:10px;font-weight:600;color:#3A3A3C;text-transform:uppercase;letter-spacing:1.8px;margin-bottom:10px;">Ruta de hoy</div>
+        <!-- Stops -->
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:0.5px solid rgba(255,255,255,0.05);opacity:0.38;">
+          <div style="width:28px;height:28px;border-radius:50%;background:#34C759;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5l3 3L11 1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:500;color:#F2F2F7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Supermercado López</div><div style="font-size:11px;color:#4A4A4E;margin-top:1px;">San Martín 1234</div></div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#34C759;flex-shrink:0;">$24.500</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:0.5px solid rgba(255,255,255,0.05);">
+          <div style="width:28px;height:28px;border-radius:50%;border:1.5px solid #D4962A;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;color:#D4962A;">2</span></div>
+          <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;color:#F2F2F7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Almacén Rodríguez</div><div style="font-size:11px;color:#4A4A4E;margin-top:1px;">Belgrano 567, Godoy Cruz</div></div>
+          <div style="background:rgba(212,150,42,0.1);border:1px solid rgba(212,150,42,0.2);border-radius:6px;padding:3px 7px;flex-shrink:0;"><span style="font-size:9px;font-weight:700;color:#D4962A;letter-spacing:0.5px;text-transform:uppercase;">Sig.</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:0.5px solid rgba(255,255,255,0.05);">
+          <div style="width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#3A3A3C;">3</span></div>
+          <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:400;color:#636366;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Kiosco Fernández</div><div style="font-size:11px;color:#3A3A3C;margin-top:1px;">Rivadavia 890, Maipú</div></div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 0;">
+          <div style="width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#2A2A2E;">4</span></div>
+          <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:400;color:#4A4A4E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Despensa Martínez</div><div style="font-size:11px;color:#2A2A2E;margin-top:1px;">Garibaldi 230, Las Heras</div></div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2A2A2E" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </div>
+      <!-- Tab bar -->
+      <div style="position:absolute;left:0;right:0;bottom:0;height:83px;background:#0C0C0E;border-top:0.5px solid rgba(255,255,255,0.06);">
+        <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;background:rgba(255,255,255,0.15);border-radius:3px;"></div>
+        <div style="height:49px;display:flex;padding:8px 4px 0;">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4962A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>
+            <span style="font-size:9px;font-weight:600;color:#D4962A;">Hoy</span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="19" r="2"/><circle cx="19" cy="5" r="2"/><path d="M5 17V9a7 7 0 017-7h7"/><path d="M17 3l2 2-2 2"/></svg>
+            <span style="font-size:9px;color:#3A3A3C;">Ruta</span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            <span style="font-size:9px;color:#3A3A3C;">Clientes</span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5" rx="1"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+            <span style="font-size:9px;color:#3A3A3C;">Historial</span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span style="font-size:9px;color:#3A3A3C;">Perfil</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════╗ -->
+    <!-- ║  A3: Conductor   ║ -->
+    <!-- ╚══════════════════╝ -->
+    <div style="width:390px;height:844px;border-radius:50px;overflow:hidden;position:relative;background:#080810;border:1.5px solid rgba(255,255,255,0.10);box-shadow:0 0 0 8px #060606,0 40px 80px rgba(0,0,0,0.9);flex-shrink:0;">
+      <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:125px;height:37px;background:#000;border-radius:20px;z-index:200;"></div>
+      <div style="position:absolute;top:0;left:0;right:0;height:59px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 32px 11px;z-index:150;">
+        <span style="font-family:'IBM Plex Sans',sans-serif;font-size:15px;font-weight:600;color:#F2F2F7;letter-spacing:-0.3px;">9:41</span>
+        <div style="display:flex;align-items:center;gap:7px;">
+          <svg width="17" height="11" viewBox="0 0 17 11"><rect fill="#F2F2F7" x="0" y="7" width="3" height="4" rx="0.5" opacity="0.4"/><rect fill="#F2F2F7" x="4.5" y="4.5" width="3" height="6.5" rx="0.5" opacity="0.6"/><rect fill="#F2F2F7" x="9" y="2" width="3" height="9" rx="0.5" opacity="0.8"/><rect fill="#F2F2F7" x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="#F2F2F7" stroke-opacity="0.35" fill="none"/><rect x="2" y="2" width="15" height="8" rx="2" fill="#F2F2F7"/><path d="M22 4v4" stroke="#F2F2F7" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <!-- Nav bar -->
+      <div style="position:absolute;top:59px;left:0;right:0;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:0.5px solid rgba(255,255,255,0.06);">
+        <div style="display:flex;align-items:center;gap:5px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#636366" stroke-width="1.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          <span style="font-size:13px;color:#636366;font-family:'IBM Plex Sans',sans-serif;">Salir</span>
+        </div>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4A4A4E;letter-spacing:1px;">2 / 8</span>
+        <div style="width:52px;"></div>
+      </div>
+      <!-- Progress pills -->
+      <div style="position:absolute;top:123px;left:20px;right:20px;display:flex;gap:4px;">
+        <div style="flex:1;height:3px;background:#34C759;border-radius:2px;"></div>
+        <div style="flex:1;height:3px;background:#D4962A;border-radius:2px;"></div>
+        <div style="flex:1;height:3px;background:rgba(255,255,255,0.10);border-radius:2px;"></div>
+        <div style="flex:1;height:3px;background:rgba(255,255,255,0.10);border-radius:2px;"></div>
+        <div style="flex:1;height:3px;background:rgba(255,255,255,0.10);border-radius:2px;"></div>
+        <div style="flex:1;height:3px;background:rgba(255,255,255,0.10);border-radius:2px;"></div>
+        <div style="flex:1;height:3px;background:rgba(255,255,255,0.10);border-radius:2px;"></div>
+        <div style="flex:1;height:3px;background:rgba(255,255,255,0.10);border-radius:2px;"></div>
+      </div>
+      <!-- Stop info -->
+      <div style="position:absolute;top:150px;left:0;right:0;bottom:220px;padding:0 28px;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:10px;font-weight:600;color:#3A3A3C;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:20px;">Parada 2 de 8</div>
+        <div style="font-family:'Syne',sans-serif;font-size:38px;font-weight:800;color:#F2F2F7;letter-spacing:-1.5px;line-height:1.1;margin-bottom:14px;">Almacén Rodríguez</div>
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:20px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4A4A4E" stroke-width="1.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span style="font-size:15px;color:#636366;font-family:'IBM Plex Sans',sans-serif;">Belgrano 567, Godoy Cruz</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:rgba(255,69,58,0.07);border:1px solid rgba(255,69,58,0.14);border-radius:10px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF453A" stroke-width="1.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span style="font-size:14px;color:#FF453A;font-weight:500;font-family:'IBM Plex Sans',sans-serif;">Debe $15.000</span>
+        </div>
+      </div>
+      <!-- Buttons -->
+      <div style="position:absolute;left:0;right:0;bottom:0;padding:0 20px 36px;display:flex;flex-direction:column;gap:10px;">
+        <button style="width:100%;background:#14141C;border:1px solid rgba(255,255,255,0.10);color:#F2F2F7;font-family:'IBM Plex Sans',sans-serif;font-size:16px;font-weight:500;padding:18px;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:10px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+          Navegar
+        </button>
+        <button style="width:100%;background:#D4962A;color:#0C0C0E;font-family:'IBM Plex Sans',sans-serif;font-size:17px;font-weight:600;padding:20px;border-radius:16px;border:none;display:flex;align-items:center;justify-content:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Registrar entrega
+        </button>
+        <button style="text-align:center;font-size:13px;color:#3A3A3C;padding:8px;background:none;border:none;width:100%;font-family:'IBM Plex Sans',sans-serif;">Saltar → siguiente pendiente</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- OPTION B: IVORY — Light / IBM Plex            -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section id="1b" style="display: flex; gap: 32px; align-items: flex-start;">
+
+    <!-- Label -->
+    <div style="width: 160px; padding-top: 52px; flex-shrink: 0;">
+      <span style="font-size: 9px; font-weight: 700; color: #B07520; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 10px;">Opción B</span>
+      <div style="font-family: 'General Sans', sans-serif; font-size: 28px; font-weight: 700; color: #EBEBEB; letter-spacing: -0.5px; line-height: 1; margin-bottom: 8px;">Ivory</div>
+      <div style="font-size: 12px; color: #4A4A4E; line-height: 1.8; margin-bottom: 20px;">Light mode<br>IBM Plex Solo<br>Botón oscuro</div>
+      <div style="display: flex; gap: 6px;">
+        <div style="width: 18px; height: 18px; border-radius: 50%; background: #F7F4EF; border: 1px solid rgba(0,0,0,0.18);"></div>
+        <div style="width: 18px; height: 18px; border-radius: 50%; background: #FFFFFF; border: 1px solid rgba(0,0,0,0.14);"></div>
+        <div style="width: 18px; height: 18px; border-radius: 50%; background: #C17B0A;"></div>
+        <div style="width: 18px; height: 18px; border-radius: 50%; background: #1C9B3A;"></div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════╗ -->
+    <!-- ║  B1: Landing     ║ -->
+    <!-- ╚══════════════════╝ -->
+    <div style="width:390px;height:844px;border-radius:50px;overflow:hidden;position:relative;background:#F7F4EF;border:1.5px solid rgba(0,0,0,0.18);box-shadow:0 0 0 8px #060606,0 40px 80px rgba(0,0,0,0.9);flex-shrink:0;">
+      <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:125px;height:37px;background:#000;border-radius:20px;z-index:200;"></div>
+      <div style="position:absolute;top:0;left:0;right:0;height:59px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 32px 11px;z-index:150;">
+        <span style="font-family:'IBM Plex Sans',sans-serif;font-size:15px;font-weight:600;color:#1C1C1E;letter-spacing:-0.3px;">9:41</span>
+        <div style="display:flex;align-items:center;gap:7px;">
+          <svg width="17" height="11" viewBox="0 0 17 11"><rect fill="#1C1C1E" x="0" y="7" width="3" height="4" rx="0.5" opacity="0.35"/><rect fill="#1C1C1E" x="4.5" y="4.5" width="3" height="6.5" rx="0.5" opacity="0.55"/><rect fill="#1C1C1E" x="9" y="2" width="3" height="9" rx="0.5" opacity="0.75"/><rect fill="#1C1C1E" x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><path d="M1 4C4 1 12 1 15 4" stroke="#1C1C1E" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/><path d="M3 6.5C5.5 4 10.5 4 13 6.5" stroke="#1C1C1E" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/><path d="M5.5 9C7 7.5 9 7.5 10.5 9" stroke="#1C1C1E" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11" r="0.8" fill="#1C1C1E"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="#1C1C1E" stroke-opacity="0.35" fill="none"/><rect x="2" y="2" width="14" height="8" rx="2" fill="#1C1C1E"/><path d="M22 4v4" stroke="#1C1C1E" stroke-opacity="0.45" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <div style="position:absolute;inset:0;padding:59px 36px 48px;display:flex;flex-direction:column;justify-content:center;">
+        <div style="display:flex;justify-content:center;margin-bottom:24px;">
+          <div style="width:58px;height:58px;border-radius:16px;background:#FFFFFF;border:1px solid rgba(0,0,0,0.07);overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+            <img src="icon-vorarep-192.png" style="width:48px;height:48px;border-radius:10px;" alt="VoraRep">
+          </div>
+        </div>
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style="font-family:'IBM Plex Sans',sans-serif;font-size:40px;font-weight:700;color:#1C1C1E;letter-spacing:-2px;line-height:1;margin-bottom:8px;">VoraRep</div>
+          <div style="font-size:14px;color:#8E8E93;letter-spacing:0.2px;">Organizá repartos. Cobrá más.</div>
+        </div>
+        <!-- Feature card (grouped, iOS style) -->
+        <div style="border:1px solid rgba(0,0,0,0.07);border-radius:16px;overflow:hidden;background:#FFFFFF;margin-bottom:36px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:0.5px solid rgba(0,0,0,0.06);">
+            <div><div style="font-size:13px;font-weight:600;color:#1C1C1E;margin-bottom:2px;">Rutas por GPS</div><div style="font-size:12px;color:#8E8E93;line-height:1.4;">Ordená paradas por cercanía</div></div>
+            <div style="width:32px;height:32px;background:#FFF5E0;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:12px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C17B0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="19" r="2"/><circle cx="19" cy="5" r="2"/><path d="M5 17V9a7 7 0 017-7h7"/><path d="M17 3l2 2-2 2"/></svg>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:0.5px solid rgba(0,0,0,0.06);">
+            <div><div style="font-size:13px;font-weight:600;color:#1C1C1E;margin-bottom:2px;">Entregas y cobros</div><div style="font-size:12px;color:#8E8E93;line-height:1.4;">Marcá, parciales y cancelaciones</div></div>
+            <div style="width:32px;height:32px;background:#EDFAF1;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:12px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1C9B3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;">
+            <div><div style="font-size:13px;font-weight:600;color:#1C1C1E;margin-bottom:2px;">Historial y métricas</div><div style="font-size:12px;color:#8E8E93;line-height:1.4;">Comisiones, deudas y resumen</div></div>
+            <div style="width:32px;height:32px;background:#EAF1FF;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:12px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A6FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+            </div>
+          </div>
+        </div>
+        <!-- CTAs dark -->
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <button style="width:100%;background:#1C1C1E;color:#FFFFFF;font-family:'IBM Plex Sans',sans-serif;font-size:16px;font-weight:600;padding:17px;border-radius:14px;border:none;letter-spacing:-0.2px;">Empezar gratis</button>
+          <button style="width:100%;background:rgba(0,0,0,0.04);color:#8E8E93;font-family:'IBM Plex Sans',sans-serif;font-size:15px;font-weight:500;padding:16px;border-radius:14px;border:1px solid rgba(0,0,0,0.08);">Ya tengo cuenta</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════╗ -->
+    <!-- ║  B2: Hoy         ║ -->
+    <!-- ╚══════════════════╝ -->
+    <div style="width:390px;height:844px;border-radius:50px;overflow:hidden;position:relative;background:#F7F4EF;border:1.5px solid rgba(0,0,0,0.18);box-shadow:0 0 0 8px #060606,0 40px 80px rgba(0,0,0,0.9);flex-shrink:0;">
+      <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:125px;height:37px;background:#000;border-radius:20px;z-index:200;"></div>
+      <div style="position:absolute;top:0;left:0;right:0;height:59px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 32px 11px;z-index:150;">
+        <span style="font-family:'IBM Plex Sans',sans-serif;font-size:15px;font-weight:600;color:#1C1C1E;letter-spacing:-0.3px;">9:41</span>
+        <div style="display:flex;align-items:center;gap:7px;">
+          <svg width="17" height="11" viewBox="0 0 17 11"><rect fill="#1C1C1E" x="0" y="7" width="3" height="4" rx="0.5" opacity="0.35"/><rect fill="#1C1C1E" x="4.5" y="4.5" width="3" height="6.5" rx="0.5" opacity="0.55"/><rect fill="#1C1C1E" x="9" y="2" width="3" height="9" rx="0.5" opacity="0.75"/><rect fill="#1C1C1E" x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="#1C1C1E" stroke-opacity="0.35" fill="none"/><rect x="2" y="2" width="14" height="8" rx="2" fill="#1C1C1E"/><path d="M22 4v4" stroke="#1C1C1E" stroke-opacity="0.45" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <!-- Header Ivory -->
+      <div style="position:absolute;top:59px;left:0;right:0;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:0.5px solid rgba(0,0,0,0.08);z-index:50;background:#F7F4EF;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:32px;height:32px;border-radius:9px;overflow:hidden;flex-shrink:0;background:#FFFFFF;border:1px solid rgba(0,0,0,0.07);">
+            <img src="icon-vorarep-192.png" style="width:32px;height:32px;" alt="">
+          </div>
+          <div>
+            <div style="font-size:15px;font-weight:600;color:#1C1C1E;letter-spacing:-0.3px;font-family:'IBM Plex Sans',sans-serif;">Distribuidora Rdz.</div>
+            <div style="font-size:11px;color:#8E8E93;margin-top:1px;">3 de 8 entregados hoy</div>
+          </div>
+        </div>
+        <div style="padding:3px 8px;border:1px solid rgba(0,0,0,0.08);border-radius:20px;font-size:9px;font-weight:600;color:#8E8E93;letter-spacing:1px;text-transform:uppercase;background:rgba(0,0,0,0.03);white-space:nowrap;">Repartidor</div>
+      </div>
+      <!-- Content Ivory -->
+      <div style="position:absolute;top:119px;left:0;right:0;bottom:83px;padding:16px 18px;overflow:hidden;background:#F7F4EF;">
+        <!-- Stats (3 individual cards) -->
+        <div style="display:flex;gap:8px;margin-bottom:14px;">
+          <div style="flex:1;background:#FFFFFF;border:1px solid rgba(0,0,0,0.06);border-radius:12px;padding:12px 12px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:500;color:#C17B0A;line-height:1;">8</div>
+            <div style="font-size:9px;color:#AEAEB2;text-transform:uppercase;letter-spacing:1px;margin-top:3px;">En ruta</div>
+          </div>
+          <div style="flex:1;background:#FFFFFF;border:1px solid rgba(0,0,0,0.06);border-radius:12px;padding:12px 12px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:500;color:#1C9B3A;line-height:1;">3</div>
+            <div style="font-size:9px;color:#AEAEB2;text-transform:uppercase;letter-spacing:1px;margin-top:3px;">Listos</div>
+          </div>
+          <div style="flex:1;background:#FFFFFF;border:1px solid rgba(0,0,0,0.06);border-radius:12px;padding:12px 12px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:500;color:#6C6C70;line-height:1;">5</div>
+            <div style="font-size:9px;color:#AEAEB2;text-transform:uppercase;letter-spacing:1px;margin-top:3px;">Pend.</div>
+          </div>
+        </div>
+        <!-- Action banner dark -->
+        <div style="background:#1C1C1E;border-radius:12px;padding:13px 16px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;">Ruta activa</div>
+            <div style="font-size:14px;font-weight:600;color:#FFFFFF;margin-top:2px;font-family:'IBM Plex Sans',sans-serif;">8 clientes en ruta</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.08);border-radius:8px;padding:8px 14px;"><span style="font-size:12px;font-weight:600;color:#FFFFFF;">Ir →</span></div>
+        </div>
+        <!-- Section label -->
+        <div style="font-size:10px;font-weight:600;color:#AEAEB2;text-transform:uppercase;letter-spacing:1.8px;margin-bottom:8px;">Ruta de hoy</div>
+        <!-- Grouped card -->
+        <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.06);border-radius:14px;overflow:hidden;">
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:0.5px solid rgba(0,0,0,0.06);opacity:0.45;">
+            <div style="width:26px;height:26px;border-radius:50%;background:#1C9B3A;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="8" viewBox="0 0 12 9" fill="none"><path d="M1 4.5l3 3L11 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:500;color:#1C1C1E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Supermercado López</div><div style="font-size:11px;color:#8E8E93;margin-top:1px;">San Martín 1234</div></div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#1C9B3A;flex-shrink:0;">$24.500</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:0.5px solid rgba(0,0,0,0.06);background:#FFFDF7;">
+            <div style="width:26px;height:26px;border-radius:50%;border:1.5px solid #C17B0A;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;color:#C17B0A;">2</span></div>
+            <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;color:#1C1C1E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Almacén Rodríguez</div><div style="font-size:11px;color:#8E8E93;margin-top:1px;">Belgrano 567, Godoy Cruz</div></div>
+            <div style="background:#FFF5E0;border-radius:6px;padding:3px 7px;flex-shrink:0;"><span style="font-size:9px;font-weight:700;color:#C17B0A;letter-spacing:0.5px;text-transform:uppercase;">Sig.</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:0.5px solid rgba(0,0,0,0.06);">
+            <div style="width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(0,0,0,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#AEAEB2;">3</span></div>
+            <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:400;color:#6C6C70;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Kiosco Fernández</div><div style="font-size:11px;color:#AEAEB2;margin-top:1px;">Rivadavia 890, Maipú</div></div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7C7CC" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;">
+            <div style="width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#C7C7CC;">4</span></div>
+            <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:400;color:#8E8E93;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Despensa Martínez</div><div style="font-size:11px;color:#C7C7CC;margin-top:1px;">Garibaldi 230, Las Heras</div></div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7C7CC" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+          </div>
+        </div>
+      </div>
+      <!-- Tab bar Ivory -->
+      <div style="position:absolute;left:0;right:0;bottom:0;height:83px;background:#FFFFFF;border-top:0.5px solid rgba(0,0,0,0.09);">
+        <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;background:#1C1C1E;border-radius:3px;opacity:0.18;"></div>
+        <div style="height:49px;display:flex;padding:8px 4px 0;">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C17B0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>
+            <span style="font-size:9px;font-weight:600;color:#C17B0A;">Hoy</span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C7C7CC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="19" r="2"/><circle cx="19" cy="5" r="2"/><path d="M5 17V9a7 7 0 017-7h7"/><path d="M17 3l2 2-2 2"/></svg>
+            <span style="font-size:9px;color:#C7C7CC;">Ruta</span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C7C7CC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            <span style="font-size:9px;color:#C7C7CC;">Clientes</span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C7C7CC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5" rx="1"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+            <span style="font-size:9px;color:#C7C7CC;">Historial</span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C7C7CC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span style="font-size:9px;color:#C7C7CC;">Perfil</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════╗ -->
+    <!-- ║  B3: Conductor   ║ -->
+    <!-- ╚══════════════════╝ -->
+    <div style="width:390px;height:844px;border-radius:50px;overflow:hidden;position:relative;background:#0A0A0A;border:1.5px solid rgba(255,255,255,0.10);box-shadow:0 0 0 8px #060606,0 40px 80px rgba(0,0,0,0.9);flex-shrink:0;">
+      <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:125px;height:37px;background:#000;border-radius:20px;z-index:200;"></div>
+      <div style="position:absolute;top:0;left:0;right:0;height:59px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 32px 11px;z-index:150;">
+        <span style="font-family:'IBM Plex Sans',sans-serif;font-size:15px;font-weight:600;color:#F2F2F7;letter-spacing:-0.3px;">9:41</span>
+        <div style="display:flex;align-items:center;gap:7px;">
+          <svg width="17" height="11" viewBox="0 0 17 11"><rect fill="#F2F2F7" x="0" y="7" width="3" height="4" rx="0.5" opacity="0.4"/><rect fill="#F2F2F7" x="4.5" y="4.5" width="3" height="6.5" rx="0.5" opacity="0.6"/><rect fill="#F2F2F7" x="9" y="2" width="3" height="9" rx="0.5" opacity="0.8"/><rect fill="#F2F2F7" x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="#F2F2F7" stroke-opacity="0.35" fill="none"/><rect x="2" y="2" width="15" height="8" rx="2" fill="#F2F2F7"/><path d="M22 4v4" stroke="#F2F2F7" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <!-- Nav bar -->
+      <div style="position:absolute;top:59px;left:0;right:0;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:0.5px solid rgba(255,255,255,0.06);">
+        <div style="display:flex;align-items:center;gap:5px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#636366" stroke-width="1.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          <span style="font-size:13px;color:#636366;font-family:'IBM Plex Sans',sans-serif;">Salir</span>
+        </div>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4A4A4E;letter-spacing:1px;">2 / 8</span>
+        <div style="width:52px;"></div>
+      </div>
+      <!-- Progress pills -->
+      <div style="position:absolute;top:123px;left:20px;right:20px;display:flex;gap:4px;">
+        <div style="flex:1;height:3px;background:#34C759;border-radius:2px;"></div>
+        <div style="flex:1;height:3px;background:#C17B0A;border-radius:2px;"></div>
+        <div style="flex:1;height:3px;background:rgba(255,255,255,0.10);border-radius:2px;"></div>
+        <div style="flex:1;height:3px;background:rgba(255,255,255,0.10);border-radius:2px;"></div>
+        <div style="flex:1;height:3px;background:rgba(255,255,255,0.10);border-radius:2px;"></div>
+        <div style="flex:1;height:3px;background:rgba(255,255,255,0.10);border-radius:2px;"></div>
+        <div style="flex:1;height:3px;background:rgba(255,255,255,0.10);border-radius:2px;"></div>
+        <div style="flex:1;height:3px;background:rgba(255,255,255,0.10);border-radius:2px;"></div>
+      </div>
+      <!-- Stop info (IBM Plex only, no Syne) -->
+      <div style="position:absolute;top:150px;left:0;right:0;bottom:220px;padding:0 28px;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:10px;font-weight:600;color:#3A3A3C;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:20px;">Parada 2 de 8</div>
+        <div style="font-family:'IBM Plex Sans',sans-serif;font-size:36px;font-weight:700;color:#F2F2F7;letter-spacing:-1.5px;line-height:1.1;margin-bottom:14px;">Almacén Rodríguez</div>
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:20px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4A4A4E" stroke-width="1.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span style="font-size:15px;color:#636366;font-family:'IBM Plex Sans',sans-serif;">Belgrano 567, Godoy Cruz</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:rgba(255,69,58,0.07);border:1px solid rgba(255,69,58,0.14);border-radius:10px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF453A" stroke-width="1.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span style="font-size:14px;color:#FF453A;font-weight:500;font-family:'IBM Plex Sans',sans-serif;">Debe $15.000</span>
+        </div>
+      </div>
+      <!-- Buttons (Ivory conductor: white navigate, amber deliver) -->
+      <div style="position:absolute;left:0;right:0;bottom:0;padding:0 20px 36px;display:flex;flex-direction:column;gap:10px;">
+        <button style="width:100%;background:#FFFFFF;border:none;color:#1C1C1E;font-family:'IBM Plex Sans',sans-serif;font-size:16px;font-weight:600;padding:18px;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:10px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+          Navegar
+        </button>
+        <button style="width:100%;background:#C17B0A;color:#FFFFFF;font-family:'IBM Plex Sans',sans-serif;font-size:17px;font-weight:600;padding:20px;border-radius:16px;border:none;display:flex;align-items:center;justify-content:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Registrar entrega
+        </button>
+        <button style="text-align:center;font-size:13px;color:#3A3A3C;padding:8px;background:none;border:none;width:100%;font-family:'IBM Plex Sans',sans-serif;">Saltar → siguiente pendiente</button>
+      </div>
+    </div>
+
+  </section>
+
+</div>
+</x-dc>
+</body>
+</html>

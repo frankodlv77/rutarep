@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import jsPDF from 'jspdf'
 import { supabase } from '../../lib/supabase'
 import useStore from '../../store/useStore'
@@ -28,6 +29,15 @@ function calcPrevWeekRange(diaInicio = 1) {
   return { from: prevStart.toISOString().slice(0, 10), to: prevEnd.toISOString().slice(0, 10) }
 }
 
+function minutosDesdeUltimaEntrega(entregas = []) {
+  const conHora = (entregas || []).filter(e => e.tipo && e.hora)
+  if (!conHora.length) return null
+  const last = conHora.map(e => e.hora).sort().at(-1) // "HH:MM"
+  const [h, m] = last.split(':').map(Number)
+  const now = new Date()
+  return Math.max(0, (now.getHours() * 60 + now.getMinutes()) - (h * 60 + m))
+}
+
 function getEfectivoRepartidor(entregas = []) {
   return (entregas || [])
     .filter(e => e.metodo_pago === 'efectivo' && ['entregado', 'parcial'].includes(e.tipo))
@@ -48,6 +58,7 @@ const SEMAFORO_COLOR = {
   verde:    '#22c55e',
   amarillo: '#f59e0b',
   rojo:     '#ef4444',
+  null:     '#3A3A3C',
 }
 
 const SEMAFORO_LABEL = {
@@ -55,6 +66,7 @@ const SEMAFORO_LABEL = {
   verde:    'En curso',
   amarillo: 'Atrasado',
   rojo:     'Demorado',
+  null:     'Sin ruta',
 }
 
 export default function DashboardScreen() {
@@ -67,6 +79,14 @@ export default function DashboardScreen() {
   const [loading,       setLoading]       = useState(true)
   const [exporting,     setExporting]     = useState(false)
   const [detalle,       setDetalle]       = useState(null)
+  const [avisar,        setAvisar]        = useState(null)   // { userId, nombre }
+  const [avisarMsg,     setAvisarMsg]     = useState('')
+  const [avisarSending, setAvisarSending] = useState(false)
+  const [avisarSent,    setAvisarSent]    = useState(false)
+  const [showExport,    setShowExport]    = useState(false)
+  const [exportRng,     setExportRng]     = useState('hoy')  // hoy | semana | custom
+  const [exportFrom,    setExportFrom]    = useState('')
+  const [exportTo,      setExportTo]      = useState('')
 
   const channelRef = useRef(null)
 
@@ -107,7 +127,7 @@ export default function DashboardScreen() {
     // ── Hoy ──────────────────────────────────────────────────────────
     const { data: sesiones } = await supabase
       .from('sesion_activa')
-      .select('user_id, fecha_iso, total_clientes, total_entregados, total_monto, comision_pct, entregas')
+      .select('user_id, fecha_iso, total_clientes, total_entregados, total_monto, comision_pct, entregas, hoy')
       .eq('fecha_iso', hoy)
 
     if (sesiones?.length) {
@@ -115,6 +135,28 @@ export default function DashboardScreen() {
       const { data: perfs } = await supabase.from('profiles').select('id, negocio, nombre').in('id', ids)
       const map = Object.fromEntries((perfs || []).map(p => [p.id, p]))
       sesiones.forEach(s => { s.profiles = map[s.user_id] || null })
+
+      // Enriquecer entregas: unir hoy (array IDs) + entregas (obj) → array con nombre/dir/zona
+      const allClientIds = [...new Set(sesiones.flatMap(s => s.hoy || []))]
+      let clientesMap = {}
+      if (allClientIds.length) {
+        const { data: clientesData } = await supabase
+          .from('clientes')
+          .select('id, nombre, direccion, zona')
+          .in('id', allClientIds)
+        clientesMap = Object.fromEntries((clientesData || []).map(c => [c.id, c]))
+      }
+      sesiones.forEach(s => {
+        const entObj = (s.entregas && typeof s.entregas === 'object' && !Array.isArray(s.entregas))
+          ? s.entregas : {}
+        s.entregasArr = (s.hoy || []).map(id => ({
+          clienteId: id,
+          nombre:    clientesMap[id]?.nombre    || '—',
+          direccion: clientesMap[id]?.direccion || '',
+          zona:      clientesMap[id]?.zona      || '',
+          ...(entObj[id] || {}),
+        }))
+      })
     }
 
     // ── Semana actual ─────────────────────────────────────────────────
@@ -247,6 +289,109 @@ export default function DashboardScreen() {
     }
   }
 
+  const handleAvisar = async () => {
+    if (!avisar || !avisarMsg.trim()) return
+    setAvisarSending(true)
+    await supabase.from('notificaciones').insert({
+      user_id: avisar.userId,
+      from_id: perfil.id,
+      tipo: 'encargado',
+      titulo: 'Mensaje del encargado',
+      mensaje: avisarMsg.trim(),
+    })
+    setAvisarSending(false)
+    setAvisarSent(true)
+    setTimeout(() => { setAvisar(null); setAvisarSent(false); setAvisarMsg('') }, 1500)
+  }
+
+  const exportarRango = async () => {
+    if (exportRng === 'hoy') { setShowExport(false); exportPDF(); return }
+    setShowExport(false)
+    setExporting(true)
+    try {
+      const from = exportRng === 'semana' ? calcWeekStart(diaInicio) : exportFrom
+      const to   = exportRng === 'semana' ? hoyISO() : exportTo
+      if (!from || !to) return
+
+      const { data: hist } = await supabase
+        .from('historial')
+        .select('user_id, fecha_iso, total_monto, total_entregados, total_clientes, comision_pct')
+        .gte('fecha_iso', from).lte('fecha_iso', to)
+        .order('fecha_iso', { ascending: false })
+
+      if (!hist?.length) { get().showToast?.('Sin datos para ese período'); return }
+
+      const userIds = [...new Set(hist.map(h => h.user_id))]
+      const { data: perfs } = await supabase.from('profiles').select('id, negocio, nombre').in('id', userIds)
+      const perfsMap = Object.fromEntries((perfs || []).map(p => [p.id, p]))
+
+      const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
+      const W = 210; const margin = 14; let y = 14
+
+      doc.setFillColor(11, 19, 32); doc.rect(0, 0, W, 28, 'F')
+      doc.setTextColor(255, 196, 0); doc.setFontSize(18); doc.setFont('helvetica', 'bold')
+      doc.text('VoraRep', margin, 13)
+      doc.setTextColor(180, 180, 200); doc.setFontSize(9); doc.setFont('helvetica', 'normal')
+      doc.text(perfil?.negocio || 'Resumen', margin, 20)
+      doc.text(`${from} → ${to}`, W - margin, 20, { align: 'right' })
+      y = 36
+
+      const totalM = hist.reduce((s, h) => s + (+h.total_monto || 0), 0)
+      const totalE = hist.reduce((s, h) => s + (+h.total_entregados || 0), 0)
+      const totalC = hist.reduce((s, h) => s + (+h.total_monto || 0) * ((+h.comision_pct || 0) / 100), 0)
+
+      doc.setFillColor(241, 242, 245); doc.roundedRect(margin, y, W - margin * 2, 22, 3, 3, 'F')
+      const cols = [
+        { label: 'Recaudado',  value: fmtMoney(totalM) },
+        { label: 'Entregas',   value: String(totalE) },
+        { label: 'Comisiones', value: fmtMoney(totalC) },
+        { label: 'Días',       value: String(new Set(hist.map(h => h.fecha_iso)).size) },
+      ]
+      const colW = (W - margin * 2) / 4
+      cols.forEach((c, i) => {
+        const cx = margin + i * colW
+        doc.setFontSize(13); doc.setFont('helvetica', 'bold')
+        doc.setTextColor(i === 0 ? 34 : 50, i === 0 ? 197 : 50, i === 0 ? 94 : 70)
+        doc.text(c.value, cx + 3, y + 13)
+        doc.setFontSize(7); doc.setFont('helvetica', 'normal'); doc.setTextColor(120, 120, 140)
+        doc.text(c.label.toUpperCase(), cx + 3, y + 19)
+      })
+      y += 30
+
+      // Por repartidor
+      const byRep = {}
+      hist.forEach(h => {
+        if (!byRep[h.user_id]) byRep[h.user_id] = { monto: 0, entregas: 0, dias: 0, com: 0 }
+        byRep[h.user_id].monto    += +h.total_monto || 0
+        byRep[h.user_id].entregas += +h.total_entregados || 0
+        byRep[h.user_id].dias     += 1
+        byRep[h.user_id].com      += (+h.total_monto || 0) * ((+h.comision_pct || 0) / 100)
+      })
+
+      Object.entries(byRep).sort((a, b) => b[1].monto - a[1].monto).forEach(([uid, d]) => {
+        const nombre = perfsMap[uid]?.negocio || perfsMap[uid]?.nombre || 'Repartidor'
+        if (y + 28 > 280) { doc.addPage(); y = 14 }
+        doc.setFillColor(250, 250, 255); doc.roundedRect(margin, y, W - margin * 2, 26, 2, 2, 'F')
+        doc.setDrawColor(220, 220, 235); doc.roundedRect(margin, y, W - margin * 2, 26, 2, 2, 'S')
+        doc.setFontSize(11); doc.setFont('helvetica', 'bold'); doc.setTextColor(30, 30, 50)
+        doc.text(nombre, margin + 4, y + 8)
+        doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(100, 100, 120)
+        doc.text(`${d.entregas} entregas · ${d.dias} días activos`, margin + 4, y + 16)
+        doc.setFontSize(11); doc.setFont('helvetica', 'bold'); doc.setTextColor(34, 197, 94)
+        doc.text(fmtMoney(d.monto), W - margin - 4, y + 8, { align: 'right' })
+        doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(251, 191, 36)
+        doc.text(`com. ${fmtMoney(d.com)}`, W - margin - 4, y + 16, { align: 'right' })
+        y += 30
+      })
+
+      doc.setFontSize(7); doc.setTextColor(160, 160, 180); doc.setFont('helvetica', 'normal')
+      doc.text(`Generado con VoraRep · ${new Date().toLocaleString('es-AR')}`, margin, y + 6)
+      doc.save(`vorarep-${perfil?.negocio || 'equipo'}-${from}-${to}.pdf`)
+    } finally {
+      setExporting(false)
+    }
+  }
+
   if (loading) {
     return (
       <div className="p-4 flex items-center justify-center h-48">
@@ -255,12 +400,14 @@ export default function DashboardScreen() {
     )
   }
 
+  const alertaMin = parseInt(localStorage.getItem('rr_alerta_demora_min') || '0') || 0
+
   const ranked = [...resumenHoy].sort((a, b) => (+b.total_monto || 0) - (+a.total_monto || 0))
 
   const totalHoyMonto    = resumenHoy.reduce((s, r) => s + (+r.total_monto || 0), 0)
   const totalHoyEntregas = resumenHoy.reduce((s, r) => s + (+r.total_entregados || 0), 0)
   const totalHoyClientes = resumenHoy.reduce((s, r) => s + (+r.total_clientes || 0), 0)
-  const totalEfectivo    = resumenHoy.reduce((s, r) => s + getEfectivoRepartidor(r.entregas), 0)
+  const totalEfectivo    = resumenHoy.reduce((s, r) => s + getEfectivoRepartidor(r.entregasArr), 0)
 
   const varPct = resumenPrevSem?.totalMonto > 0 && resumenSemana
     ? Math.round(((resumenSemana.totalMonto - resumenPrevSem.totalMonto) / resumenPrevSem.totalMonto) * 100)
@@ -280,8 +427,8 @@ export default function DashboardScreen() {
           </p>
         </div>
         <button
-          onClick={exportPDF}
-          disabled={exporting || resumenHoy.length === 0}
+          onClick={() => { setExportRng('hoy'); setShowExport(true) }}
+          disabled={exporting}
           className="flex items-center gap-[6px] bg-amber-400/10 border border-amber-400/30 text-amber-400 font-heading font-bold text-[11px] px-3 py-[8px] rounded-xl active:scale-95 transition-all disabled:opacity-40"
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -289,7 +436,7 @@ export default function DashboardScreen() {
             <polyline points="7 10 12 15 17 10"/>
             <line x1="12" y1="15" x2="12" y2="3"/>
           </svg>
-          {exporting ? 'Generando...' : 'PDF'}
+          {exporting ? 'Generando...' : 'Exportar'}
         </button>
       </div>
 
@@ -346,8 +493,8 @@ export default function DashboardScreen() {
             {fmtMoney(totalEfectivo)}
           </p>
           <p className="text-[11px] text-muted mt-[2px]">
-            Entre {resumenHoy.filter(r => getEfectivoRepartidor(r.entregas) > 0).length} repartidor
-            {resumenHoy.filter(r => getEfectivoRepartidor(r.entregas) > 0).length !== 1 ? 'es' : ''}
+            Entre {resumenHoy.filter(r => getEfectivoRepartidor(r.entregasArr) > 0).length} repartidor
+            {resumenHoy.filter(r => getEfectivoRepartidor(r.entregasArr) > 0).length !== 1 ? 'es' : ''}
           </p>
         </div>
       )}
@@ -366,10 +513,12 @@ export default function DashboardScreen() {
           const nombre    = r.profiles?.negocio || r.profiles?.nombre || 'Repartidor'
           const pct       = r.total_clientes > 0 ? Math.round((r.total_entregados / r.total_clientes) * 100) : 0
           const comision  = (+r.total_monto || 0) * ((+r.comision_pct || 0) / 100)
-          const efectivo  = getEfectivoRepartidor(r.entregas)
+          const efectivo  = getEfectivoRepartidor(r.entregasArr)
           const estado    = semaforo(r.total_entregados, r.total_clientes)
-          const color     = SEMAFORO_COLOR[estado]
-          const label     = SEMAFORO_LABEL[estado]
+          const color     = SEMAFORO_COLOR[estado] ?? SEMAFORO_COLOR['null']
+          const label     = SEMAFORO_LABEL[estado] ?? SEMAFORO_LABEL['null']
+          const sinActMin = minutosDesdeUltimaEntrega(r.entregasArr)
+          const inactivo  = alertaMin > 0 && sinActMin !== null && sinActMin >= alertaMin && estado !== 'completo'
 
           return (
             <div
@@ -387,7 +536,7 @@ export default function DashboardScreen() {
 
                 {/* Nombre + estado */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-[2px]">
+                  <div className="flex items-center gap-2 mb-[2px] flex-wrap">
                     <span className="text-[13px] font-bold text-textc truncate">{nombre}</span>
                     <span
                       className="text-[9px] font-bold px-[6px] py-[2px] rounded-full flex-shrink-0"
@@ -395,6 +544,11 @@ export default function DashboardScreen() {
                     >
                       {label}
                     </span>
+                    {inactivo && (
+                      <span className="text-[9px] font-bold px-[6px] py-[2px] rounded-full flex-shrink-0 text-red-400 bg-red-400/10">
+                        Sin actividad {sinActMin}m
+                      </span>
+                    )}
                   </div>
                   <div className="text-[11px] text-muted">
                     {r.total_entregados}/{r.total_clientes} entregas
@@ -422,7 +576,19 @@ export default function DashboardScreen() {
               </div>
               <div className="flex items-center justify-between mt-[5px]">
                 <p className="text-[9px] text-muted">{pct}% completado</p>
-                <p className="text-[9px] text-muted/40">Ver detalle →</p>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={e => {
+                      e.stopPropagation()
+                      setAvisarMsg('Recordá cobrar deudas pendientes de la semana pasada al visitar hoy.')
+                      setAvisar({ userId: r.user_id, nombre })
+                    }}
+                    className="text-[9px] font-bold text-amber-400/70 hover:text-amber-400"
+                  >
+                    Avisar
+                  </button>
+                  <p className="text-[9px] text-muted/40">Ver detalle →</p>
+                </div>
               </div>
             </div>
           )
@@ -442,6 +608,87 @@ export default function DashboardScreen() {
         repartidor={detalle}
         onClose={() => setDetalle(null)}
       />
+
+      {/* ── Modal: Avisar repartidor ──────────────────── */}
+      {avisar && createPortal(
+        <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', background: 'rgba(0,0,0,0.6)' }}
+          onClick={() => { setAvisar(null); setAvisarSent(false); setAvisarMsg('') }}>
+          <div style={{ width: '100%', maxWidth: 480, background: 'var(--c-surface)', borderTop: '1px solid rgba(255,255,255,0.08)', borderRadius: '20px 20px 0 0', padding: 20, paddingBottom: 'max(28px, env(safe-area-inset-bottom))' }}
+            onClick={e => e.stopPropagation()}>
+            <p style={{ fontSize: 10, fontWeight: 700, color: 'var(--c-muted)', textTransform: 'uppercase', letterSpacing: '.8px', marginBottom: 4 }}>Avisar a repartidor</p>
+            <p style={{ fontSize: 14, fontWeight: 700, color: 'var(--c-text)', marginBottom: 16 }}>{avisar.nombre}</p>
+            <textarea
+              value={avisarMsg}
+              onChange={e => setAvisarMsg(e.target.value)}
+              rows={3}
+              style={{ width: '100%', background: 'var(--c-bg)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, padding: '12px 16px', color: 'var(--c-text)', fontSize: 13, outline: 'none', resize: 'none', marginBottom: 16, boxSizing: 'border-box' }}
+              placeholder="Escribí tu mensaje..."
+            />
+            <button
+              onClick={handleAvisar}
+              disabled={avisarSending || !avisarMsg.trim()}
+              style={{ width: '100%', background: avisarSent ? '#22c55e' : '#f59e0b', color: avisarSent ? '#fff' : '#1a1a28', fontWeight: 700, fontSize: 13, padding: '13px 0', borderRadius: 12, border: 'none', opacity: (avisarSending || !avisarMsg.trim()) ? 0.4 : 1 }}
+            >
+              {avisarSending ? 'Enviando...' : avisarSent ? 'Enviado' : 'Enviar aviso'}
+            </button>
+          </div>
+        </div>,
+        document.body
+      )}
+
+      {/* ── Modal: Exportar PDF ───────────────────────── */}
+      {showExport && createPortal(
+        <div style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.6)' }}
+          onClick={() => setShowExport(false)}>
+          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'var(--c-surface)', borderTop: '1px solid rgba(255,255,255,0.08)', borderRadius: '20px 20px 0 0', padding: 20, paddingBottom: 'max(28px, env(safe-area-inset-bottom))' }}
+            onClick={e => e.stopPropagation()}>
+
+            <p style={{ fontSize: 10, fontWeight: 700, color: 'var(--c-muted)', textTransform: 'uppercase', letterSpacing: '.8px', marginBottom: 12 }}>¿Qué querés exportar?</p>
+
+            {[
+              { id: 'hoy',    label: 'Hoy',          sub: 'Día actual' },
+              { id: 'semana', label: 'Esta semana',   sub: 'Desde inicio configurado' },
+              { id: 'custom', label: 'Personalizado', sub: 'Elegís fechas' },
+            ].map(opt => (
+              <button
+                key={opt.id}
+                onClick={() => setExportRng(opt.id)}
+                style={{ display: 'flex', alignItems: 'center', gap: 12, width: '100%', padding: '10px 12px', marginBottom: 8, borderRadius: 12, border: exportRng === opt.id ? '1.5px solid #f59e0b' : '1px solid rgba(255,255,255,0.08)', background: exportRng === opt.id ? 'rgba(245,158,11,0.08)' : 'rgba(255,255,255,0.03)', textAlign: 'left', boxSizing: 'border-box' }}
+              >
+                <div style={{ width: 16, height: 16, borderRadius: '50%', flexShrink: 0, border: exportRng === opt.id ? '4px solid #f59e0b' : '2px solid rgba(255,255,255,0.3)', background: 'transparent' }} />
+                <div>
+                  <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--c-text)', margin: 0 }}>{opt.label}</p>
+                  <p style={{ fontSize: 10, color: 'var(--c-muted)', margin: 0 }}>{opt.sub}</p>
+                </div>
+              </button>
+            ))}
+
+            {exportRng === 'custom' && (
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 12 }}>
+                <div>
+                  <p style={{ fontSize: 10, color: 'var(--c-muted)', marginBottom: 4 }}>Desde</p>
+                  <input type="date" value={exportFrom} onChange={e => setExportFrom(e.target.value)}
+                    style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 10, padding: '8px 12px', color: 'var(--c-text)', fontSize: 13, outline: 'none', boxSizing: 'border-box' }} />
+                </div>
+                <div>
+                  <p style={{ fontSize: 10, color: 'var(--c-muted)', marginBottom: 4 }}>Hasta</p>
+                  <input type="date" value={exportTo} onChange={e => setExportTo(e.target.value)}
+                    style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 10, padding: '8px 12px', color: 'var(--c-text)', fontSize: 13, outline: 'none', boxSizing: 'border-box' }} />
+                </div>
+              </div>
+            )}
+
+            <button
+              onClick={exportarRango}
+              disabled={exportRng === 'custom' && (!exportFrom || !exportTo)}
+              style={{ width: '100%', background: '#f59e0b', color: '#1a1a28', fontWeight: 700, fontSize: 13, padding: '13px 0', borderRadius: 12, border: 'none', marginTop: 4, opacity: (exportRng === 'custom' && (!exportFrom || !exportTo)) ? 0.4 : 1 }}
+            >
+              Generar PDF
+            </button>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   )
 }

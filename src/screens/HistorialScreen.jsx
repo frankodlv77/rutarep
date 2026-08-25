@@ -424,27 +424,28 @@ export default function HistorialScreen() {
       )}
 
       {/* Selector de período */}
-      <div className="flex bg-surface border border-[var(--c-border)] rounded-xl p-1 mb-4 gap-1">
+      <div className="flex mb-4 rounded-[10px] p-[3px]" style={{ background: 'var(--c-surface)' }}>
         {PERIODS.map(p => (
           <button key={p.key} onClick={() => setPeriod(p.key)}
-            className={`flex-1 py-[8px] rounded-lg text-[11px] font-heading font-bold transition-all ${
-              period === p.key ? 'bg-amber-400 text-[#1a1a28]' : 'text-muted'
-            }`}>{p.label}</button>
+            className="flex-1 rounded-[8px] py-[8px] text-[12px] font-semibold transition-all"
+            style={period === p.key ? { background: '#2A2A2E', color: 'var(--c-text)' } : { color: 'var(--c-muted3)' }}>
+            {p.label}
+          </button>
         ))}
       </div>
 
       {/* Stats del período */}
       {filtered.length > 0 ? (
         <>
-          <div className="grid grid-cols-3 gap-2 mb-3">
+          <div className="flex mb-3" style={{ background: 'var(--c-surface)', borderRadius: 12, overflow: 'hidden' }}>
             {[
-              { label: 'Recaudado',  value: fmtMoney(stats.total),    color: 'text-emerald-400' },
-              { label: 'Entregas',   value: stats.entregas,            color: 'text-textc'  },
-              { label: 'Comisión',   value: fmtMoney(stats.comision),  color: 'text-amber-400'  },
-            ].map(s => (
-              <div key={s.label} className="bg-surface border border-[var(--c-border)] rounded-xl p-2 text-center">
-                <div className={`font-heading text-[15px] font-extrabold ${s.color} leading-tight`}>{s.value}</div>
-                <div className="text-[9px] text-muted uppercase tracking-[.4px] mt-[2px]">{s.label}</div>
+              { label: 'Recaudado',  value: fmtMoney(stats.total),    color: '#34C759' },
+              { label: 'Entregas',   value: String(stats.entregas),    color: 'var(--c-text)' },
+              { label: 'Comisión',   value: fmtMoney(stats.comision),  color: '#D4962A' },
+            ].map((s, i) => (
+              <div key={s.label} style={{ flex: 1, padding: '12px', borderRight: i < 2 ? '0.5px solid var(--c-border)' : 'none', textAlign: 'center' }}>
+                <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 15, fontWeight: 500, color: s.color, lineHeight: 1, marginBottom: 3 }}>{s.value}</div>
+                <div style={{ fontSize: 9, color: 'var(--c-muted3)', textTransform: 'uppercase', letterSpacing: 1 }}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -508,7 +509,7 @@ export default function HistorialScreen() {
         const isDeleting = deletingId === (dia.id || di)
         const canDelete  = deleteText.trim().toUpperCase() === 'BORRAR'
         return (
-          <div key={dia.id || di} className="mb-3 bg-surface border border-[var(--c-border)] rounded-xl overflow-hidden">
+          <div key={dia.id || di} className="mb-3 overflow-hidden" style={{ background: 'var(--c-surface)', borderRadius: 12 }}>
             {/* Day header — tap to expand */}
             <button
               type="button"
@@ -516,15 +517,15 @@ export default function HistorialScreen() {
               className="w-full flex items-center gap-3 px-4 py-3 text-left"
             >
               <div className="flex-1 min-w-0">
-                <div className="text-[12px] font-bold text-amber-400 capitalize">{dia.fecha}</div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--c-text)' }} className="capitalize">{dia.fecha}</div>
                 <div className="flex items-center gap-2 mt-[3px] flex-wrap">
-                  <span className="text-[10px] text-muted">{dia.total_entregados}/{dia.total_clientes} entregas</span>
-                  <span className="text-[10px] text-amber-400">· Comisión {dia.comision_pct}% = {fmtMoney((+dia.total_monto||0) * (+dia.comision_pct||0) / 100)}</span>
+                  <span style={{ fontSize: 11, color: 'var(--c-muted2)' }}>{dia.total_entregados}/{dia.total_clientes} entregas</span>
+                  <span style={{ fontSize: 11, color: '#D4962A' }}>· {dia.comision_pct}% = {fmtMoney((+dia.total_monto||0) * (+dia.comision_pct||0) / 100)}</span>
                 </div>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
-                <span className="font-heading font-extrabold text-[15px] text-emerald-400">{fmtMoney(dia.total_monto)}</span>
-                <span className="text-muted text-[11px]">{isOpen ? '▲' : '▼'}</span>
+                <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 14, fontWeight: 500, color: '#34C759' }}>{fmtMoney(dia.total_monto)}</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" strokeWidth="1.5" strokeLinecap="round"><path d={isOpen ? 'M18 15l-6-6-6 6' : 'M6 9l6 6 6-6'}/></svg>
               </div>
             </button>
 

@@ -46,18 +46,31 @@ function AddressField({ value, onChange, onCoords, zona = '' }) {
     setSearching(true)
     timer.current = setTimeout(async () => {
       try {
-        const zonaExtra = zona && zona !== 'Otro' && zona !== 'Centro' ? ` ${zona}` : ''
-        const q = encodeURIComponent(v + zonaExtra + ' Mendoza Argentina')
-        // bounded=0: viewbox is a soft hint, not a hard filter (bounded=1 silently drops valid addresses)
-        const url = `https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=5&countrycodes=ar&addressdetails=1&viewbox=${VIEWBOX}&bounded=0`
-        const res = await fetch(url, {
-          headers: {
-            'Accept-Language': 'es',
-            'User-Agent': 'VoraRep/1.0 (https://app.vora-system.com)',
-          },
-        })
+        const zonaCity = zona && zona !== 'Otro' && zona !== 'Centro' ? zona : 'Mendoza'
+        // Detect if input has a house number (digits) → use structured search for better accuracy
+        const hasNumber = /\d/.test(v)
+        let url
+        if (hasNumber) {
+          // Structured: street + city gives Nominatim the best chance to resolve to exact number
+          const street = encodeURIComponent(v)
+          const city   = encodeURIComponent(zonaCity + ' Mendoza')
+          url = `https://nominatim.openstreetmap.org/search?street=${street}&city=${city}&country=ar&format=json&limit=5&addressdetails=1`
+        } else {
+          const q = encodeURIComponent(v + ' ' + zonaCity + ' Mendoza Argentina')
+          url = `https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=5&countrycodes=ar&addressdetails=1&viewbox=${VIEWBOX}&bounded=0`
+        }
+        const res = await fetch(url, { headers: { 'Accept-Language': 'es' } })
         if (!res.ok) throw new Error()
-        const data = await res.json()
+        let data = await res.json()
+        // Fallback: if structured search returned nothing, retry with free-text
+        if (data.length === 0 && hasNumber) {
+          const q = encodeURIComponent(v + ' Mendoza Argentina')
+          const res2 = await fetch(
+            `https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=5&countrycodes=ar&addressdetails=1&viewbox=${VIEWBOX}&bounded=0`,
+            { headers: { 'Accept-Language': 'es' } }
+          )
+          if (res2.ok) data = await res2.json()
+        }
         setSuggestions(data); setOpen(data.length > 0)
         if (data.length === 0) setSearchErr(true)
       } catch { setSearchErr(true) }
@@ -66,7 +79,22 @@ function AddressField({ value, onChange, onCoords, zona = '' }) {
   }
 
   const handleSelect = (item) => {
-    onChange(formatSuggestion(item))
+    const a = item.address || {}
+    // Preserve house number from user's input if Nominatim didn't resolve it
+    const inputNum = value.match(/\b(\d{1,5})\b/)?.[1]
+    const houseNum = a.house_number || inputNum || ''
+    const road = a.road || ''
+    const locality = a.suburb || a.neighbourhood || a.city_district || a.city || a.town || a.municipality || ''
+
+    let displayAddr
+    if (road) {
+      displayAddr = road + (houseNum ? ' ' + houseNum : '')
+      if (locality) displayAddr += ', ' + locality
+    } else {
+      displayAddr = formatSuggestion(item)
+    }
+
+    onChange(displayAddr)
     onCoords({ lat: parseFloat(item.lat), lon: parseFloat(item.lon) })
     setSuggestions([]); setOpen(false); setSearchErr(false)
   }

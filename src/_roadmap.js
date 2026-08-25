@@ -19,7 +19,7 @@
  * SPRINT 3 — COMPLETADO ✅
  *   ✅ Íconos maskable y PWA manifest (vite.config.js)
  *   ✅ Digital Asset Links (public/.well-known/assetlinks.json)
- *        package_name: app.vercel.rutarep.twa
+ *        package_name: app.vercel.vorarep.twa
  *        SHA256: 60:C4:DD:AA:F6:C6:BF:74:00:0F:76:A8:8D:4C:71:58:0D:59:64:A1:B8:FB:98:CD:E0:BA:4E:DB:E0:D6:A4:76
  *   ✅ APK generado con Bubblewrap
  *        keystore: ~/android.keystore  alias: android
@@ -50,13 +50,13 @@
  *        Descripción corta (80 chars max)
  *        Descripción larga
  *        Categoría: Productividad / Negocios
- *        Privacy Policy URL: https://rutarep.vercel.app/privacy.html
+ *        Privacy Policy URL: https://app.vora-system.com/privacy.html
  *        Screenshots (mínimo 2)
  *        Feature graphic: 1024×500px (banner de la app en Play Store)
  *        Content rating: completar el cuestionario (responder todo No)
  *
  * 3. LIGHTHOUSE AUDIT (opcional pero recomendado)
- *    - Correr: npx lighthouse https://rutarep.vercel.app --view
+ *    - Correr: npx lighthouse https://app.vora-system.com --view
  *    - Score PWA debe ser alto para que Google valide bien la TWA
  *
  * 4. DOMINIO PROPIO (futuro)
@@ -79,7 +79,7 @@
  *
  * NOTAS TÉCNICAS PARA PRÓXIMA SESIÓN
  * ────────────────────────────────────
- * - URL producción: https://rutarep.vercel.app (Vercel, repo: frankodlv77/rutarep)
+ * - URL producción: https://app.vora-system.com (Vercel, repo: frankodlv77/vorarep)
  * - Stack: React 18 + Vite 6, Zustand v5, Supabase, Tailwind, PWA (vite-plugin-pwa)
  * - SW: workbox generateSW, cacheId vorarep-v3, skipWaiting + clientsClaim
  * - Íconos: public/icon-vorarep-{192,512,maskable}.png

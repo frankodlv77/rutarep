@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,10 +13,11 @@
   --c-text:     #1a1a28;
   --c-muted:    #6b7280;
   --c-muted2:   #9ca3af;
+  --c-muted3:   #b0b7c0;
   --c-border:   rgba(0,0,0,0.08);
   --c-border2:  rgba(0,0,0,0.12);
   --c-shadow:   0 2px 12px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.06);
-  --c-glow:     rgba(245,158,11,0.15);
+  --c-glow:     rgba(212,150,42,0.15);
   --tabbar-bg:  rgba(255,255,255,0.85);
   --tabbar-shadow: 0 4px 24px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9);
   --header-bg:  rgba(247,245,240,0.88);
@@ -27,48 +29,62 @@
 
 /* ── Tema oscuro ────────────────────────────────────────────────────── */
 .dark {
-  --c-bg:       #09090b;
-  --c-surface:  #111113;
-  --c-surface2: #1c1c20;
-  --c-surface3: #252528;
-  --c-text:     #fafafa;
-  --c-muted:    #71717a;
-  --c-muted2:   #52525b;
-  --c-border:   rgba(255,255,255,0.07);
-  --c-border2:  rgba(255,255,255,0.12);
-  --c-shadow:   0 4px 20px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.25);
-  --c-glow:     rgba(251,191,36,0.2);
-  --tabbar-bg:  rgba(10,16,28,0.88);
-  --tabbar-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
-  --header-bg:  rgba(11,19,32,0.85);
-  --header-border: rgba(255,255,255,0.05);
-  --header-shadow: 0 1px 0 rgba(255,255,255,0.03), 0 4px 16px rgba(0,0,0,0.3);
+  --c-bg:       #0C0C0E;
+  --c-surface:  #16161A;
+  --c-surface2: #1A1A1F;
+  --c-surface3: #1E1A14;
+  --c-text:     #F2F2F7;
+  --c-muted:    #636366;
+  --c-muted2:   #4A4A4E;
+  --c-muted3:   #3A3A3C;
+  --c-border:   rgba(255,255,255,0.06);
+  --c-border2:  rgba(212,150,42,0.18);
+  --c-shadow:   0 4px 20px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3);
+  --c-glow:     rgba(212,150,42,0.08);
+  --tabbar-bg:  #0C0C0E;
+  --tabbar-shadow: none;
+  --header-bg:  rgba(12,12,14,0.96);
+  --header-border: rgba(255,255,255,0.06);
+  --header-shadow: 0 1px 0 rgba(255,255,255,0.03);
   --header-btn-bg: rgba(255,255,255,0.04);
   --header-btn-border: rgba(255,255,255,0.06);
 }
 
 * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
 html, body, #root { height: 100%; overflow: hidden; }
+
+/* Conductor overlay: svh respects Chrome toolbar; falls back to vh if not supported */
+.conductor-overlay {
+  height: 100vh;
+  height: 100svh;
+}
+
+/* Conductor buttons: extra bottom padding in browser to clear Chrome's bottom toolbar */
+.conductor-buttons {
+  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+}
+@media (display-mode: standalone) {
+  .conductor-buttons {
+    padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  }
+}
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'General Sans', 'Inter', sans-serif;
   background-color: var(--c-bg);
   color: var(--c-text);
   overscroll-behavior: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Fondo con gradiente sutil */
 #root {
-  background:
-    radial-gradient(ellipse 80% 50% at 50% -10%, var(--c-glow) 0%, transparent 60%),
-    var(--c-bg);
+  background: var(--c-bg);
 }
 
 .scroll-area {
   flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: 96px;
+  padding-bottom: 72px;
+  background: var(--c-bg);
 }
 
 .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -78,54 +94,51 @@ input, select, textarea { -webkit-appearance: none; }
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
-.font-heading { font-family: 'Inter', sans-serif; }
+.font-heading { font-family: 'General Sans', sans-serif; }
+.font-mono    { font-family: 'IBM Plex Mono', monospace; }
 
-/* ── Shimmer en botón amber ─────────────────────────────────────────── */
+/* ── Gold shimmer ────────────────────────────────────────────────────── */
 @keyframes shimmer {
   0%   { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
 .btn-shimmer {
   background: linear-gradient(105deg,
-    #f59e0b 0%, #fbbf24 35%,
-    #fde68a 48%, #fff8e1 50%, #fde68a 52%,
-    #fbbf24 65%, #f59e0b 100%
+    #D4962A 0%, #E5A830 35%,
+    #F0C060 48%, #FFF0C0 50%, #F0C060 52%,
+    #E5A830 65%, #D4962A 100%
   );
   background-size: 200% auto;
   animation: shimmer 3.5s ease-in-out infinite;
-  color: #1a1a28;
+  color: #060606;
 }
 
-/* ── Gradiente en montos ────────────────────────────────────────────── */
+/* ── Money colors ─────────────────────────────────────────────────────── */
 .money-green {
-  background: linear-gradient(135deg, #059669 0%, #10b981 60%, #06b6d4 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #34C759;
+  font-family: 'IBM Plex Mono', monospace;
 }
-.money-amber {
-  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.money-gold {
+  color: #D4962A;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
-/* ── Fade up suave ──────────────────────────────────────────────────── */
+/* ── Fade up ──────────────────────────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 .animate-fadeUp { animation: fadeUp 0.2s ease-out both; }
 
-/* ── Transición suave en cards ──────────────────────────────────────── */
+/* ── Card theme ───────────────────────────────────────────────────────── */
 .card-theme {
   background: var(--c-surface);
   border: 1px solid var(--c-border);
-  box-shadow: var(--c-shadow);
-  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 @layer utilities {
-  .text-muted { color: var(--c-muted); }
+  .text-muted  { color: var(--c-muted);  }
+  .text-muted2 { color: var(--c-muted2); }
+  .text-muted3 { color: var(--c-muted3); }
   .border-subtle { border-color: var(--c-border) !important; }
 }

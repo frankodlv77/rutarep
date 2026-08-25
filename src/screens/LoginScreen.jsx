@@ -1,17 +1,22 @@
 import { useState } from 'react'
+// import HCaptcha from '@hcaptcha/react-hcaptcha'  // activar cuando tengas cuenta hcaptcha.com
 import { supabase } from '../lib/supabase'
 
-export default function LoginScreen({ initialMode = 'login', onBack }) {
+// const HCAPTCHA_SITE_KEY = import.meta.env.VITE_HCAPTCHA_SITE_KEY
+
+export default function LoginScreen({ initialMode = 'login', onBack, forcedRol = null }) {
   const [email, setEmail]         = useState('')
   const [password, setPassword]   = useState('')
   const [negocio, setNegocio]     = useState('')
-  const [rol, setRol]             = useState('repartidor')
+  const [rol, setRol]             = useState(forcedRol || 'repartidor')
   const [termsAccepted, setTerms] = useState(false)
   const [loading, setLoading]   = useState(false)
   const [error, setError]       = useState('')
   const [success, setSuccess]   = useState('')
   const [mode, setMode]         = useState(initialMode) // 'login' | 'register' | 'reset'
   const [showPass, setShowPass] = useState(false)
+  // const [captchaToken, setCaptchaToken] = useState('')
+  // const captchaRef = useRef(null)
 
   const clearErrors = () => { setError(''); setSuccess('') }
 
@@ -48,17 +53,16 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
         return
       }
       const { data, error: err } = await supabase.auth.signUp({ email: email.trim(), password })
+      // captchaRef.current?.resetCaptcha()
       if (err) {
         setError(err.message === 'User already registered'
           ? 'El correo ya está registrado'
           : 'Error al registrarse. Intentá de nuevo.')
       } else if (data.session) {
-        // Guardar perfil con rol y negocio
         await supabase.from('profiles').upsert(
           { id: data.user.id, rol, negocio: negocio.trim() || null },
           { onConflict: 'id' }
         )
-        // Si es encargado, crear equipo automáticamente
         if (rol === 'encargado' && negocio.trim()) {
           await supabase.rpc('create_equipo', { p_nombre: negocio.trim() })
         }
@@ -111,8 +115,8 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
 
       <form onSubmit={handleSubmit} className="w-full max-w-[340px] flex flex-col gap-[10px]">
 
-        {/* Selector de rol — solo en registro */}
-        {isRegister && (
+        {/* Selector de rol — solo en registro sin invitación */}
+        {isRegister && !forcedRol && (
           <div>
             <p className="text-[10px] font-bold text-muted uppercase tracking-[.6px] mb-[6px]">¿Cuál es tu rol?</p>
             <div className="grid grid-cols-2 gap-2">
@@ -273,6 +277,21 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
           </div>
         )}
 
+        {/* hCaptcha — descomentar cuando esté configurado
+        {isRegister && HCAPTCHA_SITE_KEY && (
+          <div className="flex justify-center mt-1">
+            <HCaptcha
+              sitekey={HCAPTCHA_SITE_KEY}
+              onVerify={setCaptchaToken}
+              onExpire={() => setCaptchaToken('')}
+              onError={() => setCaptchaToken('')}
+              ref={captchaRef}
+              theme="dark"
+            />
+          </div>
+        )}
+        */}
+
         <button
           type="submit"
           disabled={
@@ -291,13 +310,13 @@ export default function LoginScreen({ initialMode = 'login', onBack }) {
             : 'Ingresar'}
         </button>
 
-        {!isReset && (
+        {!isReset && isRegister && (
           <button
             type="button"
-            onClick={() => switchMode(isRegister ? 'login' : 'register')}
+            onClick={() => switchMode('login')}
             className="text-[13px] text-muted text-center py-2 hover:text-amber-400 transition-colors"
           >
-            {isRegister ? '¿Ya tenés cuenta? Ingresá' : '¿No tenés cuenta? Registrate gratis'}
+            ¿Ya tenés cuenta? Ingresá
           </button>
         )}
       </form>

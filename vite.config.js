@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
       includeAssets: ['icon-vorarep-192.png', 'icon-vorarep-512.png', 'icon-vorarep-maskable.png'],
       manifest: {
         name: 'VoraRep',
@@ -43,7 +43,6 @@ export default defineConfig({
       workbox: {
         cacheId: 'vorarep-v3',
         cleanupOutdatedCaches: true,
-        skipWaiting: true,
         clientsClaim: true,
         importScripts: ['/push-sw.js'],
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],

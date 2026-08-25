@@ -1,4 +1,4 @@
--- RutaRep — Migración tabla profiles y eliminación de cuenta
+-- VoraRep — Migración tabla profiles y eliminación de cuenta
 -- Ejecutar en SQL Editor de Supabase
 
 -- =============================================

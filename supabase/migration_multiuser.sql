@@ -1,4 +1,4 @@
--- RutaRep — Migración Multi-usuario
+-- VoraRep — Migración Multi-usuario
 -- Ejecutar en SQL Editor de Supabase DESPUÉS del schema.sql inicial
 -- Convierte la app en SaaS: cada usuario ve solo sus propios datos
 

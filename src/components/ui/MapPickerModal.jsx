@@ -1,31 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 
 const MENDOZA_CENTER = [-32.89, -68.83]
-const LEAFLET_CSS = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'
-const LEAFLET_JS  = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'
-
-function loadLeaflet() {
-  return new Promise((resolve, reject) => {
-    if (window.L) { resolve(window.L); return }
-    if (!document.getElementById('leaflet-css')) {
-      const link = document.createElement('link')
-      link.id = 'leaflet-css'
-      link.rel = 'stylesheet'
-      link.href = LEAFLET_CSS
-      document.head.appendChild(link)
-    }
-    if (document.getElementById('leaflet-js')) {
-      document.getElementById('leaflet-js').addEventListener('load', () => resolve(window.L))
-      return
-    }
-    const script = document.createElement('script')
-    script.id = 'leaflet-js'
-    script.src = LEAFLET_JS
-    script.onload = () => resolve(window.L)
-    script.onerror = reject
-    document.head.appendChild(script)
-  })
-}
 
 async function reverseGeocode(lat, lon) {
   try {
@@ -34,9 +11,9 @@ async function reverseGeocode(lat, lon) {
     if (!res.ok) return null
     const data = await res.json()
     const a = data.address || {}
-    const street = a.road ? a.road + (a.house_number ? ' ' + a.house_number : '') : null
+    const street   = a.road ? a.road + (a.house_number ? ' ' + a.house_number : '') : null
     const locality = a.suburb || a.neighbourhood || a.city_district || null
-    const city = a.city || a.town || a.village || a.municipality || null
+    const city     = a.city || a.town || a.village || a.municipality || null
     const parts = [street, locality, city].filter(Boolean)
     return parts.length > 0 ? parts.join(', ') : data.display_name?.split(',').slice(0, 3).join(', ') || null
   } catch { return null }
@@ -44,48 +21,44 @@ async function reverseGeocode(lat, lon) {
 
 export default function MapPickerModal({ initialLat, initialLon, onConfirm, onClose }) {
   const mapRef    = useRef(null)
-  const leafletRef = useRef(null)
+  const mapInst   = useRef(null)
   const markerRef = useRef(null)
-  const [pin, setPin]           = useState(initialLat ? { lat: +initialLat, lon: +initialLon } : null)
-  const [loading, setLoading]   = useState(true)
+
+  const [pin,        setPin]     = useState(initialLat ? { lat: +initialLat, lon: +initialLon } : null)
   const [confirming, setConfirm] = useState(false)
 
   useEffect(() => {
-    let map
-    loadLeaflet().then(L => {
-      if (!mapRef.current) return
-      const center = pin ? [pin.lat, pin.lon] : MENDOZA_CENTER
-      const zoom   = pin ? 17 : 13
+    if (!mapRef.current || mapInst.current) return
 
-      map = L.map(mapRef.current, { zoomControl: true }).setView(center, zoom)
-      leafletRef.current = map
+    const center = pin ? [pin.lat, pin.lon] : MENDOZA_CENTER
+    const zoom   = pin ? 17 : 13
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap',
-        maxZoom: 19,
-      }).addTo(map)
+    const map = L.map(mapRef.current, { zoomControl: true }).setView(center, zoom)
+    mapInst.current = map
 
-      const icon = L.divIcon({
-        html: '<div style="font-size:28px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))">📍</div>',
-        className: '',
-        iconAnchor: [14, 28],
-      })
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap',
+      maxZoom: 19,
+    }).addTo(map)
 
-      if (pin) {
-        markerRef.current = L.marker([pin.lat, pin.lon], { icon }).addTo(map)
-      }
+    const icon = L.divIcon({
+      html: '<div style="font-size:28px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))">📍</div>',
+      className: '',
+      iconAnchor: [14, 28],
+    })
 
-      map.on('click', e => {
-        const { lat, lng } = e.latlng
-        setPin({ lat, lon: lng })
-        if (markerRef.current) markerRef.current.setLatLng([lat, lng])
-        else markerRef.current = L.marker([lat, lng], { icon }).addTo(map)
-      })
+    if (pin) {
+      markerRef.current = L.marker([pin.lat, pin.lon], { icon }).addTo(map)
+    }
 
-      setLoading(false)
-    }).catch(() => setLoading(false))
+    map.on('click', e => {
+      const { lat, lng } = e.latlng
+      setPin({ lat, lon: lng })
+      if (markerRef.current) markerRef.current.setLatLng([lat, lng])
+      else markerRef.current = L.marker([lat, lng], { icon }).addTo(map)
+    })
 
-    return () => { map?.remove() }
+    return () => { map.remove(); mapInst.current = null }
   }, [])
 
   const handleConfirm = async () => {
@@ -97,7 +70,6 @@ export default function MapPickerModal({ initialLat, initialLon, onConfirm, onCl
 
   return (
     <div className="fixed inset-0 z-[9999] flex flex-col bg-bg">
-      {/* Header */}
       <div className="flex items-center gap-3 px-4 py-3 bg-surface2 border-b border-[var(--c-border2)] shrink-0">
         <button onClick={onClose} className="text-muted text-[22px] leading-none px-1">‹</button>
         <div>
@@ -106,17 +78,10 @@ export default function MapPickerModal({ initialLat, initialLon, onConfirm, onCl
         </div>
       </div>
 
-      {/* Map */}
       <div className="relative flex-1">
-        {loading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-bg z-10">
-            <p className="text-muted text-[13px] animate-pulse">Cargando mapa…</p>
-          </div>
-        )}
         <div ref={mapRef} className="w-full h-full" />
       </div>
 
-      {/* Footer */}
       <div className="shrink-0 px-4 py-3 bg-surface2 border-t border-[var(--c-border2)] space-y-2">
         {pin ? (
           <p className="text-[10px] text-emerald-400 text-center">
@@ -128,7 +93,8 @@ export default function MapPickerModal({ initialLat, initialLon, onConfirm, onCl
         <button
           onClick={handleConfirm}
           disabled={!pin || confirming}
-          className="w-full bg-amber-400 text-[#1a1a28] font-bold text-[13px] py-[13px] rounded-xl disabled:opacity-40 active:scale-[.97] transition-transform">
+          className="w-full bg-amber-400 text-[#1a1a28] font-bold text-[13px] py-[13px] rounded-xl disabled:opacity-40 active:scale-[.97] transition-transform"
+        >
           {confirming ? 'Guardando…' : 'Confirmar punto'}
         </button>
       </div>

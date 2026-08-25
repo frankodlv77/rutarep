@@ -123,6 +123,7 @@ function SemanaConfig({ perfil }) {
   const [equipoId,  setEquipoId]  = useState(null)
   const [saving,    setSaving]    = useState(false)
   const [saved,     setSaved]     = useState(false)
+  const [editing,   setEditing]   = useState(false)
 
   useEffect(() => {
     supabase.from('equipos')
@@ -146,6 +147,7 @@ function SemanaConfig({ perfil }) {
       .eq('id', equipoId)
     setSaving(false)
     setSaved(true)
+    setEditing(false)
     setTimeout(() => setSaved(false), 2500)
   }
 
@@ -154,67 +156,75 @@ function SemanaConfig({ perfil }) {
 
   return (
     <div className="bg-surface border border-[var(--c-border)] rounded-2xl p-4 mb-3">
-      <p className="text-[10px] font-bold text-muted uppercase tracking-[.5px] mb-1">Semana de reparto</p>
-      <p className="text-[11px] text-muted mb-4 leading-relaxed">
-        Configurá qué días cubre tu semana. Afecta el resumen semanal y la comparativa del dashboard.
-      </p>
-
-      <div className="mb-4">
-        <p className="text-[11px] font-bold text-textc mb-2">¿Qué día empieza tu semana?</p>
-        <div className="grid grid-cols-7 gap-1">
-          {DIAS.map(({ dia, label }) => (
-            <button
-              key={dia}
-              onClick={() => setDiaInicio(dia)}
-              className={`py-[9px] rounded-lg text-[10px] font-bold transition-all ${
-                diaInicio === dia
-                  ? 'bg-amber-400 text-[#1a1a28]'
-                  : 'bg-surface2 border border-[var(--c-border)] text-muted'
-              }`}
-            >
-              {label.slice(0, 3)}
-            </button>
-          ))}
+      {/* Fila resumen siempre visible */}
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-[10px] font-bold text-muted uppercase tracking-[.5px]">Semana de reparto</p>
+          <p className="text-[13px] font-semibold text-textc mt-[3px]">
+            {saved
+              ? <span className="text-emerald-400">Guardado</span>
+              : <>{labelInicio} <span className="text-muted">→</span> {labelFin}</>
+            }
+          </p>
         </div>
+        <button
+          onClick={() => setEditing(e => !e)}
+          className="text-[11px] font-bold text-amber-400 border border-amber-400/40 px-3 py-[6px] rounded-lg active:scale-95 transition-transform"
+        >
+          {editing ? 'Cancelar' : 'Editar'}
+        </button>
       </div>
 
-      <div className="mb-4">
-        <p className="text-[11px] font-bold text-textc mb-2">¿Qué día termina?</p>
-        <div className="grid grid-cols-7 gap-1">
-          {DIAS.map(({ dia, label }) => (
-            <button
-              key={dia}
-              onClick={() => setDiaFin(dia)}
-              className={`py-[9px] rounded-lg text-[10px] font-bold transition-all ${
-                diaFin === dia
-                  ? 'bg-amber-400 text-[#1a1a28]'
-                  : 'bg-surface2 border border-[var(--c-border)] text-muted'
-              }`}
-            >
-              {label.slice(0, 3)}
-            </button>
-          ))}
+      {/* Panel expandible */}
+      {editing && (
+        <div className="mt-4 pt-4 border-t border-[var(--c-border)]">
+          <div className="mb-4">
+            <p className="text-[11px] font-bold text-textc mb-2">¿Qué día empieza?</p>
+            <div className="grid grid-cols-7 gap-1">
+              {DIAS.map(({ dia, label }) => (
+                <button
+                  key={dia}
+                  onClick={() => setDiaInicio(dia)}
+                  className={`py-[9px] rounded-lg text-[10px] font-bold transition-all ${
+                    diaInicio === dia
+                      ? 'bg-amber-400 text-[#1a1a28]'
+                      : 'bg-surface2 border border-[var(--c-border)] text-muted'
+                  }`}
+                >
+                  {label.slice(0, 3)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <p className="text-[11px] font-bold text-textc mb-2">¿Qué día termina?</p>
+            <div className="grid grid-cols-7 gap-1">
+              {DIAS.map(({ dia, label }) => (
+                <button
+                  key={dia}
+                  onClick={() => setDiaFin(dia)}
+                  className={`py-[9px] rounded-lg text-[10px] font-bold transition-all ${
+                    diaFin === dia
+                      ? 'bg-amber-400 text-[#1a1a28]'
+                      : 'bg-surface2 border border-[var(--c-border)] text-muted'
+                  }`}
+                >
+                  {label.slice(0, 3)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <button
+            onClick={confirmar}
+            disabled={saving || !equipoId}
+            className="w-full font-heading font-bold text-[13px] py-[12px] rounded-xl disabled:opacity-40 active:scale-[.98] transition-all bg-amber-400 text-[#1a1a28]"
+          >
+            {saving ? 'Guardando...' : 'Guardar'}
+          </button>
         </div>
-      </div>
-
-      <div className="bg-bg border border-[var(--c-border)] rounded-xl px-4 py-3 mb-4 text-center">
-        <p className="text-[12px] text-muted">
-          Tu semana:{' '}
-          <span className="font-bold text-textc">{labelInicio}</span>
-          {' → '}
-          <span className="font-bold text-textc">{labelFin}</span>
-        </p>
-      </div>
-
-      <button
-        onClick={confirmar}
-        disabled={saving || !equipoId}
-        className={`w-full font-heading font-bold text-[13px] py-[12px] rounded-xl disabled:opacity-40 active:scale-[.98] transition-all ${
-          saved ? 'bg-emerald-500 text-white' : 'bg-amber-400 text-[#1a1a28]'
-        }`}
-      >
-        {saving ? 'Guardando...' : saved ? 'Guardado' : 'Confirmar'}
-      </button>
+      )}
     </div>
   )
 }

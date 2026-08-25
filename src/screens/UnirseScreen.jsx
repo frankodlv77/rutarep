@@ -53,6 +53,7 @@ export default function UnirseScreen({ token, onDone }) {
         <LoginScreen
           initialMode="register"
           onBack={null}
+          forcedRol="repartidor"
         />
         {/* Escuchar cambio de sesión para aceptar la invitación */}
         <AuthWatcher onAuth={handleAuthSuccess} />

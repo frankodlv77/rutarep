@@ -8,6 +8,7 @@ const LS_COM         = 'rr_com'
 const LS_FECHA       = 'rr_fecha'
 const LS_PENDING     = 'rr_pending_hist'    // días finalizados sin conexión, esperando sync
 const LS_PENDING_SES = 'rr_pending_session' // sesión sin finalizar del día anterior, persiste en LS
+const LS_GPS_SHARE   = 'rr_gps_share'
 
 function lsGet(k, def) { try { return JSON.parse(localStorage.getItem(k)) ?? def } catch { return def } }
 function lsSet(k, v)   { localStorage.setItem(k, JSON.stringify(v)) }
@@ -63,9 +64,10 @@ const useStore = create((set, get) => ({
   userEmail:  null,
 
   // ── Today's session (localStorage) ───────────────────────────
-  hoy:         lsGet(LS_HOY, []),
-  entregas:    lsGet(LS_ENT, {}),
-  comisionPct: lsGet(LS_COM, 4),
+  hoy:                  lsGet(LS_HOY, []),
+  entregas:             lsGet(LS_ENT, {}),
+  comisionPct:          lsGet(LS_COM, 4),
+  compartirUbicacion:   lsGet(LS_GPS_SHARE, false),
 
   // ── UI ────────────────────────────────────────────────────────
   activeTab:   'hoy',
@@ -280,15 +282,17 @@ const useStore = create((set, get) => ({
   },
 
   updateCliente: async (id, data) => {
-    // Guardar snapshot para revertir si falla Supabase
     const prev = get().clientes.find(c => c.id === id)
-    // Actualizar estado local de inmediato (optimista)
-    set(s => ({ clientes: s.clientes.map(c => c.id === id ? {...c, ...data} : c) }))
+    // Si se cobra la deuda, limpiar deuda_desde también
+    const payload = (data.deuda === 0 && data.deuda_desde === undefined)
+      ? { ...data, deuda_desde: null }
+      : data
+    set(s => ({ clientes: s.clientes.map(c => c.id === id ? { ...c, ...payload } : c) }))
     if (!isConfigured || !navigator.onLine) {
       get().showToast('✅ Actualizado localmente')
       return
     }
-    const { error } = await supabase.from('clientes').update(data).eq('id', id)
+    const { error } = await supabase.from('clientes').update(payload).eq('id', id)
     if (error) {
       if (prev) set(s => ({ clientes: s.clientes.map(c => c.id === id ? prev : c) }))
       get().showToast('❌ Error al actualizar')
@@ -447,16 +451,17 @@ const useStore = create((set, get) => ({
     if (!isEdit && data.tipo === 'parcial' && data.deuda_generada > 0) {
       const cliente = get().clientes.find(c => c.id === clienteId)
       const nuevaDeuda = (cliente?.deuda || 0) + data.deuda_generada
-      set(s => ({ clientes: s.clientes.map(c => c.id === clienteId ? { ...c, deuda: nuevaDeuda } : c) }))
+      const deuda_desde = cliente?.deuda_desde || new Date().toISOString()
+      set(s => ({ clientes: s.clientes.map(c => c.id === clienteId ? { ...c, deuda: nuevaDeuda, deuda_desde } : c) }))
       if (isConfigured && navigator.onLine) {
-        await supabase.from('clientes').update({ deuda: nuevaDeuda }).eq('id', clienteId)
+        await supabase.from('clientes').update({ deuda: nuevaDeuda, deuda_desde }).eq('id', clienteId)
       }
     }
 
     if (!isEdit && data.cobro_deuda) {
-      set(s => ({ clientes: s.clientes.map(c => c.id === clienteId ? { ...c, deuda: 0 } : c) }))
+      set(s => ({ clientes: s.clientes.map(c => c.id === clienteId ? { ...c, deuda: 0, deuda_desde: null } : c) }))
       if (isConfigured && navigator.onLine) {
-        await supabase.from('clientes').update({ deuda: 0 }).eq('id', clienteId)
+        await supabase.from('clientes').update({ deuda: 0, deuda_desde: null }).eq('id', clienteId)
       }
     }
 
@@ -465,6 +470,34 @@ const useStore = create((set, get) => ({
                      data.tipo === 'devolucion' ? '🔄 Devolución registrada' :
                                                   '✅ Entrega registrada'
     get().showToast(toastMsg)
+
+    // Push al encargado cuando se completan todos los clientes
+    if (!data.isEdit && navigator.onLine) {
+      const { hoy } = get()
+      const allDone = hoy.length > 0 && hoy.every(id => next[id])
+      if (allDone) {
+        const totalMonto = Object.values(next).reduce((s, e) => s + (+e.monto || 0), 0)
+        try {
+          const { data: { session } } = await supabase.auth.getSession()
+          if (session) {
+            const { data: member } = await supabase
+              .from('equipo_miembros').select('equipo_id').eq('user_id', session.user.id).maybeSingle()
+            if (member?.equipo_id) {
+              const nombre = get().perfil?.negocio || 'Un repartidor'
+              fetch('/api/push', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
+                body: JSON.stringify({
+                  equipoId: member.equipo_id,
+                  title: 'Ruta completada',
+                  body: `${nombre} terminó su ruta. $${Math.round(totalMonto).toLocaleString('es-AR')} recaudados.`,
+                }),
+              }).catch(() => {})
+            }
+          }
+        } catch (_) {}
+      }
+    }
   },
 
   deleteHistorialDia: async (id) => {
@@ -571,18 +604,33 @@ const useStore = create((set, get) => ({
     if (isConfigured && navigator.onLine) {
       supabase.from('sesion_activa').delete().eq('fecha_iso', _todayKey).then(() => {})
     }
+    // Apagar GPS sharing — el repartidor terminó su jornada
+    set({ compartirUbicacion: false })
+    lsSet(LS_GPS_SHARE, false)
     if (navigator.onLine) get().showToast('📦 Día guardado en historial')
   },
 
   // ═══════════════════════════════════════════════════════════════
   // UI HELPERS
   // ═══════════════════════════════════════════════════════════════
+  setCompartirUbicacion: (val) => {
+    set({ compartirUbicacion: val })
+    lsSet(LS_GPS_SHARE, val)
+  },
+
   updateNegocio: async (negocio) => {
     const userId = get().userId
     if (!userId || !isConfigured) return
     await supabase.from('profiles').upsert({ id: userId, negocio }, { onConflict: 'id' })
     set(s => ({ perfil: { ...s.perfil, negocio } }))
     get().showToast('✅ Negocio actualizado')
+  },
+
+  updateRecordatorioDias: async (dias) => {
+    const userId = get().userId
+    if (!userId || !isConfigured) return
+    await supabase.from('profiles').update({ recordatorio_deuda_dias: dias }).eq('id', userId)
+    set(s => ({ perfil: { ...s.perfil, recordatorio_deuda_dias: dias } }))
   },
 
   deleteAccount: async () => {

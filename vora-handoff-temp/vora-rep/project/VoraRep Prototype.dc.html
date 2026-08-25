@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #060606; min-height: 100vh; display: flex; align-items: center; justify-content: center; font-family: 'General Sans', sans-serif; }
+  ::-webkit-scrollbar { display: none; }
+  input::placeholder { color: #3A3A3C; }
+  input { caret-color: #D4962A; }
+  button { cursor: pointer; }
+  </style>
+</helmet>
+
+<!-- Phone frame -->
+<div style="width:390px; height:844px; border-radius:50px; overflow:hidden; position:relative; background:#0C0C0E; border:1.5px solid rgba(255,255,255,0.10); box-shadow:0 0 0 8px #060606, 0 40px 80px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.04); flex-shrink:0;">
+
+  <!-- Dynamic island -->
+  <div style="position:absolute; top:12px; left:50%; transform:translateX(-50%); width:125px; height:37px; background:#000; border-radius:20px; z-index:200; pointer-events:none;"></div>
+
+  <!-- Status bar -->
+  <div style="position:absolute; top:0; left:0; right:0; height:59px; display:flex; align-items:flex-end; justify-content:space-between; padding:0 32px 11px; z-index:150; pointer-events:none;">
+    <span style="font-size:15px; font-weight:600; color:#F2F2F7; letter-spacing:-0.3px;">9:41</span>
+    <div style="display:flex; align-items:center; gap:7px;">
+      <svg width="17" height="11" viewBox="0 0 17 11"><rect fill="#F2F2F7" x="0" y="7" width="3" height="4" rx="0.5" opacity="0.4"/><rect fill="#F2F2F7" x="4.5" y="4.5" width="3" height="6.5" rx="0.5" opacity="0.6"/><rect fill="#F2F2F7" x="9" y="2" width="3" height="9" rx="0.5" opacity="0.8"/><rect fill="#F2F2F7" x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><path d="M1 4C4 1 12 1 15 4" stroke="#F2F2F7" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/><path d="M3 6.5C5.5 4 10.5 4 13 6.5" stroke="#F2F2F7" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/><path d="M5.5 9C7 7.5 9 7.5 10.5 9" stroke="#F2F2F7" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11" r="0.8" fill="#F2F2F7"/></svg>
+      <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="#F2F2F7" stroke-opacity="0.35" fill="none"/><rect x="2" y="2" width="15" height="8" rx="2" fill="#F2F2F7"/><path d="M22 4v4" stroke="#F2F2F7" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+
+  <!-- Screen content area -->
+  <div style="position:absolute; top:59px; left:0; right:0; bottom:83px; overflow:hidden;">
+
+    <!-- ─────────── HOY ─────────── -->
+    <sc-if value="{{ showHoy }}" hint-placeholder-val="{{ true }}">
+      <div style="height:100%; overflow-y:auto; display:flex; flex-direction:column;">
+        <div style="padding:14px 20px 12px; display:flex; align-items:center; justify-content:space-between; border-bottom:0.5px solid rgba(255,255,255,0.06); flex-shrink:0;">
+          <div>
+            <div style="font-family:'General Sans',sans-serif; font-size:26px; font-weight:800; color:#F2F2F7; letter-spacing:-1px; line-height:1;">Hoy</div>
+            <div style="font-size:11px; color:#4A4A4E; margin-top:3px;">Sáb 5 Jul · 3 de 8 entregados</div>
+          </div>
+          <div style="width:34px; height:34px; border-radius:10px; background:#1A1A1F; border:1px solid rgba(255,255,255,0.07); overflow:hidden; flex-shrink:0;">
+            <img src="icon-vorarep-192.png" style="width:34px; height:34px;" alt="">
+          </div>
+        </div>
+        <!-- stats row -->
+        <div style="display:flex; margin:14px 18px 0; border-radius:14px; overflow:hidden; background:#16161A; flex-shrink:0;">
+          <div style="flex:1; padding:13px 14px; border-right:0.5px solid rgba(255,255,255,0.06);">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:500; color:#D4962A; line-height:1;">8</div>
+            <div style="font-size:9px; color:#3A3A3C; text-transform:uppercase; letter-spacing:1px; margin-top:3px;">En ruta</div>
+          </div>
+          <div style="flex:1; padding:13px 14px; border-right:0.5px solid rgba(255,255,255,0.06);">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:500; color:#34C759; line-height:1;">3</div>
+            <div style="font-size:9px; color:#3A3A3C; text-transform:uppercase; letter-spacing:1px; margin-top:3px;">Listos</div>
+          </div>
+          <div style="flex:1; padding:13px 14px;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:500; color:#636366; line-height:1;">5</div>
+            <div style="font-size:9px; color:#3A3A3C; text-transform:uppercase; letter-spacing:1px; margin-top:3px;">Pendientes</div>
+          </div>
+        </div>
+        <!-- ruta banner -->
+        <div style="margin:12px 18px 0; background:#D4962A; border-radius:12px; padding:13px 16px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; flex-shrink:0;" onClick="{{ goRuta }}">
+          <div>
+            <div style="font-size:10px; font-weight:700; color:rgba(0,0,0,0.45); text-transform:uppercase; letter-spacing:1px;">Ruta activa</div>
+            <div style="font-size:14px; font-weight:600; color:#0C0C0E; margin-top:2px;">8 clientes en ruta</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.12); border-radius:8px; padding:7px 13px;"><span style="font-size:12px; font-weight:600; color:#0C0C0E;">Ver →</span></div>
+        </div>
+        <!-- paradas -->
+        <div style="padding:16px 20px 20px; flex:1;">
+          <div style="font-size:10px; font-weight:600; color:#3A3A3C; text-transform:uppercase; letter-spacing:1.8px; margin-bottom:10px;">Próximas paradas</div>
+          <div style="display:flex; align-items:center; gap:12px; padding:11px 0; border-bottom:0.5px solid rgba(255,255,255,0.05); opacity:0.38;">
+            <div style="width:28px; height:28px; border-radius:50%; background:#34C759; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5l3 3L11 1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div style="flex:1; min-width:0;"><div style="font-size:13px; font-weight:500; color:#F2F2F7; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Supermercado López</div><div style="font-size:11px; color:#4A4A4E;">San Martín 1234</div></div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#34C759; flex-shrink:0;">$24.500</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; padding:11px 0; border-bottom:0.5px solid rgba(255,255,255,0.05);">
+            <div style="width:28px; height:28px; border-radius:50%; border:1.5px solid #D4962A; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:500; color:#D4962A;">2</span></div>
+            <div style="flex:1; min-width:0;"><div style="font-size:13px; font-weight:600; color:#F2F2F7; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Almacén Rodríguez</div><div style="font-size:11px; color:#4A4A4E;">Belgrano 567, Godoy Cruz</div></div>
+            <div style="background:rgba(212,150,42,0.10); border:1px solid rgba(212,150,42,0.20); border-radius:6px; padding:3px 7px; flex-shrink:0;"><span style="font-size:9px; font-weight:700; color:#D4962A; text-transform:uppercase; letter-spacing:0.5px;">Sig.</span></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; padding:11px 0; border-bottom:0.5px solid rgba(255,255,255,0.05);">
+            <div style="width:28px; height:28px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.10); display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#3A3A3C;">3</span></div>
+            <div style="flex:1; min-width:0;"><div style="font-size:13px; font-weight:400; color:#636366; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Kiosco Fernández</div><div style="font-size:11px; color:#3A3A3C;">Rivadavia 890, Maipú</div></div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; padding:11px 0; border-bottom:0.5px solid rgba(255,255,255,0.05);">
+            <div style="width:28px; height:28px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.07); display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#2A2A2E;">4</span></div>
+            <div style="flex:1; min-width:0;"><div style="font-size:13px; font-weight:400; color:#4A4A4E; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Despensa Martínez</div><div style="font-size:11px; color:#2A2A2E;">Garibaldi 230, Las Heras</div></div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2A2A2E" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; padding:11px 0;">
+            <div style="width:28px; height:28px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.07); display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#2A2A2E;">5</span></div>
+            <div style="flex:1; min-width:0;"><div style="font-size:13px; font-weight:400; color:#4A4A4E; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Bar El Encuentro</div><div style="font-size:11px; color:#2A2A2E;">Av. España 445</div></div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2A2A2E" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ─────────── RUTA ─────────── -->
+    <sc-if value="{{ showRuta }}" hint-placeholder-val="{{ false }}">
+      <div style="height:100%; overflow-y:auto; display:flex; flex-direction:column;">
+        <div style="padding:14px 20px 12px; display:flex; align-items:center; justify-content:space-between; border-bottom:0.5px solid rgba(255,255,255,0.06); flex-shrink:0;">
+          <div>
+            <div style="font-family:'General Sans',sans-serif; font-size:26px; font-weight:800; color:#F2F2F7; letter-spacing:-1px; line-height:1;">Ruta</div>
+            <div style="font-size:11px; color:#4A4A4E; margin-top:3px;">Sáb 5 Jul · 8 paradas</div>
+          </div>
+          <div style="background:#16161A; border:1px solid rgba(212,150,42,0.18); border-radius:8px; padding:5px 10px;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#D4962A;">$124.500</span>
+          </div>
+        </div>
+        <div style="padding:14px 18px 20px; flex:1; overflow-y:auto;">
+          <div style="font-size:10px; font-weight:600; color:#3A3A3C; text-transform:uppercase; letter-spacing:1.8px; margin-bottom:8px;">Completados — 3</div>
+          <div style="background:#16161A; border-radius:12px; overflow:hidden; margin-bottom:14px; opacity:0.45;">
+            <div style="display:flex; align-items:center; gap:12px; padding:12px 14px; border-bottom:0.5px solid rgba(255,255,255,0.05);">
+              <div style="width:26px; height:26px; border-radius:50%; background:#34C759; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="11" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5l3 3L11 1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div style="flex:1;"><div style="font-size:13px; font-weight:500; color:#F2F2F7;">Supermercado López</div><div style="font-size:11px; color:#4A4A4E;">San Martín 1234</div></div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#34C759;">$24.500</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; padding:12px 14px; border-bottom:0.5px solid rgba(255,255,255,0.05);">
+              <div style="width:26px; height:26px; border-radius:50%; background:#34C759; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="11" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5l3 3L11 1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div style="flex:1;"><div style="font-size:13px; font-weight:500; color:#F2F2F7;">Bar El Encuentro</div><div style="font-size:11px; color:#4A4A4E;">Av. España 445</div></div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#34C759;">$31.000</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; padding:12px 14px;">
+              <div style="width:26px; height:26px; border-radius:50%; background:#34C759; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="11" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5l3 3L11 1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div style="flex:1;"><div style="font-size:13px; font-weight:500; color:#F2F2F7;">Minimercado Coria</div><div style="font-size:11px; color:#4A4A4E;">Tucumán 112, Guaymallén</div></div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#34C759;">$18.000</div>
+            </div>
+          </div>
+          <div style="font-size:10px; font-weight:600; color:#3A3A3C; text-transform:uppercase; letter-spacing:1.8px; margin-bottom:8px;">Pendientes — 5</div>
+          <div style="display:flex; flex-direction:column; gap:2px;">
+            <div style="display:flex; align-items:center; gap:12px; padding:12px 14px; background:#16161A; border-radius:12px; border:1px solid rgba(212,150,42,0.18);">
+              <div style="width:26px; height:26px; border-radius:50%; border:1.5px solid #D4962A; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#D4962A; font-weight:500;">4</span></div>
+              <div style="flex:1;"><div style="font-size:13px; font-weight:600; color:#F2F2F7;">Almacén Rodríguez</div><div style="font-size:11px; color:#4A4A4E;">Belgrano 567, Godoy Cruz</div></div>
+              <div style="background:rgba(212,150,42,0.10); border-radius:6px; padding:3px 7px;"><span style="font-size:9px; font-weight:700; color:#D4962A;">SIG.</span></div>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; padding:12px 14px; background:#16161A; border-radius:12px;">
+              <div style="width:26px; height:26px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.10); display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#3A3A3C;">5</span></div>
+              <div style="flex:1;"><div style="font-size:13px; font-weight:400; color:#636366;">Kiosco Fernández</div><div style="font-size:11px; color:#3A3A3C;">Rivadavia 890, Maipú</div></div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; padding:12px 14px; background:#16161A; border-radius:12px;">
+              <div style="width:26px; height:26px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.10); display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#3A3A3C;">6</span></div>
+              <div style="flex:1;"><div style="font-size:13px; font-weight:400; color:#636366;">Despensa Martínez</div><div style="font-size:11px; color:#3A3A3C;">Garibaldi 230, Las Heras</div></div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; padding:12px 14px; background:#16161A; border-radius:12px;">
+              <div style="width:26px; height:26px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.10); display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#3A3A3C;">7</span></div>
+              <div style="flex:1;"><div style="font-size:13px; font-weight:400; color:#636366;">Almacén del Sur</div><div style="font-size:11px; color:#3A3A3C;">Alberdi 23, Capital</div></div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; padding:12px 14px; background:#16161A; border-radius:12px; margin-bottom:4px;">
+              <div style="width:26px; height:26px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.10); display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#3A3A3C;">8</span></div>
+              <div style="flex:1;"><div style="font-size:13px; font-weight:400; color:#636366;">Minimercado Suárez</div><div style="font-size:11px; color:#3A3A3C;">Perón 780, Maipú</div></div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ─────────── CLIENTES ─────────── -->
+    <sc-if value="{{ showClientes }}" hint-placeholder-val="{{ false }}">
+      <div style="height:100%; display:flex; flex-direction:column;">
+        <div style="padding:14px 20px 10px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0;">
+          <div style="font-family:'General Sans',sans-serif; font-size:26px; font-weight:800; color:#F2F2F7; letter-spacing:-1px;">Clientes</div>
+          <div style="width:32px; height:32px; border-radius:50%; background:#16161A; border:1px solid rgba(255,255,255,0.07); display:flex; align-items:center; justify-content:center;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#636366" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+        </div>
+        <div style="padding:0 18px 10px; flex-shrink:0;">
+          <div style="position:relative;">
+            <div style="position:absolute; left:12px; top:50%; transform:translateY(-50%); pointer-events:none;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <input value="{{ searchQuery }}" onChange="{{ onSearch }}" placeholder="Buscar cliente..." style="width:100%; background:#16161A; border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:11px 12px 11px 34px; font-size:14px; color:#F2F2F7; font-family:'General Sans',sans-serif; outline:none;" />
+          </div>
+        </div>
+        <div style="padding:2px 22px 8px; flex-shrink:0;">
+          <div style="font-size:10px; font-weight:600; color:#3A3A3C; text-transform:uppercase; letter-spacing:1.8px;">{{ clientCount }}</div>
+        </div>
+        <div style="flex:1; overflow-y:auto; padding:0 18px;">
+          <sc-for list="{{ filteredClients }}" as="client" hint-placeholder-count="5">
+            <div style="display:flex; align-items:center; gap:12px; padding:12px 4px; border-bottom:0.5px solid rgba(255,255,255,0.05); cursor:pointer;" onClick="{{ client.onClick }}">
+              <div style="{{ client.initialsBoxStyle }}">
+                <span style="{{ client.initialsTextStyle }}">{{ client.initials }}</span>
+              </div>
+              <div style="flex:1; min-width:0;">
+                <div style="font-size:14px; font-weight:600; color:#F2F2F7; margin-bottom:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ client.name }}</div>
+                <div style="font-size:11px; color:#4A4A4E; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ client.address }}</div>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px; flex-shrink:0;">
+                <div style="{{ client.debtBadgeStyle }}">
+                  <span style="{{ client.debtTextStyle }}">{{ client.debtLabel }}</span>
+                </div>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ─────────── CLIENTE DETALLE ─────────── -->
+    <sc-if value="{{ showDetalle }}" hint-placeholder-val="{{ false }}">
+      <div style="height:100%; overflow-y:auto; display:flex; flex-direction:column;">
+        <div style="padding:12px 20px; display:flex; align-items:center; justify-content:space-between; border-bottom:0.5px solid rgba(255,255,255,0.06); flex-shrink:0;">
+          <button style="display:flex; align-items:center; gap:5px; background:none; border:none; padding:0;" onClick="{{ goBack }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#636366" stroke-width="1.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            <span style="font-size:13px; color:#636366; font-family:'General Sans',sans-serif;">Clientes</span>
+          </button>
+          <div style="width:32px; height:32px; border-radius:50%; background:#16161A; border:1px solid rgba(255,255,255,0.07); display:flex; align-items:center; justify-content:center;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#636366" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+          </div>
+        </div>
+        <div style="padding:18px 20px 14px; display:flex; align-items:center; gap:14px; border-bottom:0.5px solid rgba(255,255,255,0.06); flex-shrink:0;">
+          <div style="width:52px; height:52px; border-radius:14px; background:#1E1A14; border:1px solid rgba(212,150,42,0.20); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:18px; font-weight:500; color:#D4962A;">{{ detail.initials }}</span>
+          </div>
+          <div>
+            <div style="font-family:'General Sans',sans-serif; font-size:20px; font-weight:800; color:#F2F2F7; letter-spacing:-0.5px; line-height:1.15;">{{ detail.name }}</div>
+            <div style="font-size:12px; color:#4A4A4E; margin-top:3px;">{{ detail.address }}</div>
+          </div>
+        </div>
+        <!-- stats 3-col -->
+        <div style="display:flex; margin:14px 18px 0; border-radius:12px; overflow:hidden; background:#16161A; flex-shrink:0;">
+          <div style="flex:1; padding:12px; border-right:0.5px solid rgba(255,255,255,0.06);">
+            <div style="{{ detail.debtAmountStyle }}">{{ detail.debtFormatted }}</div>
+            <div style="font-size:9px; color:#3A3A3C; text-transform:uppercase; letter-spacing:1px;">Deuda</div>
+          </div>
+          <div style="flex:1; padding:12px; border-right:0.5px solid rgba(255,255,255,0.06);">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:500; color:#F2F2F7; line-height:1; margin-bottom:3px;">{{ detail.lastVisit }}</div>
+            <div style="font-size:9px; color:#3A3A3C; text-transform:uppercase; letter-spacing:1px;">Últ. visita</div>
+          </div>
+          <div style="flex:1; padding:12px;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:500; color:#D4962A; line-height:1; margin-bottom:3px;">{{ detail.monthFormatted }}</div>
+            <div style="font-size:9px; color:#3A3A3C; text-transform:uppercase; letter-spacing:1px;">Este mes</div>
+          </div>
+        </div>
+        <!-- debt alert -->
+        <sc-if value="{{ detail.hasDebt }}" hint-placeholder-val="{{ false }}">
+          <div style="margin:10px 18px 0; background:rgba(255,69,58,0.06); border:1px solid rgba(255,69,58,0.14); border-radius:12px; padding:12px 14px; display:flex; align-items:center; gap:10px; flex-shrink:0;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF453A" stroke-width="1.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <div style="flex:1;">
+              <div style="font-size:13px; font-weight:600; color:#FF453A; margin-bottom:2px;">Deuda pendiente</div>
+              <div style="font-size:11px; color:#636366;">Último cobro: Vie 27 Jun · $12.000</div>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:500; color:#FF453A;">{{ detail.debtFormatted }}</div>
+          </div>
+        </sc-if>
+        <!-- actions -->
+        <div style="padding:14px 18px 0; display:flex; flex-direction:column; gap:8px; flex-shrink:0;">
+          <button style="width:100%; background:#D4962A; color:#0C0C0E; font-family:'General Sans',sans-serif; font-size:15px; font-weight:600; padding:15px; border-radius:14px; border:none; display:flex; align-items:center; justify-content:center; gap:8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Registrar entrega
+          </button>
+          <button style="width:100%; background:rgba(255,255,255,0.04); color:#F2F2F7; font-family:'General Sans',sans-serif; font-size:15px; font-weight:500; padding:14px; border-radius:14px; border:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; gap:8px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#D4962A" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            Cobrar deuda
+          </button>
+        </div>
+        <!-- visit history -->
+        <div style="padding:14px 18px 24px; flex-shrink:0;">
+          <div style="font-size:10px; font-weight:600; color:#3A3A3C; text-transform:uppercase; letter-spacing:1.8px; margin-bottom:8px;">Últimas visitas</div>
+          <div style="background:#16161A; border-radius:12px; overflow:hidden;">
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:11px 14px; border-bottom:0.5px solid rgba(255,255,255,0.05);">
+              <div><div style="font-size:13px; font-weight:500; color:#F2F2F7; margin-bottom:2px;">Hoy, 5 Jul</div><div style="font-size:11px; color:#4A4A4E;">Entregado completo</div></div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#34C759;">$24.500</div>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:11px 14px; border-bottom:0.5px solid rgba(255,255,255,0.05);">
+              <div><div style="font-size:13px; font-weight:500; color:#F2F2F7; margin-bottom:2px;">Vie 4 Jul</div><div style="font-size:11px; color:#D4962A;">Parcial · 3 de 5 ítems</div></div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#D4962A;">$18.000</div>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:11px 14px;">
+              <div><div style="font-size:13px; font-weight:500; color:#F2F2F7; margin-bottom:2px;">Jue 3 Jul</div><div style="font-size:11px; color:#4A4A4E;">Entregado completo</div></div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#34C759;">$23.000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ─────────── HISTORIAL ─────────── -->
+    <sc-if value="{{ showHistorial }}" hint-placeholder-val="{{ false }}">
+      <div style="height:100%; overflow-y:auto; display:flex; flex-direction:column;">
+        <div style="padding:14px 20px 12px; flex-shrink:0;">
+          <div style="font-family:'General Sans',sans-serif; font-size:26px; font-weight:800; color:#F2F2F7; letter-spacing:-1px;">Historial</div>
+        </div>
+        <div style="padding:0 18px 12px; flex-shrink:0;">
+          <div style="background:#16161A; border-radius:10px; padding:3px; display:flex;">
+            <div style="flex:1; background:#2A2A2E; border-radius:8px; padding:8px; text-align:center;"><span style="font-size:12px; font-weight:600; color:#F2F2F7;">Esta semana</span></div>
+            <div style="flex:1; padding:8px; text-align:center;"><span style="font-size:12px; color:#3A3A3C;">Este mes</span></div>
+          </div>
+        </div>
+        <div style="padding:0 18px 20px; flex:1;">
+          <div style="font-size:10px; font-weight:600; color:#3A3A3C; text-transform:uppercase; letter-spacing:1.8px; margin-bottom:8px;">Hoy — Sáb 5 Jul</div>
+          <div style="background:#16161A; border-radius:12px; overflow:hidden; margin-bottom:14px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 14px; border-bottom:0.5px solid rgba(255,255,255,0.05);">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div style="width:26px; height:26px; border-radius:50%; background:#34C759; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="11" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5l3 3L11 1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div><div style="font-size:13px; font-weight:600; color:#F2F2F7; margin-bottom:1px;">Supermercado López</div><div style="font-size:11px; color:#4A4A4E;">Entregado · 9:15 am</div></div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#34C759;">$24.500</div>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 14px;">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div style="width:26px; height:26px; border-radius:50%; border:1.5px solid #D4962A; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D4962A" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="12"/><line x1="12" y1="15" x2="12" y2="19"/></svg></div>
+                <div><div style="font-size:13px; font-weight:600; color:#F2F2F7; margin-bottom:1px;">Almacén Rodríguez</div><div style="font-size:11px; color:#D4962A;">Parcial · 3 de 5 ítems</div></div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#D4962A;">$8.000</div>
+            </div>
+          </div>
+          <div style="font-size:10px; font-weight:600; color:#3A3A3C; text-transform:uppercase; letter-spacing:1.8px; margin-bottom:8px;">Vie 4 Jul</div>
+          <div style="background:#16161A; border-radius:12px; overflow:hidden; margin-bottom:14px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 14px; border-bottom:0.5px solid rgba(255,255,255,0.05);">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div style="width:26px; height:26px; border-radius:50%; background:#34C759; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="11" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5l3 3L11 1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div><div style="font-size:13px; font-weight:600; color:#F2F2F7; margin-bottom:1px;">Kiosco Fernández</div><div style="font-size:11px; color:#4A4A4E;">Entregado · 10:32 am</div></div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#34C759;">$12.000</div>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 14px; border-bottom:0.5px solid rgba(255,255,255,0.05);">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div style="width:26px; height:26px; border-radius:50%; border:1.5px solid rgba(255,69,58,0.4); display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FF453A" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+                <div><div style="font-size:13px; font-weight:600; color:#F2F2F7; margin-bottom:1px;">Despensa Martínez</div><div style="font-size:11px; color:#FF453A;">Cancelado</div></div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#3A3A3C;">—</div>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 14px;">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div style="width:26px; height:26px; border-radius:50%; background:#34C759; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="11" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5l3 3L11 1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div><div style="font-size:13px; font-weight:600; color:#F2F2F7; margin-bottom:1px;">Bar El Encuentro</div><div style="font-size:11px; color:#4A4A4E;">Entregado · 2:45 pm</div></div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#34C759;">$31.000</div>
+            </div>
+          </div>
+          <div style="font-size:10px; font-weight:600; color:#3A3A3C; text-transform:uppercase; letter-spacing:1.8px; margin-bottom:8px; opacity:0.5;">Jue 3 Jul</div>
+          <div style="background:#16161A; border-radius:12px; overflow:hidden; opacity:0.4;">
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 14px; border-bottom:0.5px solid rgba(255,255,255,0.05);">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div style="width:26px; height:26px; border-radius:50%; background:#34C759; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="11" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5l3 3L11 1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div><div style="font-size:13px; font-weight:600; color:#F2F2F7; margin-bottom:1px;">Almacén Rodríguez</div><div style="font-size:11px; color:#4A4A4E;">Entregado · 9:05 am</div></div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#34C759;">$23.000</div>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 14px;">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div style="width:26px; height:26px; border-radius:50%; background:#34C759; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="11" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5l3 3L11 1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div><div style="font-size:13px; font-weight:600; color:#F2F2F7; margin-bottom:1px;">Supermercado López</div><div style="font-size:11px; color:#4A4A4E;">Entregado · 11:20 am</div></div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#34C759;">$19.500</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ─────────── PERFIL ─────────── -->
+    <sc-if value="{{ showPerfil }}" hint-placeholder-val="{{ false }}">
+      <div style="height:100%; overflow-y:auto; display:flex; flex-direction:column;">
+        <div style="padding:14px 20px 12px; flex-shrink:0;">
+          <div style="font-family:'General Sans',sans-serif; font-size:26px; font-weight:800; color:#F2F2F7; letter-spacing:-1px;">Perfil</div>
+        </div>
+        <div style="padding:0 18px; flex-shrink:0; display:flex; flex-direction:column; gap:10px;">
+          <div style="background:#16161A; border-radius:14px; padding:16px; display:flex; align-items:center; gap:14px;">
+            <div style="width:52px; height:52px; border-radius:14px; background:#1E1A14; border:1px solid rgba(212,150,42,0.20); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:18px; font-weight:500; color:#D4962A;">JR</span>
+            </div>
+            <div>
+              <div style="font-size:16px; font-weight:600; color:#F2F2F7; margin-bottom:2px;">Juan Rodríguez</div>
+              <div style="font-size:12px; color:#4A4A4E;">juan@distribuidora.com</div>
+            </div>
+          </div>
+          <div style="background:rgba(212,150,42,0.07); border:1px solid rgba(212,150,42,0.18); border-radius:12px; padding:12px 14px; display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div style="font-size:11px; font-weight:600; color:#D4962A; text-transform:uppercase; letter-spacing:1px;">Plan Premium</div>
+              <div style="font-size:12px; color:#4A4A4E; margin-top:2px;">Renueva el 5 de Ago 2025</div>
+            </div>
+            <div style="background:#D4962A; border-radius:8px; padding:6px 12px;"><span style="font-size:11px; font-weight:600; color:#0C0C0E;">Activo</span></div>
+          </div>
+          <div style="background:#16161A; border-radius:12px; overflow:hidden;">
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:0.5px solid rgba(255,255,255,0.05); cursor:pointer;">
+              <div style="display:flex; align-items:center; gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#636366" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span style="font-size:14px; color:#F2F2F7;">Cuenta</span></div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:0.5px solid rgba(255,255,255,0.05); cursor:pointer;">
+              <div style="display:flex; align-items:center; gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#636366" stroke-width="1.5" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg><span style="font-size:14px; color:#F2F2F7;">Notificaciones</span></div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px; cursor:pointer;">
+              <div style="display:flex; align-items:center; gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#636366" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span style="font-size:14px; color:#F2F2F7;">Configuración</span></div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+            </div>
+          </div>
+          <button style="width:100%; background:rgba(255,69,58,0.08); border:1px solid rgba(255,69,58,0.14); border-radius:12px; padding:14px; font-size:14px; font-weight:500; color:#FF453A; font-family:'General Sans',sans-serif;">Cerrar sesión</button>
+          <div style="text-align:center; padding-bottom:4px;">
+            <div style="font-size:11px; color:#2A2A2E;">VoraRep v2.4.1 · Premium</div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+
+  <!-- ─────────── TAB BAR ─────────── -->
+  <div style="position:absolute; left:0; right:0; bottom:0; height:83px; background:#0C0C0E; border-top:0.5px solid rgba(255,255,255,0.06);">
+    <div style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); width:134px; height:5px; background:rgba(255,255,255,0.15); border-radius:3px;"></div>
+    <div style="height:49px; display:flex; padding:8px 4px 0;">
+
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer;" onClick="{{ goHoy }}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ tabColorHoy }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>
+        <span style="{{ tabLabelHoy }}">Hoy</span>
+      </div>
+
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer;" onClick="{{ goRuta }}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ tabColorRuta }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="19" r="2"/><circle cx="19" cy="5" r="2"/><path d="M5 17V9a7 7 0 017-7h7"/><path d="M17 3l2 2-2 2"/></svg>
+        <span style="{{ tabLabelRuta }}">Ruta</span>
+      </div>
+
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer;" onClick="{{ goClientes }}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ tabColorClientes }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        <span style="{{ tabLabelClientes }}">Clientes</span>
+      </div>
+
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer;" onClick="{{ goHistorial }}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ tabColorHistorial }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5" rx="1"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+        <span style="{{ tabLabelHistorial }}">Historial</span>
+      </div>
+
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer;" onClick="{{ goPerfil }}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ tabColorPerfil }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span style="{{ tabLabelPerfil }}">Perfil</span>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    screen: 'hoy',
+    selectedClient: null,
+    q: '',
+  };
+
+  renderVals() {
+    const { screen, selectedClient, q } = this.state;
+
+    const CLIENTS = [
+      { id: 1, initials: 'AR', name: 'Almacén Rodríguez',   address: 'Belgrano 567, Godoy Cruz',    debt: 15000, lastVisit: 'Hoy',       monthTotal: 47000, accent: true  },
+      { id: 2, initials: 'SL', name: 'Supermercado López',  address: 'San Martín 1234',              debt: 0,     lastVisit: 'Hoy',       monthTotal: 89000, accent: false },
+      { id: 3, initials: 'KF', name: 'Kiosco Fernández',    address: 'Rivadavia 890, Maipú',         debt: 3200,  lastVisit: 'Vie 4 Jul', monthTotal: 22000, accent: false },
+      { id: 4, initials: 'DM', name: 'Despensa Martínez',   address: 'Garibaldi 230, Las Heras',     debt: 0,     lastVisit: 'Jue 3 Jul', monthTotal: 31000, accent: false },
+      { id: 5, initials: 'EE', name: 'Bar El Encuentro',    address: 'Av. España 445',               debt: 8500,  lastVisit: 'Vie 4 Jul', monthTotal: 54000, accent: false },
+      { id: 6, initials: 'MC', name: 'Minimercado Coria',   address: 'Tucumán 112, Guaymallén',      debt: 0,     lastVisit: 'Mié 2 Jul', monthTotal: 18000, accent: false },
+    ];
+
+    const isActive = (tab) => screen === tab || (tab === 'clientes' && screen === 'detalle');
+
+    const tabColor = (tab) => isActive(tab) ? '#D4962A' : '#3A3A3C';
+
+    const tabLabel = (tab) => ({
+      fontSize: '9px',
+      color: isActive(tab) ? '#D4962A' : '#3A3A3C',
+      fontWeight: isActive(tab) ? 600 : 400,
+    });
+
+    const lq = q.toLowerCase();
+    const filtered = CLIENTS.filter(c =>
+      !q || c.name.toLowerCase().includes(lq) || c.address.toLowerCase().includes(lq)
+    );
+
+    const sc = selectedClient || {};
+    const hasDebt = sc.debt > 0;
+
+    return {
+      // Screen flags
+      showHoy:      screen === 'hoy',
+      showRuta:     screen === 'ruta',
+      showClientes: screen === 'clientes',
+      showDetalle:  screen === 'detalle',
+      showHistorial:screen === 'historial',
+      showPerfil:   screen === 'perfil',
+
+      // Navigation
+      goHoy:      () => this.setState({ screen: 'hoy' }),
+      goRuta:     () => this.setState({ screen: 'ruta' }),
+      goClientes: () => this.setState({ screen: 'clientes' }),
+      goHistorial:() => this.setState({ screen: 'historial' }),
+      goPerfil:   () => this.setState({ screen: 'perfil' }),
+      goBack:     () => this.setState({ screen: 'clientes', selectedClient: null }),
+
+      // Tab colors + labels
+      tabColorHoy:       tabColor('hoy'),
+      tabColorRuta:      tabColor('ruta'),
+      tabColorClientes:  tabColor('clientes'),
+      tabColorHistorial: tabColor('historial'),
+      tabColorPerfil:    tabColor('perfil'),
+      tabLabelHoy:       tabLabel('hoy'),
+      tabLabelRuta:      tabLabel('ruta'),
+      tabLabelClientes:  tabLabel('clientes'),
+      tabLabelHistorial: tabLabel('historial'),
+      tabLabelPerfil:    tabLabel('perfil'),
+
+      // Clients list
+      searchQuery: q,
+      onSearch: (e) => this.setState({ q: e.target.value }),
+      clientCount: filtered.length + ' clientes activos',
+      filteredClients: filtered.map(c => ({
+        ...c,
+        debtLabel: c.debt > 0 ? '$' + c.debt.toLocaleString('es-AR') : 'Al día',
+        initialsBoxStyle: {
+          width: '36px', height: '36px', borderRadius: '10px',
+          background: c.accent ? '#1E1A14' : '#16161A',
+          border: '1px solid ' + (c.accent ? 'rgba(212,150,42,0.18)' : 'rgba(255,255,255,0.06)'),
+          display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+        },
+        initialsTextStyle: {
+          fontFamily: "'IBM Plex Mono',monospace",
+          fontSize: '12px', fontWeight: 500,
+          color: c.accent ? '#D4962A' : '#636366',
+        },
+        debtBadgeStyle: {
+          background: c.debt > 0 ? 'rgba(255,69,58,0.10)' : 'rgba(52,199,89,0.08)',
+          border: '1px solid ' + (c.debt > 0 ? 'rgba(255,69,58,0.20)' : 'rgba(52,199,89,0.16)'),
+          borderRadius: '6px', padding: '2px 7px',
+        },
+        debtTextStyle: {
+          fontFamily: "'IBM Plex Mono',monospace",
+          fontSize: '10px', fontWeight: 500,
+          color: c.debt > 0 ? '#FF453A' : '#34C759',
+        },
+        onClick: () => this.setState({ screen: 'detalle', selectedClient: c }),
+      })),
+
+      // Client detail
+      detail: {
+        name:           sc.name    || '',
+        initials:       sc.initials|| '',
+        address:        sc.address || '',
+        lastVisit:      sc.lastVisit || '—',
+        hasDebt,
+        debtFormatted:  hasDebt ? '$' + sc.debt.toLocaleString('es-AR') : '—',
+        monthFormatted: sc.monthTotal ? '$' + sc.monthTotal.toLocaleString('es-AR') : '—',
+        debtAmountStyle: {
+          fontFamily: "'IBM Plex Mono',monospace",
+          fontSize: '16px', fontWeight: 500, lineHeight: 1, marginBottom: '3px',
+          color: hasDebt ? '#FF453A' : '#34C759',
+        },
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,18 +1,21 @@
 import crypto from 'crypto'
+import Stripe from 'stripe'
 import { createClient } from '@supabase/supabase-js'
 
 export const config = { api: { bodyParser: false } }
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 const supabase = createClient(
   process.env.VITE_SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
 )
 
-// Map Stripe amount_total (cents) → plan ID
-const PLAN_BY_AMOUNT = {
-  799:  'solo',
-  1999: 'equipo-chico',
-  3999: 'equipo-grande',
+// Price ID → plan interno. Configurar en Vercel env vars.
+const PLAN_BY_PRICE = {
+  [process.env.STRIPE_PRICE_SOLO]:          'solo',
+  [process.env.STRIPE_PRICE_EQUIPO_CHICO]:  'equipo-chico',
+  [process.env.STRIPE_PRICE_EQUIPO_GRANDE]: 'equipo-grande',
 }
 
 function getRawBody(req) {
@@ -25,16 +28,14 @@ function getRawBody(req) {
 }
 
 function verifySignature(rawBody, sigHeader, secret) {
-  // Parse t=... v1=... from header
   const parts = sigHeader.split(',').reduce((acc, part) => {
     const idx = part.indexOf('=')
     acc[part.slice(0, idx)] = part.slice(idx + 1)
     return acc
   }, {})
-  const ts = parts.t
+  const ts  = parts.t
   const sig = parts.v1
   if (!ts || !sig) return false
-  // Reject events older than 5 minutes
   if (Math.abs(Date.now() / 1000 - parseInt(ts)) > 300) return false
   const expected = crypto
     .createHmac('sha256', secret)
@@ -50,9 +51,9 @@ function verifySignature(rawBody, sigHeader, secret) {
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end()
 
-  const rawBody    = await getRawBody(req)
-  const sigHeader  = req.headers['stripe-signature']
-  const secret     = process.env.STRIPE_WEBHOOK_SECRET
+  const rawBody   = await getRawBody(req)
+  const sigHeader = req.headers['stripe-signature']
+  const secret    = process.env.STRIPE_WEBHOOK_SECRET
 
   if (!sigHeader || !secret) return res.status(400).json({ error: 'Missing config' })
   if (!verifySignature(rawBody, sigHeader, secret)) {
@@ -67,7 +68,13 @@ export default async function handler(req, res) {
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object
     const userId  = session.client_reference_id
-    const plan    = PLAN_BY_AMOUNT[session.amount_total]
+
+    // Obtener price ID de los line items (no viene en el payload por defecto)
+    const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
+      expand: ['data.price'],
+    })
+    const priceId = lineItems.data[0]?.price?.id
+    const plan    = PLAN_BY_PRICE[priceId]
 
     if (userId && plan) {
       await supabase.from('profiles').update({

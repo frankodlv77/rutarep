@@ -1,4 +1,4 @@
--- RutaRep — Schema Supabase
+-- VoraRep — Schema Supabase
 -- Ejecutar en el SQL Editor del proyecto Supabase
 
 -- =============================================
